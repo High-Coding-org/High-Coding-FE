@@ -1,5 +1,9 @@
 import { ShoppingBasket, TvMinimalPlay, Sparkles, Binary } from 'lucide-react';
 
+/**
+ *  BottomNavBar 컴포넌트
+ * 하단 네비게이션 바를 렌더링하며, 여러 아이콘들(키트구매, 내 키트, 영상 보기, 이벤트)을 포함합니다.
+ */
 export default function BottomNavBar() {
   const icons = [ShoppingBasket, Binary, TvMinimalPlay, Sparkles];
 
