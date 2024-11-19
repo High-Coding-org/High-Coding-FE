@@ -1,0 +1,16 @@
+import { ShoppingBasket, TvMinimalPlay, Sparkles, Binary } from 'lucide-react';
+
+export default function BottomNavBar() {
+  const icons = [ShoppingBasket, Binary, TvMinimalPlay, Sparkles];
+
+  return (
+    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 flex justify-between w-[18.75rem] h-[3.125rem] px-[3rem] items-center rounded-t-[0.5rem] bg-[#007AFD]">
+      {icons.map((Icon, index) => (
+        <Icon
+          key={index}
+          className="text-white w-[1.25rem] h-[1.25rem]"
+        />
+      ))}
+    </nav>
+  );
+}
