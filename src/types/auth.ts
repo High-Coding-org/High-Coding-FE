@@ -1,12 +1,14 @@
-interface AuthFormProps {
-  type: 'signin' | 'signup';
-  onSubmit: (data: AuthFormData) => void;
+interface SignInFormData {
+  id: string;
+  password: string;
 }
 
-interface AuthFormData {
-  email: string;
+interface SignUpFormData {
+  name: string;
+  id: string;
   password: string;
-  name?: string;
+  phone: string;
+  birth: Date;
 }
 
 interface OverlayProps {
@@ -14,4 +16,4 @@ interface OverlayProps {
   onToggle: (value: boolean) => void;
 }
 
-export type { AuthFormData, AuthFormProps, OverlayProps };
+export type { OverlayProps, SignInFormData, SignUpFormData };
