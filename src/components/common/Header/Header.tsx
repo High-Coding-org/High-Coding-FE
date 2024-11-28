@@ -6,9 +6,9 @@ import logo from '@/assets/logo.svg';
  * 상단 네비게이션 바를 렌더링하며, 로고와 여러 아이콘들(다크모드, 아바타, CS 센터, 공지사항)을 포함합니다.
  */
 export default function Header(): JSX.Element {
-  const ICONS = [MoonStar, CircleUserRound, Headset, Megaphone];
+  const icons = [MoonStar, CircleUserRound, Headset, Megaphone];
   return (
-    <header className="flex justify-between items-center px-[5rem] h-[3.75rem]">
+    <header className="flex justify-between items-center h-[3.75rem]">
       <div>
         <img
           src={logo}
@@ -17,10 +17,10 @@ export default function Header(): JSX.Element {
         />
       </div>
       <nav className="flex items-center space-x-[2.5rem] h-[3.75rem]">
-        {ICONS.map((Icon, index) => (
+        {icons.map((Icon, index) => (
           <Icon
             key={index}
-            className="w-[1.5rem] h-[1.5rem]"
+            className="w-[1.5rem] h-[1.5rem] cursor-pointer"
           />
         ))}
       </nav>
