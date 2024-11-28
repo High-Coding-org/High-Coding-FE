@@ -19,20 +19,21 @@ const OverlayContent = ({
 }: OverlayContentProps) => (
   <div
     className={cn(
-      'absolute flex flex-col items-center justify-center w-1/2 h-full px-10 text-center transition-transform duration-600 border-2 border-green-500',
+      'absolute flex flex-col items-center justify-center w-1/2 h-full px-10 text-center transition-transform ',
       isSignIn ? ' left-0 ' : 'right-0 '
     )}>
     <img
       src={'src/assets/logo.svg'}
       alt="logo"
-      className="w-[280px] h-[280px]"
+      className="w-[280px] h-[280px] top-8 mb-40 "
     />
-    <h2 className="mb-4 text-2xl font-bold">{title}</h2>
-    <p className="mb-6">{description}</p>
+    {/* <h2 className="mb-4 text-2xl font-bold">{title}</h2> */}
+    {/* <p className="mb-6">{description}</p> */}
     <Button
       variant="outline"
       onClick={() => onToggle(!isSignIn)}
-      className="text-black border-white hover:bg-white/20">
+      // className="absolute w-1/2 bg-[#007AFD]  border-none hover:bg-[#007AFD]/20 bottom-36 text-white hover:text-black/80">
+      className="absolute w-1/2 bg-[#007AFD]  border-none text-white hover:bg-black/80 hover:text-white mt-40">
       {buttonText}
     </Button>
   </div>
@@ -55,15 +56,15 @@ export function AuthOverlay({ isSignIn, onToggle }: OverlayProps) {
   return (
     <div
       className={cn(
-        'absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600',
+        'absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform',
         isSignIn && 'translate-x-[-100%]'
       )}>
       <div
         className={cn(
-          'relative text-white w-[200%] h-full -left-full transform transition-transform duration-600',
+          'relative text-white w-[200%] h-full -left-full transform transition-transform',
           isSignIn
-            ? 'bg-gradient-to-br from-[#007AFD] to-white'
-            : 'bg-gradient-to-tl from-[#007AFD] to-white',
+            ? 'bg-gradient-to-br from-[#f1f1f1] to-[#6366F1]'
+            : 'bg-gradient-to-tl from-[#f1f1f1] to-[#6366F1]',
           isSignIn && 'translate-x-1/2'
         )}>
         <OverlayContent
