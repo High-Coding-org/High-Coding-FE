@@ -1,18 +1,13 @@
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
   const socials = ['google', 'kakao', 'naver'];
+
   const form = useForm<SignInFormData>({
     defaultValues: {
       id: '',
@@ -33,34 +28,36 @@ export default function SignInForm() {
         <h1 className="text-2xl font-bold">로그인</h1>
 
         <FormField
-          control={form.control}
           name="id"
-          render={({ field }) => (
+          control={form.control}
+          rules={{ required: ' ' }}
+          render={({ field, fieldState }) => (
             <FormItem className="w-full">
               <FormControl>
                 <Input
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="아이디"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
 
         <FormField
-          control={form.control}
           name="password"
-          render={({ field }) => (
+          control={form.control}
+          rules={{ required: ' ' }}
+          render={({ field, fieldState }) => (
             <FormItem className="w-full">
               <FormControl>
                 <Input
                   type="password"
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="비밀번호"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
