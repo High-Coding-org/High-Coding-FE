@@ -21,9 +21,14 @@ import { cn } from '@/lib/utils';
 interface DatePickerProps {
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
+  onChange?: (date: Date | undefined) => void;
 }
 
-export default function DatePicker({ date, setDate }: DatePickerProps) {
+export default function DatePicker({
+  date,
+  setDate,
+  onChange,
+}: DatePickerProps) {
   const [month, setMonth] = useState<number>(
     date ? date.getMonth() : new Date().getMonth()
   );
@@ -76,6 +81,11 @@ export default function DatePicker({ date, setDate }: DatePickerProps) {
     } else {
       setDate(new Date(year, newMonth, 1));
     }
+  };
+
+  const handleDateSelect = (newDate: Date | undefined) => {
+    setDate(newDate);
+    onChange?.(newDate);
   };
 
   return (
@@ -131,7 +141,7 @@ export default function DatePicker({ date, setDate }: DatePickerProps) {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleDateSelect}
           month={new Date(year, month)}
           onMonthChange={newMonth => {
             setMonth(newMonth.getMonth());

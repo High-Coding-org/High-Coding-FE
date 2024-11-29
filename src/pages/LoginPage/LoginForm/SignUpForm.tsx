@@ -1,5 +1,5 @@
 import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import DatePicker from '@/components/common/DatePicker/DatePicker';
@@ -16,6 +16,8 @@ import { Input } from '@/components/ui/input';
 import { SignUpFormData } from '@/types/auth';
 
 export default function SignUpForm() {
+  const [birthDate, setBirthDate] = useState<Date>();
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<SignUpFormData>({
     defaultValues: {
       name: '',
@@ -23,16 +25,25 @@ export default function SignUpForm() {
       password: '',
       passwordCheck: '',
       phone: '',
+      birth: undefined,
     },
   });
-  const [birthDate, setBirthDate] = useState<Date>();
-  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name }) => {
+      if (name === 'birth') {
+        setBirthDate(value.birth);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form, form.watch]);
 
   const onSubmit = (data: SignUpFormData) => {
     const formData = {
       ...data,
-      birth: birthDate,
+      birth: data.birth,
     };
+
     console.log(formData);
   };
 
@@ -44,7 +55,7 @@ export default function SignUpForm() {
         <FormField
           name="name"
           control={form.control}
-          rules={{ required: '이름이 입력되지 않았습니다.' }}
+          rules={{ required: '(이름이 입력되지 않았습니다)' }}
           render={({ field }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">이름</FormLabel>
@@ -62,7 +73,7 @@ export default function SignUpForm() {
         <FormField
           name="id"
           control={form.control}
-          rules={{ required: '아이디가 입력되지 않았습니다.' }}
+          rules={{ required: '(아이디가 입력되지 않았습니다)' }}
           render={({ field }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">아이디</FormLabel>
@@ -80,7 +91,7 @@ export default function SignUpForm() {
         <FormField
           name="password"
           control={form.control}
-          rules={{ required: '비밀번호가 입력되지 않았습니다.' }}
+          rules={{ required: '(비밀번호가 입력되지 않았습니다)' }}
           render={({ field }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">비밀번호</FormLabel>
@@ -105,7 +116,6 @@ export default function SignUpForm() {
           name="passwordCheck"
           control={form.control}
           rules={{
-            required: '입력된 비밀번호가 동일하지 않습니다.',
             validate: pwd => pwd === form.watch('password'),
           }}
           render={({ field, fieldState }) => (
@@ -115,7 +125,7 @@ export default function SignUpForm() {
               </FormLabel>
               {fieldState.invalid && (
                 <p className="text-sm text-red-500 absolute right-0 -translate-y-1/2 top-[2px]">
-                  입력된 비밀번호가 동일하지 않습니다.
+                  (입력된 비밀번호가 동일하지 않습니다)
                 </p>
               )}
               <FormControl>
@@ -132,7 +142,7 @@ export default function SignUpForm() {
         <FormField
           name="phone"
           control={form.control}
-          rules={{ required: '전화번호가 입력되지 않았습니다.' }}
+          rules={{ required: '(전화번호가 입력되지 않았습니다)' }}
           render={({ field }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">전화번호</FormLabel>
@@ -147,16 +157,24 @@ export default function SignUpForm() {
           )}
         />
 
-        <FormItem className="relative w-full">
-          <FormLabel className="text-sm font-medium">생년월일</FormLabel>
-          <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
-          <FormControl>
-            <DatePicker
-              date={birthDate}
-              setDate={setBirthDate}
-            />
-          </FormControl>
-        </FormItem>
+        <FormField
+          name="birth"
+          control={form.control}
+          rules={{ required: '(생년월일이 입력되지 않았습니다)' }}
+          render={({ field }) => (
+            <FormItem className="relative w-full">
+              <FormLabel className="text-sm font-medium">생년월일</FormLabel>
+              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
+              <FormControl>
+                <DatePicker
+                  date={birthDate}
+                  setDate={setBirthDate}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
         <Button
           type="submit"
