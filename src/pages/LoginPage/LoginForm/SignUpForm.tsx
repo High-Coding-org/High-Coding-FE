@@ -117,7 +117,7 @@ export default function SignUpForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">
+              <FormLabel className="text-sm font-medium text-foreground">
                 비밀번호 확인
               </FormLabel>
               {fieldState.invalid && (
@@ -208,15 +208,18 @@ export default function SignUpForm() {
           name="birth"
           control={form.control}
           rules={{ required: '(생년월일이 입력되지 않았습니다)' }}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">생년월일</FormLabel>
+              <FormLabel className="text-sm font-medium text-foreground">
+                생년월일
+              </FormLabel>
               <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <DatePicker
                   date={birthDate}
                   setDate={setBirthDate}
                   onChange={field.onChange}
+                  isError={fieldState.invalid}
                 />
               </FormControl>
             </FormItem>

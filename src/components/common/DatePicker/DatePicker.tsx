@@ -22,12 +22,14 @@ interface DatePickerProps {
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
   onChange?: (date: Date | undefined) => void;
+  isError: boolean;
 }
 
 export default function DatePicker({
   date,
   setDate,
   onChange,
+  isError = false,
 }: DatePickerProps) {
   const [month, setMonth] = useState<number>(
     date ? date.getMonth() : new Date().getMonth()
@@ -95,7 +97,8 @@ export default function DatePicker({
           variant={'outline'}
           className={cn(
             'w-full justify-start text-left font-normal',
-            !date && 'text-muted-foreground'
+            !date && 'text-muted-foreground',
+            isError && 'border-red-500'
           )}>
           <CalendarIcon className="w-4 h-4 mr-2" />
           {date ? format(date, 'PPP') : <span>Pick a date</span>}

@@ -51,7 +51,9 @@ export default function CustomFormField({
       }}
       render={({ field, fieldState }) => (
         <FormItem className="relative w-full">
-          <FormLabel className="text-sm font-medium">{label}</FormLabel>
+          <FormLabel className="text-sm font-medium text-foreground">
+            {label}
+          </FormLabel>
           <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
           <FormControl>
             <Input
