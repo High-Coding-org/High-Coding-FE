@@ -21,6 +21,7 @@ export default function SignUpForm() {
       name: '',
       id: '',
       password: '',
+      passwordCheck: '',
       phone: '',
     },
   });
@@ -100,14 +101,33 @@ export default function SignUpForm() {
           )}
         />
 
-        <FormItem className="w-full">
-          <FormLabel className="text-sm font-medium">비밀번호 확인</FormLabel>
-          <Input
-            type="password"
-            placeholder="비밀번호를 다시 입력해주세요."
-            className="w-full"
-          />
-        </FormItem>
+        <FormField
+          name="passwordCheck"
+          control={form.control}
+          rules={{
+            required: '입력된 비밀번호가 동일하지 않습니다.',
+            validate: pwd => pwd === form.watch('password'),
+          }}
+          render={({ field, fieldState }) => (
+            <FormItem className="relative w-full">
+              <FormLabel className="text-sm font-medium">
+                비밀번호 확인
+              </FormLabel>
+              {fieldState.invalid && (
+                <p className="text-sm text-red-500 absolute right-0 -translate-y-1/2 top-[2px]">
+                  입력된 비밀번호가 동일하지 않습니다.
+                </p>
+              )}
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="비밀번호를 확인해주세요."
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
         <FormField
           name="phone"
@@ -127,12 +147,15 @@ export default function SignUpForm() {
           )}
         />
 
-        <FormItem className="w-full">
+        <FormItem className="relative w-full">
           <FormLabel className="text-sm font-medium">생년월일</FormLabel>
-          <DatePicker
-            date={birthDate}
-            setDate={setBirthDate}
-          />
+          <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
+          <FormControl>
+            <DatePicker
+              date={birthDate}
+              setDate={setBirthDate}
+            />
+          </FormControl>
         </FormItem>
 
         <Button
