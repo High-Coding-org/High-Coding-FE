@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { AuthOverlay } from './AuthOverlay/AuthOverlay';
+import { AuthOverlay } from './AuthOverlay';
 import SignInForm from './LoginForm/SignInForm';
 import SignUpForm from './LoginForm/SignUpForm';
 
@@ -24,6 +24,7 @@ export default function LoginPage() {
         ${isSignIn ? 'opacity-0 z-[1]' : '-translate-x-full opacity-100 z-[5]'}`}>
         <SignUpForm />
       </div>
+
       <AuthOverlay
         isSignIn={isSignIn}
         onToggle={setIsSignIn}
