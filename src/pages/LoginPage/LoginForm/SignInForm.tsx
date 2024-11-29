@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
+  const socials = ['google', 'kakao', 'naver'];
   const form = useForm<SignInFormData>({
     defaultValues: {
       id: '',
@@ -77,9 +78,12 @@ export default function SignInForm() {
         </div>
 
         <div className="flex items-center justify-center gap-4">
-          <button className="bg-white bg-contain bg-no-repeat bg-[url('src/assets/social/btn_google.svg')] w-8 h-8 cursor-pointer border-gray-400 rounded-md" />
-          <button className="bg-white bg-contain bg-no-repeat bg-[url('src/assets/social/btn_kakao.svg')] w-8 h-8 cursor-pointer mx-4" />
-          <button className="bg-white bg-contain bg-no-repeat bg-[url('src/assets/social/btn_naver.svg')] w-8 h-8 cursor-pointer" />
+          {socials.map((social, idx) => (
+            <button
+              key={idx + social}
+              className={`bg-white bg-contain bg-no-repeat bg-[url('src/assets/social/btn_${social}.svg')] w-8 h-8 cursor-pointer border-gray-400 rounded-md ${idx === 1 && 'mx-4'}`}
+            />
+          ))}
         </div>
       </form>
     </Form>
