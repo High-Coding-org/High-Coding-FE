@@ -8,7 +8,8 @@ interface SignUpFormData {
   id: string;
   password: string;
   passwordCheck: string;
-  phone: string;
+  phonePrefix: string;
+  phoneNumber: string;
   birth: Date;
 }
 
