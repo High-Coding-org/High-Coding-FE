@@ -43,17 +43,17 @@ export default function SignUpForm() {
         <FormField
           name="name"
           control={form.control}
-          // rules={{ required: '이름을 입력해주세요' }}
+          rules={{ required: '이름이 입력되지 않았습니다.' }}
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">이름</FormLabel>
+              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
                   placeholder="ex) 김코딩"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -61,17 +61,17 @@ export default function SignUpForm() {
         <FormField
           name="id"
           control={form.control}
-          // rules={{ required: '아이디를 입력해주세요' }}
+          rules={{ required: '아이디가 입력되지 않았습니다.' }}
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">아이디</FormLabel>
+              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
                   placeholder="ex) hiCoding123"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -83,7 +83,7 @@ export default function SignUpForm() {
           render={({ field }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">비밀번호</FormLabel>
-              <FormMessage className="absolute top-0 right-0 -translate-y-1/2" />
+              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
                   type={showPassword ? 'text' : 'password'}
@@ -112,17 +112,17 @@ export default function SignUpForm() {
         <FormField
           name="phone"
           control={form.control}
-          // rules={{ required: '전화번호를 입력해주세요' }}
+          rules={{ required: '전화번호가 입력되지 않았습니다.' }}
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">전화번호</FormLabel>
+              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
                   placeholder="ex) 010-1234-5678"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
