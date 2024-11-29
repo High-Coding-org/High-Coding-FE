@@ -56,12 +56,13 @@ export default function SignUpForm() {
           name="name"
           control={form.control}
           rules={{ required: '(이름이 입력되지 않았습니다)' }}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">이름</FormLabel>
               <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="ex) 김코딩"
                   {...field}
                 />
@@ -74,12 +75,13 @@ export default function SignUpForm() {
           name="id"
           control={form.control}
           rules={{ required: '(아이디가 입력되지 않았습니다)' }}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">아이디</FormLabel>
               <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="ex) hiCoding123"
                   {...field}
                 />
@@ -92,13 +94,14 @@ export default function SignUpForm() {
           name="password"
           control={form.control}
           rules={{ required: '(비밀번호가 입력되지 않았습니다)' }}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">비밀번호</FormLabel>
               <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
                   type={showPassword ? 'text' : 'password'}
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="비밀번호를 입력해주세요."
                   {...field}
                 />
@@ -131,6 +134,7 @@ export default function SignUpForm() {
               <FormControl>
                 <Input
                   type="password"
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="비밀번호를 확인해주세요."
                   {...field}
                 />
@@ -143,12 +147,13 @@ export default function SignUpForm() {
           name="phone"
           control={form.control}
           rules={{ required: '(전화번호가 입력되지 않았습니다)' }}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">전화번호</FormLabel>
               <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
               <FormControl>
                 <Input
+                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                   placeholder="ex) 010-1234-5678"
                   {...field}
                 />
