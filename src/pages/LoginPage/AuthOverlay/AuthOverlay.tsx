@@ -3,16 +3,12 @@ import { cn } from '@/lib/utils';
 import { OverlayProps } from '@/types/auth';
 
 interface OverlayContentProps {
-  title: string;
-  description: string;
   buttonText: string;
   onToggle: (value: boolean) => void;
   isSignIn: boolean;
 }
 
 const OverlayContent = ({
-  title,
-  description,
   buttonText,
   onToggle,
   isSignIn,
@@ -27,12 +23,9 @@ const OverlayContent = ({
       alt="logo"
       className="w-[280px] h-[280px] top-8 mb-40 "
     />
-    {/* <h2 className="mb-4 text-2xl font-bold">{title}</h2> */}
-    {/* <p className="mb-6">{description}</p> */}
     <Button
       variant="outline"
       onClick={() => onToggle(!isSignIn)}
-      // className="absolute w-1/2 bg-[#007AFD]  border-none hover:bg-[#007AFD]/20 bottom-36 text-white hover:text-black/80">
       className="absolute w-1/2 bg-[#007AFD]  border-none text-white hover:bg-black/80 hover:text-white mt-40">
       {buttonText}
     </Button>
@@ -40,18 +33,7 @@ const OverlayContent = ({
 );
 
 export function AuthOverlay({ isSignIn, onToggle }: OverlayProps) {
-  const overlayContent = {
-    signIn: {
-      title: '환영합니다',
-      description: '서비스를 이용하시려면 로그인해 주세요',
-      buttonText: '회원가입',
-    },
-    signUp: {
-      title: '안녕하세요!',
-      description: '회원가입하고 다양한 서비스를 경험해보세요',
-      buttonText: '로그인',
-    },
-  };
+  const buttonText = isSignIn ? '회원가입 →' : '로그인 →';
 
   return (
     <div
@@ -68,12 +50,12 @@ export function AuthOverlay({ isSignIn, onToggle }: OverlayProps) {
           isSignIn && 'translate-x-1/2'
         )}>
         <OverlayContent
-          {...overlayContent.signIn}
+          buttonText={buttonText}
           isSignIn={true}
           onToggle={onToggle}
         />
         <OverlayContent
-          {...overlayContent.signUp}
+          buttonText={buttonText}
           isSignIn={false}
           onToggle={onToggle}
         />
