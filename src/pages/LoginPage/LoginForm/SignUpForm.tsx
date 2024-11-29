@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -24,6 +25,7 @@ export default function SignUpForm() {
     },
   });
   const [birthDate, setBirthDate] = useState<Date>();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data: SignUpFormData) => {
     const formData = {
@@ -38,17 +40,16 @@ export default function SignUpForm() {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-center w-full h-full gap-4 px-12">
-        <h1 className="text-2xl font-bold">회원가입</h1>
-
         <FormField
-          control={form.control}
           name="name"
+          control={form.control}
+          // rules={{ required: '이름을 입력해주세요' }}
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="text-sm font-medium">이름</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="이름을 입력해주세요"
+                  placeholder="ex) 김코딩"
                   {...field}
                 />
               </FormControl>
@@ -58,14 +59,15 @@ export default function SignUpForm() {
         />
 
         <FormField
-          control={form.control}
           name="id"
+          control={form.control}
+          // rules={{ required: '아이디를 입력해주세요' }}
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="text-sm font-medium">아이디</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="아이디를 입력해주세요"
+                  placeholder="ex) hiCoding123"
                   {...field}
                 />
               </FormControl>
@@ -75,19 +77,25 @@ export default function SignUpForm() {
         />
 
         <FormField
-          control={form.control}
           name="password"
+          control={form.control}
+          rules={{ required: '비밀번호가 입력되지 않았습니다.' }}
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="relative w-full">
               <FormLabel className="text-sm font-medium">비밀번호</FormLabel>
+              <FormMessage className="absolute top-0 right-0 -translate-y-1/2" />
               <FormControl>
                 <Input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="비밀번호를 입력해주세요."
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <div
+                className="absolute text-gray-500 cursor-pointer right-2 bottom-1"
+                onClick={() => setShowPassword(prev => !prev)}>
+                {showPassword ? <EyeOff /> : <Eye />}
+              </div>
             </FormItem>
           )}
         />
@@ -96,20 +104,21 @@ export default function SignUpForm() {
           <FormLabel className="text-sm font-medium">비밀번호 확인</FormLabel>
           <Input
             type="password"
-            placeholder="비밀번호를 다시 입력해주세요"
+            placeholder="비밀번호를 다시 입력해주세요."
             className="w-full"
           />
         </FormItem>
 
         <FormField
-          control={form.control}
           name="phone"
+          control={form.control}
+          // rules={{ required: '전화번호를 입력해주세요' }}
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="text-sm font-medium">전화번호</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="전화번호를 입력해주세요"
+                  placeholder="ex) 010-1234-5678"
                   {...field}
                 />
               </FormControl>
