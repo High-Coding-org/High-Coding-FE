@@ -48,6 +48,14 @@ export default function SignUpForm() {
   }, [form, form.watch]);
 
   const onSubmit = (data: SignUpFormData) => {
+    // if (1) {
+    //   form.setError('id', {
+    //     type: 'manual',
+    //     message: '이미 사용중인 아이디입니다',
+    //   });
+    //   return; // 폼 제출 중단
+    // }
+
     const formData = {
       ...data,
       phone: `${data.phonePrefix}${data.phoneNumber}`,
@@ -65,6 +73,10 @@ export default function SignUpForm() {
           name="name"
           control={form.control}
           rules={{ required: '(이름이 입력되지 않았습니다)' }}
+          pattern={{
+            value: /^.{2,}$/,
+            message: '2글자 이상 입력해주세요',
+          }}
           label="이름"
           placeholder="ex) 김코딩"
         />
@@ -74,6 +86,10 @@ export default function SignUpForm() {
           name="id"
           control={form.control}
           rules={{ required: '(아이디가 입력되지 않았습니다)' }}
+          pattern={{
+            value: /^.{4,}$/,
+            message: '4자 이상 입력해주세요',
+          }}
           label="아이디"
           placeholder="ex) hiCoding123"
         />
@@ -83,6 +99,10 @@ export default function SignUpForm() {
           name="password"
           control={form.control}
           rules={{ required: '(비밀번호가 입력되지 않았습니다)' }}
+          pattern={{
+            value: /^.{6,}$/,
+            message: '6자 이상 입력해주세요',
+          }}
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
           isPassword={true}

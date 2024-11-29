@@ -12,10 +12,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { SignUpFormData } from '@/types/auth';
 
+type Pattern = {
+  value: RegExp;
+  message: string;
+};
+
 interface CustomFormFieldProps {
   name: keyof SignUpFormData;
   control: Control<SignUpFormData>;
   rules: RegisterOptions<SignUpFormData>;
+  pattern?: Pattern;
   label: string;
   placeholder: string;
   isPassword?: boolean;
@@ -25,6 +31,7 @@ export default function CustomFormField({
   name,
   control,
   rules,
+  pattern,
   label,
   placeholder,
   isPassword = false,
@@ -35,7 +42,13 @@ export default function CustomFormField({
     <FormField
       name={name}
       control={control}
-      rules={rules}
+      rules={{
+        ...rules,
+        pattern: {
+          value: pattern?.value || /./,
+          message: pattern?.message || '',
+        },
+      }}
       render={({ field, fieldState }) => (
         <FormItem className="relative w-full">
           <FormLabel className="text-sm font-medium">{label}</FormLabel>
