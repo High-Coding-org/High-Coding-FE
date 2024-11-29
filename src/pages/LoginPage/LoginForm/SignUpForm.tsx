@@ -1,4 +1,3 @@
-import { Eye, EyeOff } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,9 +14,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { SignUpFormData } from '@/types/auth';
 
+import CustomFormField from '../components/CustomFormField';
+
 export default function SignUpForm() {
   const [birthDate, setBirthDate] = useState<Date>();
-  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<SignUpFormData>({
     defaultValues: {
       name: '',
@@ -52,69 +52,35 @@ export default function SignUpForm() {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-center w-full h-full gap-4 px-12">
-        <FormField
+        {/* 이름 */}
+        <CustomFormField
           name="name"
           control={form.control}
           rules={{ required: '(이름이 입력되지 않았습니다)' }}
-          render={({ field, fieldState }) => (
-            <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">이름</FormLabel>
-              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
-              <FormControl>
-                <Input
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                  placeholder="ex) 김코딩"
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          label="이름"
+          placeholder="ex) 김코딩"
         />
 
-        <FormField
+        {/* ID */}
+        <CustomFormField
           name="id"
           control={form.control}
           rules={{ required: '(아이디가 입력되지 않았습니다)' }}
-          render={({ field, fieldState }) => (
-            <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">아이디</FormLabel>
-              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
-              <FormControl>
-                <Input
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                  placeholder="ex) hiCoding123"
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          label="아이디"
+          placeholder="ex) hiCoding123"
         />
 
-        <FormField
+        {/* 비밀번호 */}
+        <CustomFormField
           name="password"
           control={form.control}
           rules={{ required: '(비밀번호가 입력되지 않았습니다)' }}
-          render={({ field, fieldState }) => (
-            <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">비밀번호</FormLabel>
-              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
-              <FormControl>
-                <Input
-                  type={showPassword ? 'text' : 'password'}
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                  placeholder="비밀번호를 입력해주세요."
-                  {...field}
-                />
-              </FormControl>
-              <div
-                className="absolute text-gray-500 cursor-pointer right-2 bottom-1"
-                onClick={() => setShowPassword(prev => !prev)}>
-                {showPassword ? <EyeOff /> : <Eye />}
-              </div>
-            </FormItem>
-          )}
+          label="비밀번호"
+          placeholder="비밀번호를 입력해주세요."
+          isPassword={true}
         />
 
+        {/* 비밀번호 확인 */}
         <FormField
           name="passwordCheck"
           control={form.control}
@@ -143,25 +109,16 @@ export default function SignUpForm() {
           )}
         />
 
-        <FormField
+        {/* 전화번호 */}
+        <CustomFormField
           name="phone"
           control={form.control}
           rules={{ required: '(전화번호가 입력되지 않았습니다)' }}
-          render={({ field, fieldState }) => (
-            <FormItem className="relative w-full">
-              <FormLabel className="text-sm font-medium">전화번호</FormLabel>
-              <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
-              <FormControl>
-                <Input
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                  placeholder="ex) 010-1234-5678"
-                  {...field}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          label="전화번호"
+          placeholder="ex) 010-1234-5678"
         />
 
+        {/* 생년월일 */}
         <FormField
           name="birth"
           control={form.control}
