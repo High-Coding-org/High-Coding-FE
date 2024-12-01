@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { INVALID_FORM_STYLE, PATTERN, RULES } from '@/constants/formValidation';
 import { SignUpFormData } from '@/types/auth';
 
 import CustomFormField from '../components/CustomFormField';
@@ -48,6 +49,7 @@ export default function SignUpForm() {
   }, [form, form.watch]);
 
   const onSubmit = (data: SignUpFormData) => {
+    // useEffect를 사용해서 처리하기
     // if (1) {
     //   form.setError('id', {
     //     type: 'manual',
@@ -72,11 +74,8 @@ export default function SignUpForm() {
         <CustomFormField
           name="name"
           control={form.control}
-          rules={{ required: '(이름이 입력되지 않았습니다)' }}
-          pattern={{
-            value: /^.{2,}$/,
-            message: '2글자 이상 입력해주세요',
-          }}
+          rules={RULES.NAME}
+          pattern={PATTERN.NAME}
           label="이름"
           placeholder="ex) 김코딩"
         />
@@ -85,11 +84,8 @@ export default function SignUpForm() {
         <CustomFormField
           name="id"
           control={form.control}
-          rules={{ required: '(아이디가 입력되지 않았습니다)' }}
-          pattern={{
-            value: /^.{4,}$/,
-            message: '4자 이상 입력해주세요',
-          }}
+          rules={RULES.ID}
+          pattern={PATTERN.ID}
           label="아이디"
           placeholder="ex) hiCoding123"
         />
@@ -98,11 +94,8 @@ export default function SignUpForm() {
         <CustomFormField
           name="password"
           control={form.control}
-          rules={{ required: '(비밀번호가 입력되지 않았습니다)' }}
-          pattern={{
-            value: /^.{6,}$/,
-            message: '6자 이상 입력해주세요',
-          }}
+          rules={RULES.PASSWORD}
+          pattern={PATTERN.PASSWORD}
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
           isPassword={true}
@@ -128,7 +121,7 @@ export default function SignUpForm() {
               <FormControl>
                 <Input
                   type="password"
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                  className={fieldState.invalid ? INVALID_FORM_STYLE : ''}
                   placeholder="비밀번호를 확인해주세요."
                   {...field}
                 />
@@ -152,9 +145,7 @@ export default function SignUpForm() {
                     defaultValue={field.value}>
                     <SelectTrigger
                       className={`w-[100px] ${
-                        fieldState.invalid
-                          ? 'border-red-500 focus-visible:ring-red-500'
-                          : ''
+                        fieldState.invalid ? INVALID_FORM_STYLE : ''
                       }`}>
                       <SelectValue placeholder="선택" />
                     </SelectTrigger>
@@ -177,11 +168,8 @@ export default function SignUpForm() {
               name="phoneNumber"
               control={form.control}
               rules={{
-                required: '(전화번호가 입력되지 않았습니다)',
-                pattern: {
-                  value: /^\d{7,8}$/,
-                  message: '숫자 7~8자리를 입력해주세요',
-                },
+                required: RULES.PHONE.required,
+                pattern: PATTERN.PHONE,
               }}
               render={({ field, fieldState }) => (
                 <FormItem className="flex-1">
@@ -189,11 +177,7 @@ export default function SignUpForm() {
                     <Input
                       {...field}
                       placeholder="12345678"
-                      className={
-                        fieldState.invalid
-                          ? 'border-red-500 focus-visible:ring-red-500'
-                          : ''
-                      }
+                      className={fieldState.invalid ? INVALID_FORM_STYLE : ''}
                     />
                   </FormControl>
                   <FormMessage className="absolute right-0 -top-1" />

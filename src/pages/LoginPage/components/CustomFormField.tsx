@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { INVALID_FORM_STYLE } from '@/constants/formValidation';
 import { SignUpFormData } from '@/types/auth';
 
 type Pattern = {
@@ -58,7 +59,7 @@ export default function CustomFormField({
           <FormControl>
             <Input
               type={isPassword ? (showPassword ? 'text' : 'password') : 'text'}
-              className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+              className={fieldState.invalid ? INVALID_FORM_STYLE : ''}
               placeholder={placeholder}
               {...field}
               value={field.value?.toString() || ''}
