@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
@@ -14,6 +15,13 @@ export default function SignInForm() {
       password: '',
     },
   });
+
+  /*
+    axiosInstance.post('/login', {
+      email: email,
+      password: password,
+    });
+  */
 
   const onSubmit = (data: SignInFormData) => {
     console.log(data);
@@ -78,7 +86,7 @@ export default function SignInForm() {
           {socials.map((social, idx) => (
             <button
               key={idx + social}
-              className={`bg-white bg-contain bg-no-repeat bg-[url('src/assets/social/btn_${social}.svg')] w-8 h-8 cursor-pointer border-gray-400 rounded-md ${idx === 1 && 'mx-4'}`}
+              className={`bg-white bg-contain bg-no-repeat bg-[url('${SOCIAL_LOGOS[social as keyof typeof SOCIAL_LOGOS]}')] w-8 h-8 cursor-pointer border-gray-400 rounded-md ${idx === 1 && 'mx-4'}`}
             />
           ))}
         </div>
