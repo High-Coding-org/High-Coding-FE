@@ -1,5 +1,5 @@
-export const SOCIAL_LOGOS = {
-  google: 'src/assets/social/btn_google.svg',
-  kakao: 'src/assets/social/btn_kakao.svg',
-  naver: 'src/assets/social/btn_naver.svg',
-};
+import GoogleLogo from '@/assets/social/btn_google.svg?react';
+import KakaoLogo from '@/assets/social/btn_kakao.svg?react';
+import NaverLogo from '@/assets/social/btn_naver.svg?react';
+
+export const SOCIAL_LOGOS = [GoogleLogo, KakaoLogo, NaverLogo];

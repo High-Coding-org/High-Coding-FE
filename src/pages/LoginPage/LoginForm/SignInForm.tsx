@@ -1,15 +1,13 @@
 import { useForm } from 'react-hook-form';
 
-import GoogleLogo from '@/assets/social/btn_google.svg?react';
-import KakaoLogo from '@/assets/social/btn_kakao.svg?react';
-import NaverLogo from '@/assets/social/btn_naver.svg?react';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { INVALID_FORM_STYLE } from '@/constants/formValidation';
+import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
-  const SOCIAL_LOGOS = [GoogleLogo, KakaoLogo, NaverLogo];
   const form = useForm<SignInFormData>({
     defaultValues: {
       id: '',
@@ -44,7 +42,7 @@ export default function SignInForm() {
             <FormItem className="w-full">
               <FormControl>
                 <Input
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                  className={`${fieldState.invalid ? INVALID_FORM_STYLE : ''}`}
                   placeholder="아이디"
                   {...field}
                 />
@@ -62,7 +60,7 @@ export default function SignInForm() {
               <FormControl>
                 <Input
                   type="password"
-                  className={`${fieldState.invalid ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                  className={`${fieldState.invalid ? INVALID_FORM_STYLE : ''}`}
                   placeholder="비밀번호"
                   {...field}
                 />
