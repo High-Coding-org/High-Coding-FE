@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form';
 
+import GoogleLogo from '@/assets/social/btn_google.svg?react';
+import KakaoLogo from '@/assets/social/btn_kakao.svg?react';
+import NaverLogo from '@/assets/social/btn_naver.svg?react';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
-  const socials = ['google', 'kakao', 'naver'];
-
+  const SOCIAL_LOGOS = [GoogleLogo, KakaoLogo, NaverLogo];
   const form = useForm<SignInFormData>({
     defaultValues: {
       id: '',
@@ -83,11 +84,12 @@ export default function SignInForm() {
         </div>
 
         <div className="flex items-center justify-center gap-4">
-          {socials.map((social, idx) => (
+          {SOCIAL_LOGOS.map((Logo, idx) => (
             <button
-              key={idx + social}
-              className={`bg-white bg-contain bg-no-repeat bg-[url('${SOCIAL_LOGOS[social as keyof typeof SOCIAL_LOGOS]}')] w-8 h-8 cursor-pointer border-gray-400 rounded-md ${idx === 1 && 'mx-4'}`}
-            />
+              key={`${idx}-logo`}
+              className={`bg-white w-8 h-8 cursor-pointer border-gray-400 rounded-md ${idx === 1 && 'mx-4'}`}>
+              <Logo className="w-full h-full" />
+            </button>
           ))}
         </div>
       </form>
