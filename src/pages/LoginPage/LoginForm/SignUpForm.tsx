@@ -21,11 +21,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { INVALID_FORM_STYLE, PATTERN, RULES } from '@/constants/formValidation';
+import { useSignUp } from '@/hooks/api/useAuth';
 import { SignUpFormData } from '@/types/auth';
 
 import CustomFormField from '../components/CustomFormField';
 
 export default function SignUpForm() {
+  const { mutate: signUp, isError } = useSignUp();
   const [birthDate, setBirthDate] = useState<Date>();
   const form = useForm<SignUpFormData>({
     defaultValues: {
@@ -39,6 +41,27 @@ export default function SignUpForm() {
     },
   });
 
+  const onSubmit = (data: SignUpFormData) => {
+    const { passwordCheck, ...signUpData } = data;
+
+    const formData = {
+      ...signUpData,
+      phone: `${signUpData.phonePrefix}${signUpData.phoneNumber}`,
+    };
+
+    signUp(formData);
+  };
+
+  useEffect(() => {
+    if (isError) {
+      form.setError('id', {
+        type: 'manual',
+        // message: '이미 사용중인 아이디입니다',
+        message: '에러 발생',
+      });
+    }
+  }, [form, isError]);
+
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
       if (name === 'birth') {
@@ -47,23 +70,6 @@ export default function SignUpForm() {
     });
     return () => subscription.unsubscribe();
   }, [form, form.watch]);
-
-  const onSubmit = (data: SignUpFormData) => {
-    // useEffect를 사용해서 처리하기
-    // if (1) {
-    //   form.setError('id', {
-    //     type: 'manual',
-    //     message: '이미 사용중인 아이디입니다',
-    //   });
-    //   return; // 폼 제출 중단
-    // }
-
-    const formData = {
-      ...data,
-      phone: `${data.phonePrefix}${data.phoneNumber}`,
-    };
-    console.log(formData);
-  };
 
   return (
     <Form {...form}>

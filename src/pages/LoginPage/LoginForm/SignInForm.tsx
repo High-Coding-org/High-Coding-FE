@@ -5,9 +5,11 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { INVALID_FORM_STYLE } from '@/constants/formValidation';
 import { SOCIAL_LOGOS } from '@/constants/socialLogos';
+import { useSignIn } from '@/hooks/api/useAuth';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
+  const { mutate: signIn, isError } = useSignIn();
   const form = useForm<SignInFormData>({
     defaultValues: {
       id: '',
@@ -15,15 +17,8 @@ export default function SignInForm() {
     },
   });
 
-  /*
-    axiosInstance.post('/login', {
-      email: email,
-      password: password,
-    });
-  */
-
   const onSubmit = (data: SignInFormData) => {
-    console.log(data);
+    signIn(data);
   };
 
   return (
@@ -42,7 +37,7 @@ export default function SignInForm() {
             <FormItem className="w-full">
               <FormControl>
                 <Input
-                  className={`${fieldState.invalid ? INVALID_FORM_STYLE : ''}`}
+                  className={`${fieldState.invalid || isError ? INVALID_FORM_STYLE : ''}`}
                   placeholder="아이디"
                   {...field}
                 />
@@ -60,7 +55,7 @@ export default function SignInForm() {
               <FormControl>
                 <Input
                   type="password"
-                  className={`${fieldState.invalid ? INVALID_FORM_STYLE : ''}`}
+                  className={`${fieldState.invalid || isError ? INVALID_FORM_STYLE : ''}`}
                   placeholder="비밀번호"
                   {...field}
                 />
