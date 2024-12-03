@@ -1,6 +1,6 @@
 export const API_ENDPOINT = {
   AUTH: {
-    LOGIN: '/login',
+    SIGNIN: '/signin',
     SIGNUP: '/signup',
   },
 };

@@ -7,7 +7,7 @@ interface SignUpFormData {
   name: string;
   id: string;
   password: string;
-  passwordCheck: string;
+  passwordCheck?: string;
   phonePrefix: string;
   phoneNumber: string;
   birth: Date;
