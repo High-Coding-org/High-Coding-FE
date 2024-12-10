@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { INVALID_FORM_STYLE } from '@/constants/formValidation';
 import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { useSignIn } from '@/hooks/api/useAuth';
 import { SignInFormData } from '@/types/auth';
@@ -12,7 +18,7 @@ export default function SignInForm() {
   const { mutate: signIn, isError } = useSignIn();
   const form = useForm<SignInFormData>({
     defaultValues: {
-      id: '',
+      username: '',
       password: '',
     },
   });
@@ -20,6 +26,15 @@ export default function SignInForm() {
   const onSubmit = (data: SignInFormData) => {
     signIn(data);
   };
+
+  useEffect(() => {
+    if (isError) {
+      form.setError('password', {
+        type: 'authentication',
+        message: '아이디 또는 비밀번호가 일치하지 않습니다.',
+      });
+    }
+  }, [form, isError]);
 
   return (
     <Form {...form}>
@@ -30,14 +45,13 @@ export default function SignInForm() {
         <h1 className="text-2xl font-bold">로그인</h1>
 
         <FormField
-          name="id"
+          name="username"
           control={form.control}
-          rules={{ required: ' ' }}
-          render={({ field, fieldState }) => (
+          rules={{ required: '' }}
+          render={({ field }) => (
             <FormItem className="w-full">
               <FormControl>
                 <Input
-                  className={`${fieldState.invalid || isError ? INVALID_FORM_STYLE : ''}`}
                   placeholder="아이디"
                   {...field}
                 />
@@ -49,17 +63,19 @@ export default function SignInForm() {
         <FormField
           name="password"
           control={form.control}
-          rules={{ required: ' ' }}
-          render={({ field, fieldState }) => (
+          rules={{ required: '' }}
+          render={({ field, formState }) => (
             <FormItem className="w-full">
               <FormControl>
                 <Input
                   type="password"
-                  className={`${fieldState.invalid || isError ? INVALID_FORM_STYLE : ''}`}
                   placeholder="비밀번호"
                   {...field}
                 />
               </FormControl>
+              {formState.errors.password && (
+                <FormMessage>{formState.errors.password.message}</FormMessage>
+              )}
             </FormItem>
           )}
         />
