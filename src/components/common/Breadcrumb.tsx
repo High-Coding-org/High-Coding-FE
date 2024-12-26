@@ -20,7 +20,8 @@ import { titles } from '@/routes/BreadcrumbTitle';
 export default function BreadcrumbAndTitle() {
   const location = useLocation();
   const pathNames = location.pathname.split('/').filter(Boolean);
-  const pageTitles = titles[pathNames[pathNames.length - 1]];
+  const validPathNames = pathNames.filter(name => titles[name]);
+  const pageTitles = titles[validPathNames[validPathNames.length - 1]];
 
   return (
     <div className="inline-block">
@@ -29,25 +30,21 @@ export default function BreadcrumbAndTitle() {
           <BreadcrumbItem>
             <BreadcrumbLink href="/home">Home</BreadcrumbLink>
           </BreadcrumbItem>
-          {pathNames.length > 0 && <BreadcrumbSeparator />}
-          {pathNames.map((value, index) => {
-            const to = `/${pathNames.slice(0, index + 1).join('/')}`;
-            if (!titles[value]) {
-              return null;
-            }
-
-            const isLastItem = index === pathNames.length - 1;
+          {validPathNames.length > 0 && <BreadcrumbSeparator />}
+          {validPathNames.map((value, index) => {
+            const to = `/${validPathNames.slice(0, index + 1).join('/')}`;
+            const isLastItem = index === validPathNames.length - 1;
 
             return (
               <>
-                <BreadcrumbItem>
+                <BreadcrumbItem key={value}>
                   {isLastItem ? (
                     <BreadcrumbPage>{titles[value]}</BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink href={to}>{titles[value]}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-                {index < pathNames.length - 1 && <BreadcrumbSeparator />}
+                {index < validPathNames.length - 1 && <BreadcrumbSeparator />}
               </>
             );
           })}
