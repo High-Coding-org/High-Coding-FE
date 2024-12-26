@@ -8,7 +8,7 @@ import logo from '@/assets/logo.svg';
 export default function Header(): JSX.Element {
   const icons = [MoonStar, CircleUserRound, Headset, Megaphone];
   return (
-    <header className="flex justify-between items-center h-[3.75rem]">
+    <header className="flex justify-between items-center px-[5rem] h-[3.75rem]">
       <div>
         <img
           src={logo}
