@@ -28,9 +28,6 @@ export const useSignIn = () => {
       console.log(data);
       // navigate('/home');
     },
-    onError: error => {
-      return error.response?.data.error.errorCode;
-    },
   });
 };
 
@@ -53,7 +50,8 @@ export const useSignUp = () => {
       console.log(data, signUpReqBody);
     },
     onError: error => {
-      return error.response?.data.error.errorCode;
+      console.log(error);
+      // return error.response?.data.error.errorCode;
     },
   });
 };

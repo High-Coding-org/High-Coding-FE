@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,7 +16,7 @@ import { useSignIn } from '@/hooks/api/useAuth';
 import { SignInFormData } from '@/types/auth';
 
 export default function SignInForm() {
-  const { mutate: signIn, isError } = useSignIn();
+  const { mutate: signIn, isError, error, isPending } = useSignIn();
   const form = useForm<SignInFormData>({
     defaultValues: {
       username: '',
@@ -29,12 +30,17 @@ export default function SignInForm() {
 
   useEffect(() => {
     if (isError) {
+      const errorMessage =
+        !navigator.onLine || error.message === 'Network Error'
+          ? '네트워크 에러가 발생했습니다. 잠시 후 다시 시도해주세요.'
+          : '아이디 또는 비밀번호가 일치하지 않습니다.';
+
       form.setError('password', {
         type: 'authentication',
-        message: '아이디 또는 비밀번호가 일치하지 않습니다.',
+        message: errorMessage,
       });
     }
-  }, [form, isError]);
+  }, [form, isError, error]);
 
   return (
     <Form {...form}>
@@ -82,8 +88,9 @@ export default function SignInForm() {
 
         <Button
           type="submit"
-          className="w-full bg-[#007AFD]">
-          로그인
+          className="w-full bg-[#007AFD]"
+          disabled={isPending}>
+          {isPending ? <Loader2 className="animate-spin" /> : '로그인'}
         </Button>
 
         <div className="flex items-center w-full mt-4 mb-2">
