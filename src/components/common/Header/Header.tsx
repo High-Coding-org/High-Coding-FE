@@ -20,7 +20,7 @@ export default function Header(): JSX.Element {
         {icons.map((Icon, index) => (
           <Icon
             key={index}
-            className="w-[1.5rem] h-[1.5rem] cursor-pointer"
+            className="w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
           />
         ))}
       </nav>
