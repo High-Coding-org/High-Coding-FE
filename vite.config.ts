@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+
 export default defineConfig({
   plugins: [react(), svgr()],
   resolve: {
@@ -13,8 +14,9 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/public': {
-        target: process.env.LOCAL_API_URL,
+        target: process.env.VITE_API_URL,
         changeOrigin: true,
+        secure: false,
         rewrite: path => path.replace(/^\/public/, ''),
       },
     },
