@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import MyPlantPage from './pages/MyPlantPage/MyPlantPage';
-import PlantDetail from './pages/MyPlantPage/PlantDetail/PlantDetail';
-import PlantRecommend from './pages/MyPlantPage/PlantRecommend/PlantRecommend';
-import PlantRegister from './pages/MyPlantPage/PlantRegister/PlantRegister';
-import ProductPage from './pages/ProductPage/ProductPage';
-import ProfilePage from './pages/ProfilePage/MyPage';
-import OrderList from './pages/ProfilePage/OrderList/OrderList';
-import PurchasePage from './pages/PurchasePage/PurchasePage';
+import {
+  HomePage,
+  LoginPage,
+  MyPlantPage,
+  OrderList,
+  PlantDetail,
+  PlantRecommend,
+  PlantRegister,
+  ProductPage,
+  ProfilePage,
+  PurchasePage,
+} from './pages';
 
 function App() {
   return (
