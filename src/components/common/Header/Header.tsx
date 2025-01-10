@@ -1,12 +1,12 @@
 import { MoonStar, CircleUserRound, CircleHelp } from 'lucide-react';
 import logo from '@/assets/logo.svg';
+import { HeaderMenuItems } from '@/constants/header';
 
 /**
  * Header 컴포넌트.
  * 상단 네비게이션 바를 렌더링하며, 로고와 텍스트 메뉴(키트 구매, 내 키트, 키트 영상, 프로모션, 로그인), 아이콘(다크모드, 고객 관리, 마이페이지)을 포함합니다.
  */
 export default function Header(): JSX.Element {
-  const menuItems = ['키트 구매', '내 키트', '키트 영상', '프로모션', '로그인'];
   const icons = [MoonStar, CircleHelp, CircleUserRound];
 
   return (
@@ -19,10 +19,10 @@ export default function Header(): JSX.Element {
         />
 
         <nav className="flex items-center h-[3.75rem]">
-          {menuItems.map((item, index) => (
+          {HeaderMenuItems.map((item, index) => (
             <span
               key={index}
-              className="text-sm font-bold cursor-pointer  hover:bg-gray-100 px-4 py-2 rounded">
+              className="text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded">
               {item}
             </span>
           ))}
