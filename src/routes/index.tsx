@@ -4,6 +4,7 @@ import {
   HomePage,
   LoginPage,
   MyPlantPage,
+  NotFoundPage,
   OrderList,
   PlantDetail,
   PlantRecommend,
@@ -67,6 +68,10 @@ export function AppRoutes() {
           element={<PlantDetail />}
         />
       </Route>
+      <Route
+        path={PATH.NOT_FOUND}
+        element={<NotFoundPage />}
+      />
     </Routes>
   );
 }

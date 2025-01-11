@@ -16,4 +16,7 @@ export const PATH: IPath = {
   PLANT_RECOMMEND: 'recommend',
   PLANT_REGISTER: 'register',
   PLANT_DETAIL: 'detail/:id',
+
+  // 404 Not Found
+  NOT_FOUND: '*',
 };
