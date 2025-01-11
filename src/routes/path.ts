@@ -1,6 +1,4 @@
-interface IPath {
-  [key: string]: string;
-}
+import { IPath } from '@/types/path';
 
 export const PATH: IPath = {
   SIGN: '/sign',
