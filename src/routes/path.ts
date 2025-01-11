@@ -1,15 +1,21 @@
-export const PATH = {
-  ROOT: '/home',
+interface IPath {
+  [key: string]: string;
+}
+
+export const PATH: IPath = {
   SIGN: '/sign',
 
+  // Profile
   PROFILE: '/profile',
-  PROFILE_MY_ORDER: '/profile/my-order',
+  PROFILE_MY_ORDER: 'my-order',
 
+  // Product
   PRODUCT: '/product',
-  PRODUCT_PURCHASE: '/product/purchase',
+  PRODUCT_PURCHASE: 'purchase',
 
+  // Plant
   PLANT: '/plant',
-  PLANT_RECOMMEND: '/plant/recommend',
-  PLANT_REGISTER: '/plant/register',
-  PLANT_DETAIL: '/plant/detail/:id',
+  PLANT_RECOMMEND: 'recommend',
+  PLANT_REGISTER: 'register',
+  PLANT_DETAIL: 'detail/:id',
 };
