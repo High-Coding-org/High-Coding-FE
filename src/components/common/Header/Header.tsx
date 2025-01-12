@@ -1,6 +1,6 @@
 import { MoonStar, CircleUserRound, CircleHelp, Menu, X } from 'lucide-react';
 import logo from '@/assets/logo.svg';
-import { HeaderMenuItems, AdditionalMenuItems } from '@/constants/header';
+import { MENU_ITEMS, ADDITIONAL_MENU_ITEMS } from '@/constants/header';
 import { useState } from 'react';
 
 /**
@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex justify-between items-center w-auto h-[3.75rem] whitespace-nowrap">
+    <header className="flex justify-between items-center  w-auto h-[3.75rem] whitespace-nowrap px-5 md:px-[10rem]">
       <div className="flex">
         <img
           src={logo}
@@ -25,7 +25,7 @@ export default function Header() {
         />
 
         <nav className="flex items-center h-[3.75rem] ">
-          {HeaderMenuItems.map((item, index) => (
+          {MENU_ITEMS.map((item, index) => (
             <span
               key={index}
               className="hidden md:block text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded">
@@ -56,16 +56,16 @@ export default function Header() {
       </div>
 
       <div
-        className={`absolute top-[5.75rem] left-0 w-full h-full bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
+        className={`absolute top-[3.75rem] left-0 w-full h-full bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
         <nav className="flex flex-col mx-4 items-start p-4 space-y-2 transform">
-          {HeaderMenuItems.map((item, index) => (
+          {MENU_ITEMS.map((item, index) => (
             <span
               key={index}
               className="text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded w-full text-left">
               {item}
             </span>
           ))}
-          {AdditionalMenuItems.map((item, index) => (
+          {ADDITIONAL_MENU_ITEMS.map((item, index) => (
             <span
               key={index}
               className="text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded w-full text-left">
