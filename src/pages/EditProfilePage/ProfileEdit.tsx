@@ -53,7 +53,7 @@ export default function ProfileEdit({
   };
 
   return (
-    <section>
+    <section className="w-full">
       <h1 className="font-bold text-3xl mb-8">회원정보 수정</h1>
       <div className="flex justify-between">
         {/* 회원 정보 수정 섹션 */}
