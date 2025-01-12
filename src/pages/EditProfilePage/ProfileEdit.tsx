@@ -2,14 +2,9 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import SideBar from '@/components/common/SideBar';
 import FieldInput from '@/pages/EditProfilePage/FieldInput';
 import AddressField from '@/pages/EditProfilePage/AddressField';
-import {
-  mockUserData,
-  fields,
-  menuItems,
-} from '@/pages/EditProfilePage/UserData';
+import { FIELDS } from '@/pages/EditProfilePage/profileFormFields';
 import { Button } from '@/components/ui/button';
 
-// 사용자 데이터 타입 정의
 interface UserData {
   name: string;
   id: string;
@@ -20,22 +15,38 @@ interface UserData {
   birthday: string;
 }
 
+interface MenuItem {
+  name: string;
+  url: string;
+}
+
+interface ProfileEditProps {
+  mockUserData: UserData;
+  menuItems: MenuItem[];
+}
+
 /**
  * ProfileEdit 컴포넌트.
  * 사용자 프로필 정보를 수정할 수 있는 화면을 제공합니다.
  * 사이드바, 입력 필드, 주소 검색 필드, 수정/저장 버튼으로 구성됩니다.
  */
-export default function ProfileEdit() {
+export default function ProfileEdit({
+  mockUserData,
+  menuItems,
+}: ProfileEditProps) {
   const [userData, setUserData] = useState<UserData>({ ...mockUserData });
   const [isEditable, setIsEditable] = useState(false);
 
-  // Input 값 변경 핸들러
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
   };
 
-  // 회원정보 수정 핸들러
+  function handleCancel() {
+    setUserData({ ...mockUserData });
+    setIsEditable(false);
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('Updated User Data:', userData);
@@ -46,11 +57,11 @@ export default function ProfileEdit() {
       <h1 className="font-bold text-3xl mb-8">회원정보 수정</h1>
       <div className="flex justify-between">
         {/* 회원 정보 수정 섹션 */}
-        <article>
+        <article className="mr-8 md:mr-8">
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-2 gap-8 w-[50rem]">
-            {fields.map(field =>
+            className="grid grid-cols-1 w-full  md:grid-cols-2 gap-8 md:w-full">
+            {FIELDS.map(field =>
               field.name === 'address' ? (
                 <AddressField
                   key={field.name}
@@ -76,21 +87,32 @@ export default function ProfileEdit() {
               )
             )}
             {/* 버튼 */}
-            <div className="col-span-2 flex gap-2">
-              <Button
-                type="button"
-                onClick={() => setIsEditable(!isEditable)}
-                className="bg-[#007AFD] hover:bg-[#0063CD]">
-                {isEditable ? '수정 취소' : '수정하기'}
-              </Button>
-              {isEditable && (
+            {!isEditable && (
+              <div className="md:col-span-2">
+                <Button
+                  type="button"
+                  onClick={() => setIsEditable(!isEditable)}
+                  className="bg-[#007AFD] hover:bg-[#0063CD]">
+                  수정하기
+                </Button>
+              </div>
+            )}
+            {isEditable && (
+              <div className="flex gap-2 md:col-span-2">
+                <Button
+                  type="button"
+                  onClick={handleCancel}
+                  className="bg-[#007AFD] hover:bg-[#0063CD]">
+                  수정 취소
+                </Button>
                 <Button
                   type="submit"
+                  onClick={() => setIsEditable(!isEditable)}
                   className="bg-[#007AFD] hover:bg-[#0063CD]">
                   저장하기
                 </Button>
-              )}
-            </div>
+              </div>
+            )}
           </form>
         </article>
 

@@ -7,6 +7,7 @@ interface AddressFieldProps {
   field: {
     name: string;
     label: string;
+    type: string;
     placeholder?: string;
   };
   value: string;
@@ -43,7 +44,7 @@ export default function AddressField({
           onChange={onChange}
           disabled={disabled}
           placeholder={field.placeholder}
-          type="text"
+          type={field.type}
         />
         <Button
           type="button"
