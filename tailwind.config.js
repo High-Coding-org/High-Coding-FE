@@ -5,6 +5,7 @@ export default {
   theme: {
     screens: {
       sm: { max: '640px' },
+      md: '1140px',
     },
     extend: {
       borderRadius: {
