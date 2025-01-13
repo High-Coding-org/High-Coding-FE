@@ -1,3 +1,7 @@
+import './bounceAnimation.css';
+
+import { ChevronDown } from 'lucide-react';
+
 export default function HomePage() {
   return (
     <main className="absolute w-screen">
@@ -9,6 +13,7 @@ export default function HomePage() {
             <br />
             토스에서 쉽고 간편하게
           </h1>
+          <ChevronDown className="absolute w-8 h-8 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation" />
         </div>
       </section>
     </main>
