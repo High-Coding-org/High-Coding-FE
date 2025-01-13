@@ -21,7 +21,7 @@ export default function HomePage() {
             토스에서 쉽고 간편하게
           </h1>
           <ChevronDown
-            className="absolute w-8 h-8 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation"
+            className="absolute w-16 h-16 p-4 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation"
             onClick={handleScrollToSubTitle}
           />
         </div>
