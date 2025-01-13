@@ -58,6 +58,26 @@
   }
 }
 
+/* 웹킷 브라우저용 스크롤바 스타일링 */
+* ::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+* ::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
+* ::-webkit-scrollbar-thumb {
+  background-color: gray !important;
+  border-radius: 4px;
+}
+
+/* Firefox용 스크롤바 스타일링 */
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: gray transparent !important;
+}
+
 @layer base {
   * {
     @apply border-border;
