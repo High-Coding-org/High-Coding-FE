@@ -19,11 +19,15 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex flex-col items-center w-screen">
+    <main className="absolute flex flex-col items-center w-screen">
       <section className="w-full">
-        {/* // Todo: div를 이미지로 변경해야 함 */}
-        <div className="relative h-screen">
-          <div className="absolute -translate-x-1/2 left-1/2 top-[20%]">
+        <div className="relative h-screen ">
+          <img
+            src={'src/assets/HomeBackground/HomeBackground.png'}
+            alt="HomeBackground"
+            className="absolute object-cover w-full h-full opacity-50 mt-[100px] scale-110"
+          />
+          <div className="absolute -translate-x-1/2 left-1/2 top-[24%]">
             {HomeTitle.map((text, index) => (
               <ResponsiveText
                 key={index}
@@ -35,7 +39,7 @@ export default function HomePage() {
           </div>
 
           <ChevronDown
-            className="absolute w-16 h-16 p-4 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation"
+            className="absolute w-16 h-16 p-4 -translate-x-1/2 opacity-70 hover:cursor-pointer left-1/2 bottom-10 bounce-animation"
             onClick={handleScrollToSubTitle}
           />
         </div>
