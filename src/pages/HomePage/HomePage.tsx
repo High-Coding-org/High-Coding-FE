@@ -2,7 +2,7 @@ import './bounceAnimation.css';
 import 'aos/dist/aos.css';
 
 import AOS from 'aos';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Droplet } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 import ResponsiveText from './components/ResponsiveText';
@@ -11,6 +11,10 @@ import {
   function1SubClass,
   function1SubText,
   function1Text,
+  function2Class,
+  function2SubText,
+  function2SubTextClass,
+  function2Text,
   subTitle,
   subTitleClass,
   title,
@@ -103,7 +107,42 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* <section className="h-[800px] w-[1140px] bg-blue-500 relative px-8"></section> */}
+      <section className="w-full bg-[#F9FAFB] flex justify-center">
+        <div className="h-[1280px] md:h-[960px] md:w-[1140px] md:relative md:px-8">
+          <article
+            data-aos="fade-up"
+            className="mt-[160px]">
+            {function2Text.map((text, index) => (
+              <ResponsiveText
+                key={`${index}-function2Text`}
+                text={text}
+                breakPoint="|"
+                className={function2Class}
+              />
+            ))}
+          </article>
+
+          <div className="grid grid-cols-1 gap-16 mt-20 md:grid-cols-2 ">
+            {function2SubText.map((obj, index) => (
+              <div
+                key={`Fnc2 describe-${index}`}
+                data-aos="fade-up">
+                <Droplet className="w-20 h-20 text-blue-500" />
+                <p className="my-4 text-2xl font-semibold text-gray-700">
+                  {obj.title}
+                </p>
+                <p className="text-base font-semibold text-gray-500">
+                  <ResponsiveText
+                    text={obj.subTitle}
+                    breakPoint="|"
+                    className={function2SubTextClass}
+                  />
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
