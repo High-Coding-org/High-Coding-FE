@@ -14,14 +14,14 @@ export default function ResponsiveText({
   return (
     <p className={className}>
       {parts.map((part, index) => (
-        <>
+        <span key={`${index}-HomeTitleText`}>
           {part}
           {index < parts.length - 1 && (
             <span className="hidden sm:inline">
               <br />
             </span>
           )}
-        </>
+        </span>
       ))}
     </p>
   );
