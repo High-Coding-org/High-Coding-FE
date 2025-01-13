@@ -19,11 +19,11 @@ export default function HomePage() {
   };
 
   return (
-    <main className="absolute w-screen">
-      <section className="w-full ">
+    <main className="flex flex-col items-center w-screen">
+      <section className="w-full">
         {/* // Todo: div를 이미지로 변경해야 함 */}
         <div className="relative h-screen">
-          <div className="absolute -translate-x-1/2 left-1/2 top-[30%]">
+          <div className="absolute -translate-x-1/2 left-1/2 top-[20%]">
             {HomeTitle.map((text, index) => (
               <ResponsiveText
                 key={index}
@@ -55,7 +55,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="h-[1200px] bg-green-500">세번째 박스</section>
+      <section className="h-[1200px] w-[1140px] bg-green-500">
+        세번째 박스
+      </section>
       {/* <section></section> */}
       {/* <section></section> */}
     </main>
