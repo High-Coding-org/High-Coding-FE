@@ -4,7 +4,7 @@ import FieldInput from '@/pages/EditProfilePage/FieldInput';
 import AddressField from '@/pages/EditProfilePage/AddressField';
 import { FIELDS } from '@/pages/EditProfilePage/profileFormFields';
 import { Button } from '@/components/ui/button';
-
+//import BreadcrumbAndTitle from '@/components/common/Breadcrumb/Breadcrumb';
 interface UserData {
   name: string;
   id: string;
@@ -54,7 +54,9 @@ export default function ProfileEdit({
 
   return (
     <section className="w-full">
-      <h1 className="font-bold text-3xl mb-8">회원정보 수정</h1>
+      {/* BreadcrumbAndTitle 컴포넌트 추가 */}
+      {/*<BreadcrumbAndTitle />*/}
+
       <div className="flex justify-between">
         {/* 회원 정보 수정 섹션 */}
         <article className="mr-8 md:mr-8">
