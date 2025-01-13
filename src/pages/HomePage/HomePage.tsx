@@ -1,8 +1,15 @@
 import './bounceAnimation.css';
 
 import { ChevronDown } from 'lucide-react';
+import { useRef } from 'react';
 
 export default function HomePage() {
+  const subTitle = useRef<HTMLDivElement>(null);
+
+  const handleScrollToSubTitle = () => {
+    subTitle.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <main className="absolute w-screen">
       <section className="w-full ">
@@ -13,9 +20,15 @@ export default function HomePage() {
             <br />
             토스에서 쉽고 간편하게
           </h1>
-          <ChevronDown className="absolute w-8 h-8 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation" />
+          <ChevronDown
+            className="absolute w-8 h-8 -translate-x-1/2 opacity-50 hover:cursor-pointer left-1/2 bottom-10 bounce-animation"
+            onClick={handleScrollToSubTitle}
+          />
         </div>
       </section>
+      <section className="h-[1200px] bg-green-500">세번째 박스</section>
+      {/* <section></section> */}
+      {/* <section></section> */}
     </main>
   );
 }
