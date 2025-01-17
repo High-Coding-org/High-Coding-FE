@@ -2,15 +2,7 @@ import { Button } from '@/components/ui/button';
 import StarRating from '@/pages/KitDetailPage/StarRating';
 //import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-interface Kit {
-  id: number;
-  name: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  mainImage: string;
-  detailImage: string;
-}
+import { Kit } from '@/pages/KitDetailPage/type';
 
 /**
  * KitDetailPage 컴포넌트
