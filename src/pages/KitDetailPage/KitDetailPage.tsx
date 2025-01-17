@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import StarRating from '@/pages/KitDetailPage/StarRating';
 //import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
 interface Kit {
   id: number;
   name: string;
@@ -13,17 +12,13 @@ interface Kit {
   detailImage: string;
 }
 
-interface KitDetailPageProps {
-  kit: Kit;
-}
-
 /**
  * KitDetailPage 컴포넌트
  * 특정 키트의 상세 정보를 렌더링하며, 이미지, 이름, 가격, 별점, 리뷰 수, 수량 선택기 및 구매 버튼을 포함합니다.
  */
-export default function KitDetailPage({ kit }: KitDetailPageProps) {
+export default function KitDetailPage({ kit }: { kit: Kit }) {
   //const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const handlePurchase = () => {
     //navigate('/payment');
@@ -40,8 +35,8 @@ export default function KitDetailPage({ kit }: KitDetailPageProps) {
   };
 
   return (
-    <div className="w-[60rem]">
-      <div className="flex mb-8">
+    <main className="w-[60rem]">
+      <section className="flex mb-8">
         {/*<img
             src={image}
             alt={name}
@@ -51,33 +46,34 @@ export default function KitDetailPage({ kit }: KitDetailPageProps) {
         {/* 대표 이미지 */}
         <div className="w-[30rem] h-[30rem] bg-gray-300"></div>
 
-        <div className="w-[30rem] h-[30rem] p-8 flex flex-col justify-between">
-          <div>
-            <h1 className="font-bold text-lg">{kit.name}</h1>
-            <p className="font-bold text-base text-red-700">
+        <section className="w-[30rem] h-[30rem] p-8 flex flex-col justify-between">
+          <header>
+            <h1 className="font-bold text-xl">{kit.name}</h1>
+
+            <div className="flex gap-2 items-center">
+              <span className="font-semibold text-xs">{kit.rating}</span>
+              <StarRating value={kit.rating} />
+              <a className="font-semibold text-xs hover:underline cursor-pointer">
+                {kit.reviews}개의 상품 리뷰
+              </a>
+            </div>
+            <p className="mt-4 font-bold text-xl text-red-700">
               {kit.price.toLocaleString()}원
             </p>
-            <div className="flex gap-2 items-center">
-              <span className="font-semibold text-sm">{kit.rating}</span>
-              <StarRating value={kit.rating} />
-              <span className="font-semibold text-sm hover:underline cursor-pointer">
-                {kit.reviews}개의 상품 리뷰
-              </span>
-            </div>
-          </div>
+          </header>
 
           <div className="flex justify-between mt-4">
             <div>
               <div className="flex items-center gap-4">
                 <Button
-                  className="px-4 py-2 bg-gray-200"
+                  className="bg-gray-700"
                   onClick={handleDecrease}
                   disabled={quantity === 1}>
                   -
                 </Button>
                 <span className="font-semibold text-lg">{quantity}</span>
                 <Button
-                  className="px-4 py-2 bg-gray-200"
+                  className="bg-gray-700"
                   onClick={handleIncrease}>
                   +
                 </Button>
@@ -94,11 +90,11 @@ export default function KitDetailPage({ kit }: KitDetailPageProps) {
               구매하기
             </Button>
           </div>
-        </div>
-      </div>
+        </section>
+      </section>
 
       {/* 상세 이미지 */}
-      <div className="w-full h-[1000px] bg-gray-300"></div>
-    </div>
+      <figure className="w-full h-[1000px] bg-gray-300"></figure>
+    </main>
   );
 }
