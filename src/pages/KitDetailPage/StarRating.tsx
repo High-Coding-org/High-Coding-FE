@@ -1,9 +1,6 @@
 import React from 'react';
 import { Star, StarHalf } from 'lucide-react';
-
-interface StarRatingProps {
-  value: number;
-}
+import { StarRatingProps } from '@/pages/KitDetailPage/type';
 
 /**
  * StarRating 컴포넌트
@@ -14,18 +11,27 @@ export default function StarRating({ value }: StarRatingProps) {
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= Math.round(value)) {
+      if (i <= Math.floor(value)) {
         stars.push(
           <Star
-            key={i}
-            className="w-5"
+            key={`star-full-${i}`}
+            className="w-4 text-black fill-black"
           />
         );
-      } else if (i - value >= 0.5) {
+      } else if (i - value <= 0.5) {
         stars.push(
-          <StarHalf
-            key={i}
-            className="w-5"
+          <div
+            key={`star-half-${i}`}
+            className="relative w-4 h-5">
+            <StarHalf className="w-4 text-black fill-black absolute left-0" />
+            <StarHalf className="w-4 text-gray-200 fill-gray-200 transform scale-x-[-1] " />
+          </div>
+        );
+      } else {
+        stars.push(
+          <Star
+            key={`star-empty-${i}`}
+            className="w-4 text-gray-200 fill-gray-200"
           />
         );
       }
