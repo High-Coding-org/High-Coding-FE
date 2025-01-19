@@ -30,28 +30,29 @@ export default function PurchaseHistory({
   purchaseItems,
 }: PurchaseHistoryPageProps) {
   return (
-    <div>
-      <div className="flex justify-between whitespace-nowrap">
-        <div className="mr-[5%] w-[75%]">
-          {purchaseItems.map(item => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center w-full bg-white shadow-md rounded-lg border border-gray-200 p-10 mb-4">
-              <div>
-                <p className="text-xs text-gray-500">{item.paymentTime}</p>
-                <h3 className="text-base font-semibold">{item.productName}</h3>
-                <p className="text-sm">{item.quantity}개</p>
-              </div>
-              <Button className=" bg-[#007AFD] hover:bg-[#0063CD]">
-                리뷰 쓰기
-              </Button>
+    <main className="flex justify-between whitespace-nowrap">
+      {/*구매 목록*/}
+      <section className="mr-[5%] w-[75%]">
+        {purchaseItems.map(item => (
+          <div
+            key={item.id}
+            className="flex justify-between items-center w-full bg-white shadow-md rounded-lg border border-gray-200 p-10 mb-4">
+            <div>
+              <p className="text-xs text-gray-500">{item.paymentTime}</p>
+              <h3 className="text-base font-semibold">{item.productName}</h3>
+              <p className="text-sm">{item.quantity}개</p>
             </div>
-          ))}
-        </div>
-        <div className="h-auto w-[12rem]">
-          <SideBar menuItems={menuItems} />
-        </div>
-      </div>
-    </div>
+            <Button className=" bg-[#007AFD] hover:bg-[#0063CD]">
+              리뷰 쓰기
+            </Button>
+          </div>
+        ))}
+      </section>
+
+      {/*사이드바*/}
+      <aside className="h-auto w-[12rem]">
+        <SideBar menuItems={menuItems} />
+      </aside>
+    </main>
   );
 }
