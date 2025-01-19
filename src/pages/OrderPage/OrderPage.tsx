@@ -70,7 +70,7 @@ export default function Order({
   return (
     <main>
       {/* 결제 정보 */}
-      <section className="fixed top-0 right-0 w-[25%] flex flex-col gap-4 z-0">
+      <section className="fixed top-0 right-0 w-[25%] flex flex-col gap-4 z-0 whitespace-nowrap">
         <Label className="font-bold pl-4">결제 정보</Label>
         <div className="flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow-md px-6 py-6">
           <div className="flex justify-between text-sm">
