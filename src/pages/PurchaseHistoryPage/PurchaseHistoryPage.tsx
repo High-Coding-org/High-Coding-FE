@@ -1,22 +1,6 @@
 import { Button } from '@/components/ui/button';
 import SideBar from '@/components/common/SideBar';
-
-interface PurchaseItems {
-  id: number;
-  productName: string;
-  quantity: number;
-  paymentTime: string;
-}
-
-interface MenuItem {
-  name: string;
-  url: string;
-}
-
-interface PurchaseHistoryPageProps {
-  menuItems: MenuItem[];
-  purchaseItems: PurchaseItems[];
-}
+import { PurchaseHistoryPageProps } from '@/pages/PurchaseHistoryPage/type';
 
 /**
  * PurchaseHistoryPage 컴포넌트
