@@ -22,14 +22,16 @@ export default function Order({
 }: OrderProps) {
   //상태 관리
   const [data, setData] = useState({ ...purchaseData });
-  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [isCouponModalOpen, setisCouponModalOpen] = useState(false);
-  const [selectedCoupon, setSelectedCoupon] = useState(null);
-  const [selectedAddress, setSelectedAddress] = useState(data.shippingAddress);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
+  const [selectedCoupon, setSelectedCoupon] = useState<string>('');
+  const [selectedAddress, setSelectedAddress] = useState<string>(
+    data.shippingAddress
+  );
 
   //모달 열기/닫기 함수
-  const openCouponModal = () => setisCouponModalOpen(true);
-  const closeCouponModal = () => setisCouponModalOpen(false);
+  const openCouponModal = () => setIsCouponModalOpen(true);
+  const closeCouponModal = () => setIsCouponModalOpen(false);
   const openAddressModal = () => setIsAddressModalOpen(true);
   const closeAddressModal = () => setIsAddressModalOpen(false);
 
@@ -39,7 +41,7 @@ export default function Order({
       ...prevData,
       discount: discountValue,
     }));
-    setisCouponModalOpen(false);
+    setIsCouponModalOpen(false);
   };
 
   //쿠폰 선택 처리 함수
@@ -61,7 +63,7 @@ export default function Order({
       ...prevData,
       shippingAddress: address,
     }));
-    setIsAddressModalOpen(false); // 배송지 모달 닫기
+    setIsAddressModalOpen(false);
   };
 
   // 결제 금액 계산
