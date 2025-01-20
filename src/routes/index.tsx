@@ -13,65 +13,72 @@ import {
   ProfilePage,
   PurchasePage,
 } from '@/pages';
+import { Layout } from '@/pages/Layout/Layout';
 
 import { PATH } from './path';
+import PrivateRoute from './PrivateRoute';
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route
-        index
-        element={<HomePage />}
-      />
-      <Route
-        path={PATH.SIGN}
-        element={<LoginPage />}
-      />
-
-      <Route path={PATH.PROFILE}>
+      <Route element={<Layout showHeader={true} />}>
         <Route
           index
-          element={<ProfilePage />}
+          element={<HomePage />}
         />
-        <Route
-          path={PATH.PROFILE_MY_ORDER}
-          element={<OrderList />}
-        />
+
+        <Route path={PATH.PROFILE}>
+          <Route
+            index
+            element={<PrivateRoute page={<ProfilePage />} />}
+          />
+          <Route
+            path={PATH.PROFILE_MY_ORDER}
+            element={<OrderList />}
+          />
+        </Route>
+
+        <Route path={PATH.PRODUCT}>
+          <Route
+            index
+            element={<ProductPage />}
+          />
+          <Route
+            path={PATH.PRODUCT_PURCHASE}
+            element={<PurchasePage />}
+          />
+        </Route>
+
+        <Route path={PATH.PLANT}>
+          <Route
+            index
+            element={<MyPlantPage />}
+          />
+          <Route
+            path={PATH.PLANT_RECOMMEND}
+            element={<PlantRecommend />}
+          />
+          <Route
+            path={PATH.PLANT_REGISTER}
+            element={<PlantRegister />}
+          />
+          <Route
+            path={PATH.PLANT_DETAIL}
+            element={<PlantDetail />}
+          />
+        </Route>
       </Route>
 
-      <Route path={PATH.PRODUCT}>
+      <Route element={<Layout showHeader={false} />}>
         <Route
-          index
-          element={<ProductPage />}
+          path={PATH.SIGN}
+          element={<LoginPage />}
         />
         <Route
-          path={PATH.PRODUCT_PURCHASE}
-          element={<PurchasePage />}
-        />
-      </Route>
-
-      <Route path={PATH.PLANT}>
-        <Route
-          index
-          element={<MyPlantPage />}
-        />
-        <Route
-          path={PATH.PLANT_RECOMMEND}
-          element={<PlantRecommend />}
-        />
-        <Route
-          path={PATH.PLANT_REGISTER}
-          element={<PlantRegister />}
-        />
-        <Route
-          path={PATH.PLANT_DETAIL}
-          element={<PlantDetail />}
+          path={PATH.NOT_FOUND}
+          element={<NotFoundPage />}
         />
       </Route>
-      <Route
-        path={PATH.NOT_FOUND}
-        element={<NotFoundPage />}
-      />
     </Routes>
   );
 }
