@@ -1,6 +1,7 @@
 import { IPath } from '@/types/path';
 
 export const PATH: IPath = {
+  // Login & Signup
   SIGN: '/sign',
 
   // Profile
