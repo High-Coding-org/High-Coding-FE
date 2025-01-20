@@ -3,6 +3,10 @@ export default {
   darkMode: ['class'],
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
+    screens: {
+      sm: { max: '640px' },
+      md: '1140px',
+    },
     extend: {
       borderRadius: {
         lg: 'var(--radius)',
