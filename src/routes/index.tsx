@@ -34,7 +34,7 @@ export function AppRoutes() {
           />
           <Route
             path={PATH.PROFILE_MY_ORDER}
-            element={<OrderList />}
+            element={<PrivateRoute page={<OrderList />} />}
           />
         </Route>
 
@@ -45,26 +45,26 @@ export function AppRoutes() {
           />
           <Route
             path={PATH.PRODUCT_PURCHASE}
-            element={<PurchasePage />}
+            element={<PrivateRoute page={<PurchasePage />} />}
           />
         </Route>
 
         <Route path={PATH.PLANT}>
           <Route
             index
-            element={<MyPlantPage />}
+            element={<PrivateRoute page={<MyPlantPage />} />}
           />
           <Route
             path={PATH.PLANT_RECOMMEND}
-            element={<PlantRecommend />}
+            element={<PrivateRoute page={<PlantRecommend />} />}
           />
           <Route
             path={PATH.PLANT_REGISTER}
-            element={<PlantRegister />}
+            element={<PrivateRoute page={<PlantRegister />} />}
           />
           <Route
             path={PATH.PLANT_DETAIL}
-            element={<PlantDetail />}
+            element={<PrivateRoute page={<PlantDetail />} />}
           />
         </Route>
       </Route>
