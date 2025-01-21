@@ -8,6 +8,9 @@ export default {
       md: '1140px',
     },
     extend: {
+      zIndex: {
+        header: '50',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
