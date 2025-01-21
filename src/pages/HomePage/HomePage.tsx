@@ -36,13 +36,13 @@ export default function HomePage() {
   };
 
   return (
-    <main className="absolute flex flex-col items-center w-full">
+    <main className="flex flex-col items-center w-full">
       <section className="w-full">
         <div className="relative h-screen ">
           <img
             src={'src/assets/HomeBackground/HomeBackground.png'}
             alt="HomeBackground"
-            className="absolute object-cover w-full h-full opacity-50 mt-[80px]"
+            className="absolute object-cover w-full h-full opacity-50"
           />
           <div className="absolute -translate-x-1/2 left-1/2 top-[24%]">
             {title.map((text, index) => (
