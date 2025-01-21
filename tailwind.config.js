@@ -8,6 +8,9 @@ export default {
       md: '1140px',
     },
     extend: {
+      width: {
+        pageWidth: '1140px',
+      },
       zIndex: {
         header: '50',
       },
