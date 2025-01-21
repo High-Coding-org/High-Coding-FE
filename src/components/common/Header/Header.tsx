@@ -1,12 +1,15 @@
-import { MoonStar, CircleUserRound, CircleHelp, Menu, X } from 'lucide-react';
-import logo from '@/assets/logo.svg';
-import { MENU_ITEMS, ADDITIONAL_MENU_ITEMS } from '@/constants/header';
+import { CircleHelp, CircleUserRound, Menu, MoonStar, X } from 'lucide-react';
 import { useState } from 'react';
+
+import { ADDITIONAL_MENU_ITEMS, MENU_ITEMS } from '@/constants/header';
+
+import Logo from '../Logo/Logo';
 
 /**
  * Header 컴포넌트.
  * 상단 네비게이션 바를 렌더링하며, 로고와 텍스트 메뉴(키트 구매, 내 키트, 키트 영상, 프로모션, 로그인), 아이콘(다크모드, 고객 관리, 마이페이지)을 포함합니다.
  */
+
 export default function Header() {
   const icons = [MoonStar, CircleHelp, CircleUserRound];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,19 +19,15 @@ export default function Header() {
   };
 
   return (
-    <header className="flex justify-between items-center  w-auto h-[3.75rem] whitespace-nowrap px-5 md:px-[10rem]">
+    <header className="flex justify-between items-center w-pageWidth h-[3.75rem] whitespace-nowrap px-5 sticky top-0 z-header">
       <div className="flex">
-        <img
-          src={logo}
-          alt="Logo"
-          className="w-[8.125rem] h-[3.75rem] cursor-pointer"
-        />
+        <Logo style="w-[8.125rem] h-[3.75rem]" />
 
         <nav className="flex items-center h-[3.75rem] ">
           {MENU_ITEMS.map((item, index) => (
             <span
               key={index}
-              className="hidden md:block text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded">
+              className="hidden px-4 py-2 text-sm font-bold rounded cursor-pointer md:block hover:bg-gray-100">
               {item}
             </span>
           ))}
@@ -57,18 +56,18 @@ export default function Header() {
 
       <div
         className={`absolute top-[3.75rem] left-0 w-full h-full bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
-        <nav className="flex flex-col mx-4 items-start p-4 space-y-2 transform">
+        <nav className="flex flex-col items-start p-4 mx-4 space-y-2 transform">
           {MENU_ITEMS.map((item, index) => (
             <span
               key={index}
-              className="text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded w-full text-left">
+              className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
               {item}
             </span>
           ))}
           {ADDITIONAL_MENU_ITEMS.map((item, index) => (
             <span
               key={index}
-              className="text-sm font-bold cursor-pointer hover:bg-gray-100 px-4 py-2 rounded w-full text-left">
+              className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
               {item}
             </span>
           ))}
