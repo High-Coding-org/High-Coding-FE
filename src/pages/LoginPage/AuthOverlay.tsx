@@ -1,3 +1,4 @@
+import Logo from '@/components/common/Logo/Logo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { OverlayProps } from '@/types/auth';
@@ -18,11 +19,7 @@ const OverlayContent = ({
       'absolute flex flex-col items-center justify-center w-1/2 h-full px-10 text-center transition-transform ',
       isSignIn ? ' left-0 ' : 'right-0 '
     )}>
-    <img
-      src={'src/assets/logo.svg'}
-      alt="logo"
-      className="w-[280px] h-[280px] top-8 mb-40 "
-    />
+    <Logo style="w-[280px] h-[280px] top-8 mb-40" />
     <Button
       variant="outline"
       onClick={() => onToggle(!isSignIn)}
