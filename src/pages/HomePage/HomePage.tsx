@@ -93,7 +93,7 @@ export default function HomePage() {
           data-aos-anchor-placement="bottom-bottom"
           className="my-8 md:absolute md:top-1/4 md:right-9 w-[480px] h-[540px] border-2 rounded-md"
         />
-        <p
+        <span
           data-aos="fade-up"
           className="text-xl md:absolute md:bottom-[160px] md:left-9">
           {function1SubText.map((text, index) => (
@@ -104,7 +104,7 @@ export default function HomePage() {
               className={function1SubClass}
             />
           ))}
-        </p>
+        </span>
       </section>
 
       <section className="w-full bg-[#F9FAFB] flex justify-center">
@@ -128,16 +128,16 @@ export default function HomePage() {
                 key={`Fnc2 describe-${index}`}
                 data-aos="fade-up">
                 <Droplet className="w-20 h-20 text-blue-500" />
-                <p className="my-4 text-2xl font-semibold text-gray-700">
+                <span className="my-4 text-2xl font-semibold text-gray-700">
                   {obj.title}
-                </p>
-                <p className="text-base font-semibold text-gray-500">
+                </span>
+                <span className="text-base font-semibold text-gray-500">
                   <ResponsiveText
                     text={obj.subTitle}
                     breakPoint="|"
                     className={function2SubTextClass}
                   />
-                </p>
+                </span>
               </div>
             ))}
           </div>
