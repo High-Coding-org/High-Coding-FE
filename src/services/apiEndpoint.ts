@@ -3,4 +3,7 @@ export const API_ENDPOINT = {
     SIGNIN: '/signin',
     SIGNUP: '/signup',
   },
+  PRODUCT: {
+    KIT: '/items',
+  },
 };

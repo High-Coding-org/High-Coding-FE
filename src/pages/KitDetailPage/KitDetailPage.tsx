@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { Button } from '@/components/ui/button';
-import StarRating from '@/pages/KitDetailPage/StarRating';
-import { Kit } from '@/pages/KitDetailPage/type';
+import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
+
+import StarRating from './StarRating';
+import { useKit } from './useKit';
 
 /**
  * KitDetailPage 컴포넌트
@@ -12,31 +14,38 @@ import { PATH } from '@/routes/path';
  */
 
 export default function KitDetailPage() {
-  const kit: Kit = {
-    id: 1,
-    name: '스마트팜 키트',
-    price: 20000,
-    rating: 10,
-    reviews: 128,
-    mainImage: '@/assets/kit.jpeg',
-    detailImage: '@/assets/kit_detail.jpeg',
-  };
+  const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
 
   const handlePurchase = () => {
     navigate(PATH.PRODUCT_PURCHASE);
   };
+
   const handleIncrease = () => {
     setQuantity(prev => prev + 1);
   };
+
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity(prev => prev - 1);
     }
   };
 
-  return (
+  const { isLoading, data } = useKit();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    setKit(data[0]);
+  }, [isLoading, data]);
+
+  // ! 별점이 없음
+  // ! 리뷰도 없음
+
+  return isLoading ? (
+    <div>로딩중...</div>
+  ) : (
     <main className="w-kitDetailPage_pageWidth">
       <section className="flex w-full mb-8 h-kitDetailPage_productSectionHeight">
         {/* 대표 이미지 */}
@@ -49,19 +58,17 @@ export default function KitDetailPage() {
 
         <div className="flex flex-col justify-between flex-1 p-8 border-2 border-blue-500 ">
           <header>
-            <h1 className="text-xl font-bold">{kit.name}</h1>
+            <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-gray-700">
-                {kit.rating}
-              </span>
-              <StarRating value={kit.rating} />
+              <span className="text-xs font-semibold text-gray-700">4.5</span>
+              <StarRating value={4.5} />
               <a className="text-xs font-semibold cursor-pointer text-primary hover:underline">
-                {kit.reviews}개의 상품 리뷰
+                128개의 상품 리뷰
               </a>
             </div>
             <p className="flex mt-4 text-xl font-bold text-center text-red-700">
-              {kit.price.toLocaleString() + ' '}원
+              {kit?.price.toLocaleString() + ' '}원
             </p>
           </header>
 
@@ -83,7 +90,7 @@ export default function KitDetailPage() {
               </div>
               <div className="mt-2">
                 <span className="text-sm text-gray-500">
-                  총 금액: {(kit.price * quantity).toLocaleString()}원
+                  총 금액: {(kit?.price * quantity).toLocaleString()}원
                 </span>
               </div>
             </div>
