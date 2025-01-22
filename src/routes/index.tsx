@@ -9,10 +9,10 @@ import {
   PlantDetail,
   PlantRecommend,
   PlantRegister,
-  ProductPage,
   ProfilePage,
   PurchasePage,
 } from '@/pages';
+import KitDetailPage from '@/pages/KitDetailPage/KitDetailPage';
 import { Layout } from '@/pages/Layout/Layout';
 
 import { PATH } from './path';
@@ -41,7 +41,7 @@ export function AppRoutes() {
         <Route path={PATH.PRODUCT}>
           <Route
             index
-            element={<ProductPage />}
+            element={<KitDetailPage />}
           />
           <Route
             path={PATH.PRODUCT_PURCHASE}
