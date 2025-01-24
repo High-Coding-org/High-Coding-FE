@@ -4,6 +4,6 @@ export const API_ENDPOINT = {
     SIGNUP: '/signup',
   },
   PRODUCT: {
-    KIT: '/items/:id',
+    KIT: '/items',
   },
 };
