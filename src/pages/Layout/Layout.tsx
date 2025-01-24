@@ -9,7 +9,7 @@ interface LayoutProps {
 export function Layout({ showHeader }: LayoutProps) {
   return (
     <div
-      className={`relative flex flex-col items-center w-screen max-w-full h-full ${
+      className={`relative flex flex-col items-center w-screen max-w-full min-h-screen ${
         !showHeader && 'justify-center'
       }`}>
       {showHeader && <Header />}
