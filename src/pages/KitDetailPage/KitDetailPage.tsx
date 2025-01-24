@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Button } from 'react-day-picker';
 import { useNavigate } from 'react-router';
 
-import { Button } from '@/components/ui/button';
+import Spinner from '@/components/common/Spinner/Spinner';
+import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
 
+import NoKitData from './NoKitData';
 import StarRating from './StarRating';
 import { useKit } from './useKit';
 
@@ -14,6 +17,7 @@ import { useKit } from './useKit';
  */
 
 export default function KitDetailPage() {
+  const { isLoading, data } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
@@ -32,28 +36,18 @@ export default function KitDetailPage() {
     }
   };
 
-  const { isLoading, data } = useKit();
-
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || !data) return;
 
-    setKit(data[0]);
+    setKit(data);
   }, [isLoading, data]);
 
-  // ! 별점이 없음
-  // ! 리뷰도 없음
+  if (isLoading) return <Spinner />;
+  if (!kit) return <NoKitData />;
 
-  return isLoading ? (
-    <div>로딩중...</div>
-  ) : (
+  return (
     <main className="w-kitDetailPage_pageWidth">
       <section className="flex w-full mb-8 h-kitDetailPage_productSectionHeight">
-        {/* 대표 이미지 */}
-        {/*<img
-            src={image}
-            alt={name}
-            className="w-[30rem] h-auto mb-4"
-          />*/}
         <div className="flex-1 bg-gray-300 border-2 border-red-500"></div>
 
         <div className="flex flex-col justify-between flex-1 p-8 border-2 border-blue-500 ">
@@ -61,9 +55,9 @@ export default function KitDetailPage() {
             <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-gray-700">4.5</span>
+              <span className="text-xs font-bold text-gray-700">4.5</span>
               <StarRating value={4.5} />
-              <a className="text-xs font-semibold cursor-pointer text-primary hover:underline">
+              <a className="text-xs font-bold cursor-pointer text-primary hover:underline">
                 128개의 상품 리뷰
               </a>
             </div>
@@ -81,7 +75,7 @@ export default function KitDetailPage() {
                   disabled={quantity === 1}>
                   -
                 </Button>
-                <span className="text-lg font-semibold">{quantity}</span>
+                <span className="text-lg font-bold">{quantity}</span>
                 <Button
                   className="bg-gray-700"
                   onClick={handleIncrease}>
