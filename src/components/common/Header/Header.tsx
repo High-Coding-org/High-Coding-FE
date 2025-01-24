@@ -16,7 +16,11 @@ export default function Header() {
   const [isScroll, setIsScroll] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(prevState => {
+      const newState = !prevState;
+      document.body.style.overflow = newState ? 'hidden' : 'auto';
+      return newState;
+    });
   };
 
   useEffect(() => {
@@ -71,7 +75,7 @@ export default function Header() {
         </div>
 
         <div
-          className={`absolute top-[3.75rem] left-0 w-full h-full bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
+          className={`absolute top-[3.75rem] left-0 w-full h-screen bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
           <nav className="flex flex-col items-start p-4 mx-4 space-y-2 transform">
             {MENU_ITEMS.map((item, index) => (
               <span

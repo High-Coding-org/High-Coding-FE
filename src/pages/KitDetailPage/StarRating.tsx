@@ -20,14 +20,31 @@ export default function StarRating({ value }: StarRatingProps) {
             className="w-4 text-black fill-black"
           />
         );
-      } else if (i - value <= 0.5) {
+      } else if (i - value < 1) {
+        const percentage = (value - Math.floor(value)) * 100;
         stars.push(
-          <div
-            key={`star-half-${i}`}
-            className="relative w-4 h-5">
-            <StarHalf className="absolute left-0 w-4 text-black fill-black" />
-            <StarHalf className="w-4 text-gray-200 fill-gray-200 transform scale-x-[-1] " />
-          </div>
+          <Star
+            key={`star-partial-${i}`}
+            className="w-4"
+            style={{
+              fill: `url(#grad-${i})`,
+              stroke: `url(#grad-${i})`,
+            }}>
+            <svg>
+              <defs>
+                <linearGradient id={`grad-${i}`}>
+                  <stop
+                    offset={`${percentage}%`}
+                    style={{ stopColor: 'black' }}
+                  />
+                  <stop
+                    offset={`${percentage}%`}
+                    style={{ stopColor: '#e5e7eb' }}
+                  />
+                </linearGradient>
+              </defs>
+            </svg>
+          </Star>
         );
       } else {
         stars.push(
