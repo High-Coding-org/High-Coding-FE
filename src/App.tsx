@@ -1,13 +1,21 @@
-import { BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@/routes';
 
+import { useGlobalErrorStore } from './store/globalErrorStore';
+
 function App() {
-  return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  );
+  const { globalError } = useGlobalErrorStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (globalError) {
+      navigate('/');
+    }
+  }, [globalError, navigate]);
+
+  return <AppRoutes />;
 }
 
 export default App;

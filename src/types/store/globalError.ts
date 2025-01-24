@@ -1,6 +1,8 @@
 export interface GlobalErrorProps {
   globalError: boolean;
+  globalErrorMsg: string;
 
   globalErrorOccur: () => void;
-  closeGlobalError: () => void;
+  clearGlobalError: () => void;
+  setGlobalErrorMsg: (msg: string) => void;
 }
