@@ -6,6 +6,7 @@ import Spinner from '@/components/common/Spinner/Spinner';
 import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
+import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
@@ -17,7 +18,7 @@ import { useKit } from './useKit';
  */
 
 export default function KitDetailPage() {
-  const { isLoading, data } = useKit(KIT_ID);
+  const { isLoading, data, error } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
@@ -42,6 +43,11 @@ export default function KitDetailPage() {
     setKit(data);
   }, [isLoading, data]);
 
+  if (error) {
+    // alert('정보를 불러오는데 실패했습니다.');
+    useGlobalErrorStore.getState().globalErrorOccur();
+    navigate('/');
+  }
   if (isLoading) return <Spinner />;
   if (!kit) return <NoKitData />;
 
