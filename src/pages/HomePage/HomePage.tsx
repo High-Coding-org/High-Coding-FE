@@ -6,7 +6,7 @@ import { ChevronDown, Droplet } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-import { useGlobalErrorStore } from '@/store/globalErrorStore';
+import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 
 import ResponsiveText from './components/ResponsiveText';
 import {
@@ -25,7 +25,8 @@ import {
 } from './constants';
 
 export default function HomePage() {
-  const { globalError } = useGlobalErrorStore();
+  const { kitDetailErrorMsg, kitDetailError, clearKitDetailError } =
+    useKitDetailErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,11 +37,11 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (globalError) {
-      toast.error('정보를 불러오는데 실패했습니다.');
-      useGlobalErrorStore.getState().clearGlobalError();
+    if (kitDetailError) {
+      toast.error(kitDetailErrorMsg);
+      clearKitDetailError();
     }
-  }, [globalError]);
+  }, []);
 
   const handleScrollToSubTitle = () => {
     subTitleRef.current?.scrollIntoView({ behavior: 'smooth' });

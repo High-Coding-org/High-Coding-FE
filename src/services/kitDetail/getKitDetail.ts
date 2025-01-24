@@ -11,7 +11,6 @@ export const getKitDetail = async (id: number) => {
 
     return res.data || null;
   } catch (error) {
-    // useGlobalErrorStore.getState().globalErrorOccur();
     throw new Error(`Error : ${error}`);
   }
 };
