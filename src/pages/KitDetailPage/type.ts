@@ -1,5 +1,3 @@
-export type EntireKitProps = IKit[];
-
 export interface IKit {
   id: number;
   category: ICategory;
