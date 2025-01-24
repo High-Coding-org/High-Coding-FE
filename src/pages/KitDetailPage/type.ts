@@ -1,11 +1,20 @@
-export interface Kit {
+export interface IKit {
+  id: number;
+  category: ICategory;
+  productName: string;
+  status: string;
+  stock: number;
+  price: number;
+  intro: string;
+  content: string;
+  createDate: string;
+  updateDate: string;
+  likes: number;
+}
+
+export interface ICategory {
   id: number;
   name: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  mainImage: string;
-  detailImage: string;
 }
 
 export interface StarRatingProps {

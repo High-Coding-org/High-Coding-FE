@@ -4,6 +4,9 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { ChevronDown, Droplet } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
+
+import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 
 import ResponsiveText from './components/ResponsiveText';
 import {
@@ -22,6 +25,8 @@ import {
 } from './constants';
 
 export default function HomePage() {
+  const { kitDetailErrorMsg, kitDetailError, clearKitDetailError } =
+    useKitDetailErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,6 +34,13 @@ export default function HomePage() {
       once: true,
       duration: 1500,
     });
+  }, []);
+
+  useEffect(() => {
+    if (kitDetailError) {
+      toast.error(kitDetailErrorMsg);
+      clearKitDetailError();
+    }
   }, []);
 
   const handleScrollToSubTitle = () => {

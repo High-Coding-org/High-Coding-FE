@@ -10,6 +10,10 @@ export default {
     extend: {
       width: {
         pageWidth: '1140px',
+        kitDetailPage_pageWidth: '960px',
+      },
+      height: {
+        kitDetailPage_productSectionHeight: '28rem',
       },
       zIndex: {
         header: '50',
@@ -31,7 +35,7 @@ export default {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
+          DEFAULT: '#007AFD',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
