@@ -6,6 +6,6 @@ export { default as PlantDetail } from './MyPlantPage/PlantDetail/PlantDetail';
 export { default as PlantRecommend } from './MyPlantPage/PlantRecommend/PlantRecommend';
 export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegister';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
-export { default as ProfilePage } from './ProfilePage/MyPage';
+export { default as ProfilePage } from './ProfilePage/ProfilePage';
 export { default as OrderList } from './ProfilePage/OrderList/OrderList';
 export { default as PurchasePage } from './PurchasePage/PurchasePage';
