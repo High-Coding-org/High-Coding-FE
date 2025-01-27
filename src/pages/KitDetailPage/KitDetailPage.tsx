@@ -40,24 +40,26 @@ export default function KitDetailPage() {
 
   useEffect(() => {
     if (isLoading || !data) return;
-
     setKit(data);
   }, [isLoading, data]);
 
-  if (isLoading) return <Spinner />;
-  if (error) {
-    kitDetailErrorOccur();
+  useEffect(() => {
+    if (error) {
+      kitDetailErrorOccur();
 
-    switch (error.message) {
-      case '404':
-        setErrorMsg('네트워크 오류가 발생했습니다.');
-        break;
-      default:
-        setErrorMsg('정보를 불러오는데 실패했습니다.');
+      switch (error.message) {
+        case '404':
+          setErrorMsg('네트워크 오류가 발생했습니다.');
+          break;
+        default:
+          setErrorMsg('정보를 불러오는데 실패했습니다.');
+      }
+
+      navigate('/');
     }
+  }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
-    navigate('/');
-  }
+  if (isLoading) return <Spinner />;
   if (!kit) return <NoKitData />;
 
   return (
