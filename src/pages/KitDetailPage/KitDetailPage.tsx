@@ -50,7 +50,7 @@ export default function KitDetailPage() {
 
     switch (error.message) {
       case '404':
-        setErrorMsg('정보를 불러오는데 실패했습니다.');
+        setErrorMsg('네트워크 오류가 발생했습니다.');
         break;
       default:
         setErrorMsg('정보를 불러오는데 실패했습니다.');
@@ -63,9 +63,9 @@ export default function KitDetailPage() {
   return (
     <main className="w-kitDetailPage_pageWidth">
       <section className="flex w-full mb-8 h-kitDetailPage_productSectionHeight">
-        <div className="flex-1 bg-gray-300 border-2 border-red-500"></div>
+        <div className="flex-1 bg-gray-300"></div>
 
-        <div className="flex flex-col justify-between flex-1 p-8 border-2 border-blue-500 ">
+        <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
             <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
