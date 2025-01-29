@@ -1,6 +1,6 @@
 import { Plus, X } from 'lucide-react';
-import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { DELIVERY_NOTES } from '@/constants/deliveryNotes';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
+import { PATH } from '@/routes/path';
 
 export default function Order() {
   const purchaseData = {
@@ -38,10 +39,16 @@ export default function Order() {
     '서울특별시 강남구 테헤란로 123',
     '부산광역시 해운대구 해운대로 456',
   ];
-  // location.state를 LocationState 타입으로 타입 단언
+
+  // 페이지가 로드될 때 location.state 값이 없다면, home으로 redirect
   const location = useLocation();
   const { kitId, productName, quantity, price } = location.state;
-  console.log(kitId, productName, quantity, price);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location && !location.state) {
+      navigate(PATH.HOME);
+    }
+  }, [location, location.state, navigate]);
 
   //상태 관리
   const [data, setData] = useState({ ...purchaseData });
