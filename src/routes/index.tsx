@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import {
   HomePage,
+  KitOrderPage,
   LoginPage,
   MyPlantPage,
   NotFoundPage,
@@ -10,7 +11,6 @@ import {
   PlantRecommend,
   PlantRegister,
   ProfilePage,
-  PurchasePage,
 } from '@/pages';
 import KitDetailPage from '@/pages/KitDetailPage/KitDetailPage';
 import { Layout } from '@/pages/Layout/Layout';
@@ -44,8 +44,8 @@ export function AppRoutes() {
             element={<KitDetailPage />}
           />
           <Route
-            path={PATH.PRODUCT_PURCHASE}
-            element={<PrivateRoute page={<PurchasePage />} />}
+            path={PATH.PRODUCT_ORDER}
+            element={<PrivateRoute page={<KitOrderPage />} />}
           />
         </Route>
 

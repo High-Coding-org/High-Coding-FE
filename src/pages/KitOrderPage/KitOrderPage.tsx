@@ -14,19 +14,34 @@ import {
 } from '@/components/ui/select';
 import { DELIVERY_NOTES } from '@/constants/deliveryNotes';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
-import { OrderProps } from '@/pages/OrderPage/type';
 
-export default function Order({
-  purchaseData,
-  orderItems,
-  coupons,
-  addresses,
-}: OrderProps) {
+export default function Order() {
+  const purchaseData = {
+    name: '김가연',
+    phoneNumber: '01023811425',
+    shippingAddress: '경상북도 상주시 경상대로 2559',
+    discount: 0,
+    shippingFee: 3000,
+  };
+  const orderItems = {
+    productName: '스마트팜',
+    price: 200000,
+    quantity: 2,
+  };
+  const coupons = [
+    { name: '10% 할인 쿠폰', discountPercent: 10, discount: 20000 },
+    { name: '배송비 무료 쿠폰', discountPercent: 20, discount: 3000 },
+    { name: '5,000원 할인 쿠폰', discountPercent: 30, discount: 5000 },
+  ];
+  const addresses = [
+    '경상북도 상주시 경상대로 2559',
+    '서울특별시 강남구 테헤란로 123',
+    '부산광역시 해운대구 해운대로 456',
+  ];
+  // location.state를 LocationState 타입으로 타입 단언
   const location = useLocation();
   const { kitId, productName, quantity, price } = location.state;
-  console.log(quantity);
-
-  // location.state를 LocationState 타입으로 타입 단언
+  console.log(kitId, productName, quantity, price);
 
   //상태 관리
   const [data, setData] = useState({ ...purchaseData });
