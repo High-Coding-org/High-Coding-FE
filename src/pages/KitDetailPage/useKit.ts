@@ -7,6 +7,7 @@ export const useKit = (id: number) => {
     queryKey: ['kitData', id],
     queryFn: () => getKitDetail(id),
     retry: false,
+    staleTime: 1000 * 60 * 5,
   });
 
   return { isLoading, data, error };

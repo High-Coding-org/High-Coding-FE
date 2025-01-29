@@ -1,4 +1,8 @@
+import { Plus, X } from 'lucide-react';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
+
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
@@ -8,8 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { X, Plus } from 'lucide-react';
 import { DELIVERY_NOTES } from '@/constants/deliveryNotes';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
 import { OrderProps } from '@/pages/OrderPage/type';
@@ -20,6 +22,12 @@ export default function Order({
   coupons,
   addresses,
 }: OrderProps) {
+  const location = useLocation();
+  const { kitId, productName, quantity, price } = location.state;
+  console.log(quantity);
+
+  // location.state를 LocationState 타입으로 타입 단언
+
   //상태 관리
   const [data, setData] = useState({ ...purchaseData });
   const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
@@ -73,8 +81,8 @@ export default function Order({
     <main>
       {/* 결제 정보 */}
       <section className="fixed top-0 right-0 w-[25%] flex flex-col gap-4 z-0 whitespace-nowrap">
-        <Label className="font-bold pl-4">결제 정보</Label>
-        <div className="flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow-md px-6 py-6">
+        <Label className="pl-4 font-bold">결제 정보</Label>
+        <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
           <div className="flex justify-between text-sm">
             <span>상품금액</span>
             <span>{totalProductPrice.toLocaleString()}원</span>
@@ -98,17 +106,17 @@ export default function Order({
 
       <section className="w-[70%] whitespace-nowrap">
         {/* 배송지 */}
-        <section className="mb-6 flex flex-col gap-4">
-          <Label className="font-bold pl-4">배송지</Label>
-          <div className="flex flex-col gap-2 bg-white border border-gray-200 rounded-lg shadow-md px-6 py-6">
-            <div className="flex justify-between items-center h-10">
+        <section className="flex flex-col gap-4 mb-6">
+          <Label className="pl-4 font-bold">배송지</Label>
+          <div className="flex flex-col gap-2 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
+            <div className="flex items-center justify-between h-10">
               <div>
-                <div className="font-bold mb-1">{data.name}</div>
+                <div className="mb-1 font-bold">{data.name}</div>
                 <div className="text-xs text-gray-500">{data.phoneNumber}</div>
               </div>
               <Button
                 onClick={openAddressModal}
-                className=" bg-white cursor-pointer text-black border border-gray-200 hover:bg-white">
+                className="text-black bg-white border border-gray-200 cursor-pointer hover:bg-white">
                 배송지 변경
               </Button>
             </div>
@@ -132,11 +140,11 @@ export default function Order({
         </section>
 
         {/* 주문상품 */}
-        <section className="mb-6 flex flex-col gap-4">
-          <Label className="font-bold pl-4">주문상품</Label>
+        <section className="flex flex-col gap-4 mb-6">
+          <Label className="pl-4 font-bold">주문상품</Label>
 
           <div>
-            <div className="bg-white shadow-md rounded-lg border border-gray-200 px-6 py-6 mb-4">
+            <div className="px-6 py-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-md">
               <p className="text-xs text-gray-500">{orderItems.price}원</p>
               <h3 className="text-base font-bold">{orderItems.productName}</h3>
               <p className="text-sm">{orderItems.quantity}개</p>
@@ -145,29 +153,29 @@ export default function Order({
         </section>
 
         {/* 할인 */}
-        <section className="mb-6 flex flex-col gap-4 font-bold">
+        <section className="flex flex-col gap-4 mb-6 font-bold">
           <div>
-            <div className="flex justify-between items-center py-4 px-6 border-l border-t border-r rounded-t-lg">
+            <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
               <div>
                 할인/쿠폰
                 <Button
-                  className="ml-5 bg-white text-black border-gray-200 border hover:bg-white"
+                  className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
                   onClick={openCouponModal}>
                   변경
                 </Button>
               </div>
               -{data.discount.toLocaleString()}원
             </div>
-            <div className="flex justify-between bg-blue-100  border-b border-l border-r border-gray-200  py-6 px-6 rounded-b-lg">
+            <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
               <span>총 주문 금액:</span> {totalPayment.toLocaleString()}원
             </div>
           </div>
         </section>
 
         {/* 결제수단 */}
-        <section className="mb-6 flex flex-col gap-4">
-          <Label className="font-bold pl-4">결제수단</Label>
-          <div className="bg-white border border-gray-200 rounded-lg shadow-md px-6 py-6">
+        <section className="flex flex-col gap-4 mb-6">
+          <Label className="pl-4 font-bold">결제수단</Label>
+          <div className="px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
             <RadioGroup defaultValue="option-one">
               {PAYMENT_METHODS.map((method, index) => (
                 <div key={method.id}>
@@ -193,10 +201,10 @@ export default function Order({
 
         {/* 쿠폰 리스트 모달 */}
         {isCouponModalOpen && (
-          <section className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="flex justify-between items center mb-4">
-                <h2 className="text-lg font-bold mb-4">쿠폰 사용</h2>
+          <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="p-6 bg-white rounded-lg shadow-lg">
+              <div className="flex justify-between mb-4 items center">
+                <h2 className="mb-4 text-lg font-bold">쿠폰 사용</h2>
                 <X
                   onClick={closeCouponModal}
                   className="cursor-pointer hover:text-gray-500"
@@ -208,7 +216,7 @@ export default function Order({
                     <li
                       key={index}
                       onClick={() => handleRadioGroupItemClick(coupon.name)}
-                      className="mb-2 border border-gray-200 rounded-lg w-64 p-4 cursor-pointer">
+                      className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer">
                       <div className="flex items-center gap-2">
                         <RadioGroupItem
                           key={index}
@@ -228,10 +236,10 @@ export default function Order({
         )}
         {/* 배송지 변경 모달 */}
         {isAddressModalOpen && (
-          <section className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="flex justify-between item-center mb-4">
-                <h2 className="text-lg font-bold mb-4">배송지 변경</h2>
+          <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="p-6 bg-white rounded-lg shadow-lg">
+              <div className="flex justify-between mb-4 item-center">
+                <h2 className="mb-4 text-lg font-bold">배송지 변경</h2>
                 <X
                   onClick={closeAddressModal}
                   className="cursor-pointer hover:text-gray-500"
@@ -239,7 +247,7 @@ export default function Order({
               </div>
               <div>
                 <div>
-                  <div className="flex item-center cursor-pointer gap-2 mb-2 p-4 font-bold border border-gray-200 rounded-lg">
+                  <div className="flex gap-2 p-4 mb-2 font-bold border border-gray-200 rounded-lg cursor-pointer item-center">
                     <span className="flex items-center gap-2">
                       <Plus />
                       배송지 신규입력
@@ -251,7 +259,7 @@ export default function Order({
                         key={index}
                         onClick={() => handleAddressSelect(address)}
                         className="cursor-pointer">
-                        <div className="flex items-center gap-2 mb-2 p-4">
+                        <div className="flex items-center gap-2 p-4 mb-2">
                           <RadioGroupItem
                             key={index}
                             value={address}
