@@ -10,7 +10,7 @@ export const PATH: IPath = {
 
   // Product
   PRODUCT: '/product',
-  PRODUCT_PURCHASE: 'purchase',
+  PRODUCT_ORDER: 'order',
 
   // Plant
   PLANT: '/plant',

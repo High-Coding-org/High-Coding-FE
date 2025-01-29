@@ -1,5 +1,6 @@
 export { default as HomePage } from './HomePage/HomePage';
 export { default as KitDetailPage } from './KitDetailPage/KitDetailPage';
+export { default as KitOrderPage } from './KitOrderPage/KitOrderPage';
 export { default as LoginPage } from './LoginPage/LoginPage';
 export { default as MyPlantPage } from './MyPlantPage/MyPlantPage';
 export { default as PlantDetail } from './MyPlantPage/PlantDetail/PlantDetail';
@@ -8,4 +9,3 @@ export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegis
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as ProfilePage } from './ProfilePage/MyPage';
 export { default as OrderList } from './ProfilePage/OrderList/OrderList';
-export { default as PurchasePage } from './PurchasePage/PurchasePage';

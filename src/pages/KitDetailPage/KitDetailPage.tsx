@@ -24,8 +24,8 @@ export default function KitDetailPage() {
   const [quantity, setQuantity] = useState<number>(1);
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
-  const handlePurchase = () => {
-    navigate(PATH.PRODUCT_PURCHASE, {
+  const handleOrder = () => {
+    navigate(PATH.PRODUCT_ORDER, {
       state: {
         // kitId: kit?.id,
         // productName: kit?.productName,
@@ -114,7 +114,7 @@ export default function KitDetailPage() {
             </div>
             <Button
               className="bg-[#007AFD] hover:bg-[#0063CD]"
-              onClick={handlePurchase}>
+              onClick={handleOrder}>
               구매하기
             </Button>
           </div>
