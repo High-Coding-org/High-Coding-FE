@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'react-day-picker';
 import { useNavigate } from 'react-router';
 
 import Spinner from '@/components/common/Spinner/Spinner';
+import { Button } from '@/components/ui/button';
 import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
@@ -25,21 +25,25 @@ export default function KitDetailPage() {
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
   const handlePurchase = () => {
-    navigate(PATH.PRODUCT_PURCHASE);
-  };
-
-  const handleIncrease = () => {
-    setQuantity(prev => prev + 1);
-  };
-
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
+    navigate(PATH.PRODUCT_PURCHASE, {
+      state: {
+        // kitId: kit?.id,
+        // productName: kit?.productName,
+        // quantity,
+        // price: kit?.price,
+        kitId: 'hi',
+        productName: 'hi',
+        quantity: 1234,
+        price: 'hi',
+        // ! 이미지 추가 필요
+        // image: kit?.image,
+      },
+    });
   };
 
   useEffect(() => {
     if (isLoading || !data) return;
+
     setKit(data);
   }, [isLoading, data]);
 
@@ -69,7 +73,8 @@ export default function KitDetailPage() {
 
         <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
-            <h1 className="text-xl font-bold">{kit?.productName}</h1>
+            {/* <h1 className="text-xl font-bold">{kit?.productName}</h1> */}
+            <h1 className="text-xl font-bold">키트 이름</h1>
 
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-gray-700">4.5</span>
@@ -79,7 +84,8 @@ export default function KitDetailPage() {
               </a>
             </div>
             <p className="flex mt-4 text-xl font-bold text-center text-red-700">
-              {kit?.price.toLocaleString() + ' '}원
+              {/* {kit?.price.toLocaleString() + ' '}원 */}
+              10000원
             </p>
           </header>
 
@@ -88,20 +94,21 @@ export default function KitDetailPage() {
               <div className="flex items-center gap-4">
                 <Button
                   className="bg-gray-700"
-                  onClick={handleDecrease}
+                  onClick={() => quantity > 1 && setQuantity(prev => prev - 1)}
                   disabled={quantity === 1}>
                   -
                 </Button>
                 <span className="text-lg font-bold">{quantity}</span>
                 <Button
                   className="bg-gray-700"
-                  onClick={handleIncrease}>
+                  onClick={() => setQuantity(prev => prev + 1)}>
                   +
                 </Button>
               </div>
               <div className="mt-2">
                 <span className="text-sm text-gray-500">
-                  총 금액: {(kit?.price * quantity).toLocaleString()}원
+                  {/* 총 금액: {(kit?.price * quantity).toLocaleString()}원 */}
+                  총 금액: 10000원
                 </span>
               </div>
             </div>
