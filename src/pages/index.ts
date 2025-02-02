@@ -7,5 +7,6 @@ export { default as PlantRecommend } from './MyPlantPage/PlantRecommend/PlantRec
 export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegister';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as ProfilePage } from './ProfilePage/ProfilePage';
-export { default as OrderList } from './ProfilePage/OrderList/OrderList';
+export { default as OrderList } from './OrderList/OrderList';
 export { default as PurchasePage } from './PurchasePage/PurchasePage';
+export { default as PasswordChange } from './PasswordChange/PasswordChange';

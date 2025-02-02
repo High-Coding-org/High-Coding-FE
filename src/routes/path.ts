@@ -6,6 +6,7 @@ export const PATH: IPath = {
 
   // Profile
   PROFILE: '/profile',
+  PROFILE_PASSWORD: 'password',
   PROFILE_MY_ORDER: 'my-order',
 
   // Product
