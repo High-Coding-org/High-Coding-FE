@@ -121,7 +121,7 @@ export default function SignUpForm() {
               </FormLabel>
               {fieldState.invalid && (
                 <p className="text-sm text-red-500 absolute right-0 -translate-y-1/2 top-[2px]">
-                  (입력된 비밀번호가 동일하지 않습니다)
+                  (비밀번호가 동일하지 않습니다)
                 </p>
               )}
               <FormControl>
