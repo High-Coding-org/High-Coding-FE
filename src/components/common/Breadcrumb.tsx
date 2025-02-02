@@ -28,7 +28,7 @@ export default function BreadcrumbAndTitle() {
       <BreadcrumbComponent>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
           {validPathNames.length > 0 && <BreadcrumbSeparator />}
           {validPathNames.map((value, index) => {
