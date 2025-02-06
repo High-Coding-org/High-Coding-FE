@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import {
   HomePage,
+  KitDetailPage,
   KitOrderPage,
   LoginPage,
   MyPlantPage,
@@ -12,7 +13,6 @@ import {
   PlantRegister,
   ProfilePage,
 } from '@/pages';
-import KitDetailPage from '@/pages/KitDetailPage/KitDetailPage';
 import { Layout } from '@/pages/Layout/Layout';
 
 import { PATH } from './path';
