@@ -106,10 +106,9 @@ export default function KitOrderPage() {
     <>
       <div className="w-24 h-12">브레드크럼 들어갈 자리</div>
       <Breadcrumb />
-      <main className="relative flex justify-between border-2 border-red-500 w-pageWidth">
-        {/* 결제 정보 */}
-
-        <div className="w-[70%] whitespace-nowrap">
+      <main className="flex justify-between h-full border-2 border-red-500 w-pageWidth">
+        {/* 주문 정보 */}
+        <div className="w-[70%]">
           {/* 배송지 */}
           <section className="flex flex-col gap-4 mb-6">
             <Label className="pl-4 font-bold">배송지</Label>
@@ -289,7 +288,8 @@ export default function KitOrderPage() {
           )}
         </div>
 
-        <section className="sticky top-0 w-[25%] flex flex-col gap-4 z-0 whitespace-nowrap">
+        {/* 결제 정보 */}
+        <section className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit border-2 border-blue-500">
           <Label className="pl-4 font-bold">결제 정보</Label>
           <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
             <div className="flex justify-between text-sm">
