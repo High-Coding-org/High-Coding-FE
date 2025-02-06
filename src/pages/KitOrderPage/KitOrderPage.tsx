@@ -40,7 +40,7 @@ const addresses = [
   '부산광역시 해운대구 해운대로 456',
 ];
 
-export default function Order() {
+export default function KitOrderPage() {
   // 페이지가 로드될 때 location.state 값이 없다면, home으로 redirect
   const location = useLocation();
   const { kitId, productName, quantity, price } = location.state;
