@@ -1,5 +1,5 @@
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-
 import {
   Breadcrumb as BreadcrumbComponent,
   BreadcrumbItem,
@@ -8,7 +8,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-
 import { titles } from '@/routes/BreadcrumbTitle';
 
 /**
@@ -36,7 +35,7 @@ export default function BreadcrumbAndTitle() {
             const isLastItem = index === validPathNames.length - 1;
 
             return (
-              <>
+              <React.Fragment key={value}>
                 <BreadcrumbItem key={value}>
                   {isLastItem ? (
                     <BreadcrumbPage>{titles[value]}</BreadcrumbPage>
@@ -45,7 +44,7 @@ export default function BreadcrumbAndTitle() {
                   )}
                 </BreadcrumbItem>
                 {index < validPathNames.length - 1 && <BreadcrumbSeparator />}
-              </>
+              </React.Fragment>
             );
           })}
         </BreadcrumbList>
