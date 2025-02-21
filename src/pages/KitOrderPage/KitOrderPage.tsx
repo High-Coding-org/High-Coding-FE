@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -7,9 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
-import { PATH } from '@/routes/path';
 
-import ShippingAddress from './ShippingAddress/ShippingAddress';
+import ShippingInfo from './ShippingInfo/ShippingInfo';
 
 const purchaseData = {
   name: '김가연',
@@ -80,13 +79,14 @@ export default function KitOrderPage() {
   // 결제 금액 계산
   const totalPayment = totalProductPrice + data.shippingFee - data.discount;
 
-  useEffect(() => {
-    if (location && !location.state) {
-      // ? error store 하나 추가해서 alert 창 + 홈으로 리다이렉트
-      alert('주문 정보를 불러오는데 실패했습니다.');
-      navigate(PATH.HOME);
-    }
-  }, [location, location.state, navigate]);
+  // ? todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
+  // useEffect(() => {
+  //   if (!kitId || !location.state) {
+  //     // ? error store 하나 추가해서 alert 창 + 홈으로 리다이렉트
+  //     alert('주문 정보를 불러오는데 실패했습니다.');
+  //     navigate(PATH.HOME);
+  //   }
+  // }, [location.state]);
 
   return (
     <>
@@ -96,7 +96,7 @@ export default function KitOrderPage() {
         {/* 주문 정보 */}
         <section className="w-[70%]">
           {/* 배송지 */}
-          <ShippingAddress
+          <ShippingInfo
             name={data.name}
             phoneNumber={data.phoneNumber}
             deliveryNote={deliveryNote}

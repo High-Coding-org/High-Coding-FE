@@ -14,7 +14,7 @@ import {
   DELIVERY_PLACEHOLDER,
 } from '@/constants/deliveryNotes';
 
-interface ShippingAddressProps {
+interface ShippingInfoProps {
   name: string;
   phoneNumber: string;
   deliveryNote: string;
@@ -26,12 +26,12 @@ interface ShippingAddressProps {
   2. 그리고 이 컴포넌트에서 배송메모를 변경할 때마다 부모에게 전달한다.
 */
 
-export default function ShippingAddress({
+export default function ShippingInfo({
   name,
   phoneNumber,
   deliveryNote,
   setDeliveryNote,
-}: ShippingAddressProps) {
+}: ShippingInfoProps) {
   const [inputMode, setInputMode] = useState(false);
 
   const handleDeliveryNoteChange = (value: string) => {
@@ -46,7 +46,7 @@ export default function ShippingAddress({
 
   return (
     <div className="flex flex-col gap-4 mb-6">
-      <Label className="pl-4 font-bold">배송지</Label>
+      <Label className="pl-4 font-bold">배송 정보</Label>
 
       <div className="flex flex-col gap-2 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
         <div className="flex flex-col gap-4">
