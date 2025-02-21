@@ -1,4 +1,4 @@
-import { Plus, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -6,21 +6,14 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { DELIVERY_NOTES } from '@/constants/deliveryNotes';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
 import { PATH } from '@/routes/path';
+
+import ShippingAddress from './ShippingAddress/ShippingAddress';
 
 const purchaseData = {
   name: '김가연',
   phoneNumber: '01023811425',
-  shippingAddress: '경상북도 상주시 경상대로 2559',
   discount: 0,
   shippingFee: 3000,
 };
@@ -40,6 +33,14 @@ const addresses = [
   '부산광역시 해운대구 해운대로 456',
 ];
 
+/**
+ * 배송지 → ShippingAddress
+ * 주문 상품 → OrderItems
+ * 총결제금액 → TotalPayment
+ * 결제수단 → PaymentMethod
+ * 결제정보 → PaymentDetails
+ */
+
 export default function KitOrderPage() {
   // 페이지가 로드될 때 location.state 값이 없다면, home으로 redirect
   const location = useLocation();
@@ -48,18 +49,13 @@ export default function KitOrderPage() {
 
   //상태 관리
   const [data, setData] = useState({ ...purchaseData });
-  const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
-  const [selectedAddress, setSelectedAddress] = useState<string>(
-    data.shippingAddress
-  );
-
+  const [deliveryNote, setDeliveryNote] = useState<string>('');
+  // console.log('kitOrderPage에서 DN : ', deliveryNote);
   //모달 열기/닫기 함수
   const openCouponModal = () => setIsCouponModalOpen(true);
   const closeCouponModal = () => setIsCouponModalOpen(false);
-  const openAddressModal = () => setIsAddressModalOpen(true);
-  const closeAddressModal = () => setIsAddressModalOpen(false);
 
   //할인 선택 처리 함수
   const handleDiscountSelect = discountValue => {
@@ -81,23 +77,13 @@ export default function KitOrderPage() {
 
   //결제 금액 계산
   const totalProductPrice = orderItems.price * orderItems.quantity;
-
-  //배송지 선택 처리 함수
-  const handleAddressSelect = address => {
-    setSelectedAddress(address);
-    setData(prevData => ({
-      ...prevData,
-      shippingAddress: address,
-    }));
-    setIsAddressModalOpen(false);
-  };
-
   // 결제 금액 계산
   const totalPayment = totalProductPrice + data.shippingFee - data.discount;
 
   useEffect(() => {
     if (location && !location.state) {
-      // ? error store 하나 추가해서 홈으로 리다이렉트 + toast 에러 띄우기 구현 예정
+      // ? error store 하나 추가해서 alert 창 + 홈으로 리다이렉트
+      alert('주문 정보를 불러오는데 실패했습니다.');
       navigate(PATH.HOME);
     }
   }, [location, location.state, navigate]);
@@ -106,44 +92,16 @@ export default function KitOrderPage() {
     <>
       <div className="w-24 h-12">브레드크럼 들어갈 자리</div>
       <Breadcrumb />
-      <main className="flex justify-between h-full border-2 border-red-500 w-pageWidth">
+      <main className="flex justify-between h-full w-pageWidth">
         {/* 주문 정보 */}
-        <div className="w-[70%]">
+        <section className="w-[70%]">
           {/* 배송지 */}
-          <section className="flex flex-col gap-4 mb-6">
-            <Label className="pl-4 font-bold">배송지</Label>
-            <div className="flex flex-col gap-2 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-              <div className="flex items-center justify-between h-10">
-                <div>
-                  <div className="mb-1 font-bold">{data.name}</div>
-                  <div className="text-xs text-gray-500">
-                    {data.phoneNumber}
-                  </div>
-                </div>
-                <Button
-                  onClick={openAddressModal}
-                  className="text-black bg-white border border-gray-200 cursor-pointer hover:bg-white">
-                  배송지 변경
-                </Button>
-              </div>
-
-              <div className="mb-2">{data.shippingAddress}</div>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="배송 메모를 선택해주세요." />
-                </SelectTrigger>
-                <SelectContent>
-                  {DELIVERY_NOTES.map((note, index) => (
-                    <SelectItem
-                      key={index}
-                      value={note.value}>
-                      {note.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </section>
+          <ShippingAddress
+            name={data.name}
+            phoneNumber={data.phoneNumber}
+            deliveryNote={deliveryNote}
+            setDeliveryNote={setDeliveryNote}
+          />
 
           {/* 주문상품 */}
           <section className="flex flex-col gap-4 mb-6">
@@ -244,52 +202,10 @@ export default function KitOrderPage() {
               </div>
             </section>
           )}
-          {/* 배송지 변경 모달 */}
-          {isAddressModalOpen && (
-            <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="p-6 bg-white rounded-lg shadow-lg">
-                <div className="flex justify-between mb-4 item-center">
-                  <h2 className="mb-4 text-lg font-bold">배송지 변경</h2>
-                  <X
-                    onClick={closeAddressModal}
-                    className="cursor-pointer hover:text-gray-500"
-                  />
-                </div>
-                <div>
-                  <div>
-                    <div className="flex gap-2 p-4 mb-2 font-bold border border-gray-200 rounded-lg cursor-pointer item-center">
-                      <span className="flex items-center gap-2">
-                        <Plus />
-                        배송지 신규입력
-                      </span>
-                    </div>
-                    <RadioGroup onValueChange={handleAddressSelect}>
-                      {addresses.map((address, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handleAddressSelect(address)}
-                          className="cursor-pointer">
-                          <div className="flex items-center gap-2 p-4 mb-2">
-                            <RadioGroupItem
-                              key={index}
-                              value={address}
-                              checked={selectedAddress === address}
-                            />
-                            <span className="font-bold">{address}</span>
-                          </div>
-                          <hr />
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-        </div>
+        </section>
 
         {/* 결제 정보 */}
-        <section className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit border-2 border-blue-500">
+        <nav className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit ">
           <Label className="pl-4 font-bold">결제 정보</Label>
           <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
             <div className="flex justify-between text-sm">
@@ -311,7 +227,7 @@ export default function KitOrderPage() {
             </div>
           </div>
           <Button className="bg-[#007AFD] hover:bg-blue-800">결제하기</Button>
-        </section>
+        </nav>
       </main>
     </>
   );
