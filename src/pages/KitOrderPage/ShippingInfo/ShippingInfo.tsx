@@ -9,6 +9,8 @@ interface ShippingInfoProps {
   phoneNumber: string;
   deliveryNote: string;
   setDeliveryNote: (deliveryNote: string) => void;
+  setRegionalAddress: (regionalAddress: string) => void;
+  setDetailedAddress: (detailedAddress: string) => void;
 }
 
 /**
@@ -21,6 +23,8 @@ export default function ShippingInfo({
   phoneNumber,
   deliveryNote,
   setDeliveryNote,
+  setRegionalAddress,
+  setDetailedAddress,
 }: ShippingInfoProps) {
   return (
     <div className="flex flex-col gap-4 mb-6">
@@ -33,8 +37,13 @@ export default function ShippingInfo({
           phoneNumber={phoneNumber}
         />
 
+        <div className="mt-1" />
+
         {/* 배송지 주소 */}
-        <DeliveryAddress />
+        <DeliveryAddress
+          setRegionalAddress={setRegionalAddress}
+          setDetailedAddress={setDetailedAddress}
+        />
 
         {/* 배송 메모 */}
         <DeliveryNote

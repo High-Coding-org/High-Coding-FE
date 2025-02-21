@@ -42,16 +42,20 @@ const addresses = [
 
 export default function KitOrderPage() {
   // 페이지가 로드될 때 location.state 값이 없다면, home으로 redirect
+  const navigate = useNavigate();
   const location = useLocation();
   const { kitId, productName, quantity, price } = location.state;
-  const navigate = useNavigate();
 
-  //상태 관리
   const [data, setData] = useState({ ...purchaseData });
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
   const [deliveryNote, setDeliveryNote] = useState<string>('');
+  const [regionalAddress, setRegionalAddress] = useState<string>('');
+  const [detailedAddress, setDetailedAddress] = useState<string>('');
   // console.log('kitOrderPage에서 DN : ', deliveryNote);
+  // console.log('kitOrderPage에서 지역 주소 : ', regionalAddress);
+  // console.log('kitOrderPage에서 상세 주소 : ', detailedAddress);
+
   //모달 열기/닫기 함수
   const openCouponModal = () => setIsCouponModalOpen(true);
   const closeCouponModal = () => setIsCouponModalOpen(false);
@@ -101,6 +105,8 @@ export default function KitOrderPage() {
             phoneNumber={data.phoneNumber}
             deliveryNote={deliveryNote}
             setDeliveryNote={setDeliveryNote}
+            setRegionalAddress={setRegionalAddress}
+            setDetailedAddress={setDetailedAddress}
           />
 
           {/* 주문상품 */}
