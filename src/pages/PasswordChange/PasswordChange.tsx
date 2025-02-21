@@ -11,24 +11,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import SideBar from '@/components/common/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
-
-const formSchema = z
-  .object({
-    currentPassword: z.string().min(6, {
-      message: '6자리 이상 작성해주세요.',
-    }),
-    newPassword: z.string().min(6, {
-      message: '6자리 이상 작성해주세요.',
-    }),
-    confirmNewPassword: z.string(),
-  })
-  .refine(data => data.newPassword === data.confirmNewPassword, {
-    message: '비밀번호가 일치하지 않습니다.',
-    path: ['confirmNewPassword'],
-  });
+import PasswordInput from './PasswordInput';
+import { usePasswordChange } from './usePasswordChange';
+import { formSchema } from './passwordSchema';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -37,8 +24,14 @@ const DUMMY_SIDEBAR_DATA = [
 ];
 
 export default function ProfileEdit() {
+  const { mutate } = usePasswordChange();
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       currentPassword: '',
       newPassword: '',
@@ -46,8 +39,11 @@ export default function ProfileEdit() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSubmit(values) {
+    mutate({
+      currentPassword: values.currentPassword,
+      newPassword: values.newPassword,
+    });
   }
 
   return (
@@ -68,12 +64,13 @@ export default function ProfileEdit() {
                       기존 비밀번호
                     </FormLabel>
                     <div className="flex flex-col w-[24rem] gap-2 pb-2">
-                      <FormControl className="md:items-center">
-                        <Input
-                          type="password"
-                          value="1234"
-                          placeholder="비밀번호를 입력해주세요."
-                          {...field}
+                      <FormControl>
+                        <PasswordInput
+                          showPassword={showCurrentPassword}
+                          togglePasswordVisibility={() =>
+                            setShowCurrentPassword(!showCurrentPassword)
+                          }
+                          field={field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -86,16 +83,17 @@ export default function ProfileEdit() {
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row">
-                    <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4 ">
+                    <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
                       새 비밀번호
                     </FormLabel>
                     <div className="flex flex-col w-[24rem] gap-2 pb-2">
-                      <FormControl className="md:items-center">
-                        <Input
-                          type="password"
-                          value="1234"
-                          placeholder="비밀번호를 입력해주세요."
-                          {...field}
+                      <FormControl>
+                        <PasswordInput
+                          showPassword={showNewPassword}
+                          togglePasswordVisibility={() =>
+                            setShowNewPassword(!showNewPassword)
+                          }
+                          field={field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -111,12 +109,14 @@ export default function ProfileEdit() {
                     <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
                       새 비밀번호 확인
                     </FormLabel>
-                    <div className="flex flex-col w-[24rem] gap-2 pb-2 md:items-center">
+                    <div className="flex flex-col w-[24rem] gap-2 pb-2">
                       <FormControl>
-                        <Input
-                          placeholder="비밀번호를 입력해주세요."
-                          type="password"
-                          {...field}
+                        <PasswordInput
+                          showPassword={showConfirmNewPassword}
+                          togglePasswordVisibility={() =>
+                            setShowConfirmNewPassword(!showConfirmNewPassword)
+                          }
+                          field={field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -124,7 +124,6 @@ export default function ProfileEdit() {
                   </FormItem>
                 )}
               />
-
               <div className="flex gap-4 mt-4">
                 <Button
                   type="submit"
