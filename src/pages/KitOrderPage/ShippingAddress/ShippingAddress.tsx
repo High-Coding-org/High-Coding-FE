@@ -9,7 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { DELIVERY_NOTES } from '@/constants/deliveryNotes';
+import {
+  DELIVERY_NOTES,
+  DELIVERY_PLACEHOLDER,
+} from '@/constants/deliveryNotes';
 
 interface ShippingAddressProps {
   name: string;
@@ -29,19 +32,17 @@ export default function ShippingAddress({
   deliveryNote,
   setDeliveryNote,
 }: ShippingAddressProps) {
-  const [flag, setFlag] = useState(false);
+  const [inputMode, setInputMode] = useState(false);
 
   const handleDeliveryNoteChange = (value: string) => {
     if (value === '직접 입력하기') {
       setDeliveryNote('');
-      setFlag(true);
+      setInputMode(true);
     } else {
       setDeliveryNote(value);
-      setFlag(false);
+      setInputMode(false);
     }
   };
-
-  // console.log(isCustomNote);
 
   return (
     <div className="flex flex-col gap-4 mb-6">
@@ -59,7 +60,7 @@ export default function ShippingAddress({
         {/* 배송 메모 */}
         <Select onValueChange={handleDeliveryNoteChange}>
           <SelectTrigger>
-            <SelectValue placeholder="배송 메모를 선택해주세요." />
+            <SelectValue placeholder={DELIVERY_PLACEHOLDER.SELECT} />
           </SelectTrigger>
           <SelectContent>
             {DELIVERY_NOTES.map((note, index) => (
@@ -71,10 +72,10 @@ export default function ShippingAddress({
             ))}
           </SelectContent>
         </Select>
-        {flag && (
+        {inputMode && (
           <Input
             type="text"
-            placeholder="배송 메모를 입력해주세요."
+            placeholder={DELIVERY_PLACEHOLDER.INPUT}
             onChange={e => setDeliveryNote(e.target.value)}
             value={deliveryNote}
           />
