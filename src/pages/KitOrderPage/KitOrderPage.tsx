@@ -56,10 +56,6 @@ export default function KitOrderPage() {
   // console.log('kitOrderPage에서 지역 주소 : ', regionalAddress);
   // console.log('kitOrderPage에서 상세 주소 : ', detailedAddress);
 
-  //모달 열기/닫기 함수
-  const openCouponModal = () => setIsCouponModalOpen(true);
-  const closeCouponModal = () => setIsCouponModalOpen(false);
-
   //할인 선택 처리 함수
   const handleDiscountSelect = discountValue => {
     setData(prevData => ({
@@ -132,7 +128,7 @@ export default function KitOrderPage() {
                   할인/쿠폰
                   <Button
                     className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
-                    onClick={openCouponModal}>
+                    onClick={() => setIsCouponModalOpen(true)}>
                     변경
                   </Button>
                 </div>
@@ -178,7 +174,7 @@ export default function KitOrderPage() {
                 <div className="flex justify-between mb-4 items center">
                   <h2 className="mb-4 text-lg font-bold">쿠폰 사용</h2>
                   <X
-                    onClick={closeCouponModal}
+                    onClick={() => setIsCouponModalOpen(false)}
                     className="cursor-pointer hover:text-gray-500"
                   />
                 </div>
