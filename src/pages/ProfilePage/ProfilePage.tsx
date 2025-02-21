@@ -1,13 +1,11 @@
 import SideBar from '@/components/common/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
-
-const DUMMY_FORM_DATA = {
-  name: '김가연',
-  phone: '010-2381-1425',
-  birth: '2003.10.27',
-  id: 'pine',
-  email: 'pine@naver.com',
-};
+import NoProfileData from '@/pages/ProfilePage/NoProfileData';
+import { useProfile } from './useProfile';
+import Spinner from '@/components/common/Spinner/Spinner';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { ProfileField } from './profilefield';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -15,36 +13,53 @@ const DUMMY_SIDEBAR_DATA = [
   { name: '로그아웃', url: '/logout' },
 ];
 
-export default function ProfileEdit() {
+const ProfileFields = ({ userInfo }) => (
+  <div className="flex-1">
+    <ProfileField
+      label="이름"
+      value={userInfo?.name}
+    />
+    <ProfileField
+      label="전화번호"
+      value={userInfo?.phoneNumber}
+    />
+    <ProfileField
+      label="생년월일"
+      value={userInfo?.birth}
+    />
+    <ProfileField
+      label="이메일"
+      value={userInfo?.email}
+    />
+    <ProfileField
+      label="아이디"
+      value={userInfo?.username}
+    />
+  </div>
+);
+
+export default function ProfilePage() {
+  const { isLoading, data, error } = useProfile();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      console.error('정보를 불러오는데 실패했습니다.', error.message);
+      navigate('/');
+    }
+  }, [error, navigate]);
+
+  if (isLoading) return <Spinner />;
+  if (!data) return <NoProfileData />;
+
   return (
     <>
       <header className="w-full max-w-[1140px] p-6 mt-2">
         <BreadcrumbAndTitle />
       </header>
       <main className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4">
-        <div className="flex-1">
-          <div className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row md:items-center">
-            <span className="text-sm text-gray-600 w-32 p-2">이름</span>
-            <div className="flex-1 p-2"> {DUMMY_FORM_DATA.name}</div>
-          </div>
-          <div className="flex flex-col  border-b-[1px] border-gray-200 py-2 md:flex-row md:items-center">
-            <span className="text-sm text-gray-600 w-32 p-2">전화번호</span>
-            <div className="flex-1 p-2"> {DUMMY_FORM_DATA.phone}</div>
-          </div>
-          <div className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row md:items-center">
-            <span className="text-sm text-gray-600 w-32 p-2">생년월일</span>
-            <div className="flex-1 p-2"> {DUMMY_FORM_DATA.birth}</div>
-          </div>
-          <div className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row md:items-center">
-            <span className="text-sm text-gray-600 w-32 p-2">이메일</span>
-            <div className="flex-1 p-2"> {DUMMY_FORM_DATA.birth}</div>
-          </div>
-          <div className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row md:items-center">
-            <span className="text-sm text-gray-600 w-32 p-2">아이디</span>
-            <div className="flex-1 p-2"> {DUMMY_FORM_DATA.id}</div>
-          </div>
-        </div>
-        <aside className="h-auto w-[12rem]">
+        <ProfileFields userInfo={data?.userInfo} />
+        <aside className="h-auto w-[12rem] whitespace-nowrap">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
         </aside>
       </main>
