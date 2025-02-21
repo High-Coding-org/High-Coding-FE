@@ -14,6 +14,8 @@ import {
   DELIVERY_PLACEHOLDER,
 } from '@/constants/deliveryNotes';
 
+import ShippingUser from './ShippingUser';
+
 interface ShippingInfoProps {
   name: string;
   phoneNumber: string;
@@ -49,10 +51,10 @@ export default function ShippingInfo({
       <Label className="pl-4 font-bold">배송 정보</Label>
 
       <div className="flex flex-col gap-2 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-        <div className="flex flex-col gap-4">
-          <span className="font-bold">{name}</span>
-          <span className="text-xs text-gray-500">{phoneNumber}</span>
-        </div>
+        <ShippingUser
+          name={name}
+          phoneNumber={phoneNumber}
+        />
 
         {/* 배송지 주소, daumPostcode 컴포넌트 사용 */}
         {/* <DaumPostCode /> */}
