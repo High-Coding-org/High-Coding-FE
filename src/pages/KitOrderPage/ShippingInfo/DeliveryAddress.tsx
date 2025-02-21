@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useDeliveryAddress } from '@/hooks/useDeliveryAddress';
 
 interface DeliveryAddressProps {
   setRegionalAddress: (regionalAddress: string) => void;
@@ -13,34 +13,16 @@ export default function DeliveryAddress({
   setRegionalAddress,
   setDetailedAddress,
 }: DeliveryAddressProps) {
-  const [address, setAddress] = useState<string>('');
-  const open = useDaumPostcodePopup();
+  const { address, handleSearchAddress } = useDeliveryAddress();
 
-  const handleComplete = data => {
-    let fullAddress = data.address;
-    let extraAddress = '';
+  useEffect(() => {
+    if (!address) return;
 
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
-
-    setAddress(fullAddress);
-    setRegionalAddress(fullAddress);
-  };
-
-  const handleClick = () => {
-    open({ onComplete: handleComplete });
-  };
+    setRegionalAddress(address);
+  }, [address, setRegionalAddress]);
 
   return (
-    <main className="w-full">
+    <div className="w-full">
       <div className="flex gap-2 mb-2">
         <Input
           className="w-full disabled:cursor-default disabled:opacity-100"
@@ -51,7 +33,7 @@ export default function DeliveryAddress({
         />
         <Button
           type="button"
-          onClick={handleClick}>
+          onClick={handleSearchAddress}>
           주소 검색
         </Button>
       </div>
@@ -60,6 +42,6 @@ export default function DeliveryAddress({
         placeholder="상세 주소"
         onChange={e => setDetailedAddress(e.target.value)}
       />
-    </main>
+    </div>
   );
 }
