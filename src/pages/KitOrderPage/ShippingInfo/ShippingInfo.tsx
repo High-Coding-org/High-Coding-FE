@@ -1,19 +1,6 @@
-import { useState } from 'react';
-
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  DELIVERY_NOTES,
-  DELIVERY_PLACEHOLDER,
-} from '@/constants/deliveryNotes';
 
+import DeliveryNote from './DeliveryNote';
 import ShippingUser from './ShippingUser';
 
 interface ShippingInfoProps {
@@ -34,18 +21,6 @@ export default function ShippingInfo({
   deliveryNote,
   setDeliveryNote,
 }: ShippingInfoProps) {
-  const [inputMode, setInputMode] = useState(false);
-
-  const handleDeliveryNoteChange = (value: string) => {
-    if (value === '직접 입력하기') {
-      setDeliveryNote('');
-      setInputMode(true);
-    } else {
-      setDeliveryNote(value);
-      setInputMode(false);
-    }
-  };
-
   return (
     <div className="flex flex-col gap-4 mb-6">
       <Label className="pl-4 font-bold">배송 정보</Label>
@@ -60,28 +35,10 @@ export default function ShippingInfo({
         {/* <DaumPostCode /> */}
 
         {/* 배송 메모 */}
-        <Select onValueChange={handleDeliveryNoteChange}>
-          <SelectTrigger>
-            <SelectValue placeholder={DELIVERY_PLACEHOLDER.SELECT} />
-          </SelectTrigger>
-          <SelectContent>
-            {DELIVERY_NOTES.map((note, index) => (
-              <SelectItem
-                key={index + note}
-                value={note}>
-                {note}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {inputMode && (
-          <Input
-            type="text"
-            placeholder={DELIVERY_PLACEHOLDER.INPUT}
-            onChange={e => setDeliveryNote(e.target.value)}
-            value={deliveryNote}
-          />
-        )}
+        <DeliveryNote
+          deliveryNote={deliveryNote}
+          setDeliveryNote={setDeliveryNote}
+        />
       </div>
     </div>
   );
