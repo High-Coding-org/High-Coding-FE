@@ -37,7 +37,7 @@ export default function KitOrderPage() {
   const [deliveryNote, setDeliveryNote] = useState<string>('');
   const [regionalAddress, setRegionalAddress] = useState<string>('');
   const [detailedAddress, setDetailedAddress] = useState<string>('');
-  const [discountValue, setDiscountValue] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
   // console.log('kitOrderPage에서 DN : ', deliveryNote);
   // console.log('kitOrderPage에서 지역 주소 : ', regionalAddress);
   // console.log('kitOrderPage에서 상세 주소 : ', detailedAddress);
@@ -46,13 +46,6 @@ export default function KitOrderPage() {
   const totalPrice = DUMMY_ORDER_ITEMS.price * DUMMY_ORDER_ITEMS.quantity;
   // ! 결제 금액 계산 => 없어질 놈
   const totalPayment = totalPrice + data.shippingFee - data.discount;
-
-  const handleDiscountChange = (discountValue: number) => {
-    setData(prevData => ({
-      ...prevData,
-      discount: discountValue,
-    }));
-  };
 
   // todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
   // useEffect(() => {
@@ -91,12 +84,9 @@ export default function KitOrderPage() {
 
           {/* 할인 / 쿠폰 */}
           <OrderDiscount
-            discount={data.discount}
-            totalPayment={totalPayment}
-            onDiscountChange={handleDiscountChange}
-            //
             totalPrice={totalPrice}
-            setDiscountValue={setDiscountValue}
+            discount={discount}
+            setDiscount={setDiscount}
           />
 
           {/* 결제수단 */}

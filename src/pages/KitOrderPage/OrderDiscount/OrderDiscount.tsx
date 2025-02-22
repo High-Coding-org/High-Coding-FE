@@ -2,70 +2,93 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface Coupon {
   name: string;
-  discountPercent: number;
-  discount: number;
+  type: 'percent' | 'amount';
+  percent: number;
+  amount: number;
+  date: string;
 }
 
 interface OrderDiscountProps {
-  discount: number;
-  totalPayment: number;
-  onDiscountChange: (discount: number) => void;
-  //
   totalPrice: number;
-  setDiscountValue: (discount: number) => void;
+  discount: number;
+  setDiscount: (discount: number) => void;
 }
 
-const coupons: Coupon[] = [
-  { name: '10% 할인 쿠폰', discountPercent: 10, discount: 20000 },
-  { name: '배송비 무료 쿠폰', discountPercent: 20, discount: 3000 },
-  { name: '5,000원 할인 쿠폰', discountPercent: 30, discount: 5000 },
+const dummyCoupons: Coupon[] = [
+  {
+    name: '10% 할인 쿠폰',
+    type: 'percent',
+    percent: 10,
+    amount: 0,
+    date: '2025-02-21',
+  },
+  {
+    name: '배송비 무료 쿠폰',
+    type: 'amount',
+    percent: 0,
+    amount: 3000,
+    date: '2025-02-21',
+  },
+  {
+    name: '5,000원 할인 쿠폰',
+    type: 'amount',
+    percent: 0,
+    amount: 5000,
+    date: '2025-02-21',
+  },
 ];
 
 export default function OrderDiscount({
-  discount,
-  totalPayment,
-  onDiscountChange,
   totalPrice,
-  setDiscountValue,
+  discount,
+  setDiscount,
 }: OrderDiscountProps) {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
 
-  const handleDiscountSelect = (discountValue: number) => {
-    onDiscountChange(discountValue);
+  const handleDiscountSelect = (couponIndex: number) => {
+    const coupon = dummyCoupons[couponIndex];
+    const discountAmount =
+      coupon.type === 'percent'
+        ? (totalPrice * coupon.percent) / 100
+        : coupon.amount;
+
+    setDiscount(discountAmount);
     setIsCouponModalOpen(false);
   };
 
-  const handleRadioGroupItemClick = (couponName: string) => {
-    const selected = coupons.find(coupon => coupon.name === couponName);
-    if (selected) {
-      setSelectedCoupon(couponName);
-      handleDiscountSelect(selected.discount);
-    }
+  const handleRadioGroupItemClick = (couponIndex: number) => {
+    const selected = dummyCoupons[couponIndex];
+
+    setSelectedCoupon(selected.name);
+    handleDiscountSelect(couponIndex);
   };
 
   return (
     <>
-      <div className="flex flex-col gap-4 mb-6 font-bold">
-        <div>
-          <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
-            <div>
-              할인/쿠폰
-              <Button
-                className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
-                onClick={() => setIsCouponModalOpen(true)}>
-                변경
-              </Button>
-            </div>
-            -{discount.toLocaleString()}원
+      <Label className="pl-4 font-bold">쿠폰</Label>
+
+      <div className="flex flex-col my-6 font-bold">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
+          <div className="flex items-center">
+            <h3>쿠폰 적용하기</h3>
+            <Button
+              className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
+              onClick={() => setIsCouponModalOpen(true)}>
+              변경
+            </Button>
           </div>
-          <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
-            <span>총 할인 금액:</span> {totalPayment.toLocaleString()}원
-          </div>
+          <span>- {discount}원</span>
+        </div>
+
+        <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
+          <span>할인 적용 금액:</span>
+          <span>{totalPrice - discount}원</span>
         </div>
       </div>
 
@@ -81,19 +104,20 @@ export default function OrderDiscount({
             </div>
             <ul>
               <RadioGroup>
-                {coupons.map((coupon, index) => (
+                {dummyCoupons.map((coupon, couponIndex) => (
                   <li
-                    key={index}
-                    onClick={() => handleRadioGroupItemClick(coupon.name)}
+                    key={`${couponIndex} - ${coupon.name}`}
+                    onClick={() => handleRadioGroupItemClick(couponIndex)}
                     className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer">
                     <div className="flex items-center gap-2">
                       <RadioGroupItem
                         value={coupon.name}
                         checked={selectedCoupon === coupon.name}
                       />
-                      <span className="font-bold">{coupon.discount}원</span>
+                      <span className="font-bold">{coupon.name}</span>
                     </div>
-                    <hr className="my-2" /> {coupon.name}
+                    <hr className="my-2 " />
+                    <span className="text-gray-500">~ {coupon.date}</span>
                   </li>
                 ))}
               </RadioGroup>
@@ -104,3 +128,16 @@ export default function OrderDiscount({
     </>
   );
 }
+
+/**
+    KitOrderPage.tsx
+        필요한 변수 : 얼마나 할인됐는지, 쿠폰 적용 여부
+    OrderDiscount.tsx
+        필요한 변수 : 
+
+    const func =()=>{
+        // 쿠폰 => 1. 단순 금액 할인형 / 2. 퍼센티지 할인형 
+        const discount = dummyCoupons.
+        setODC(쿠폰)
+    }
+ */
