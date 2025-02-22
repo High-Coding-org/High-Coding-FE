@@ -17,7 +17,7 @@ export default function OrderItem({
 
       <div className="px-6 py-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-md">
         <h3 className="text-base font-bold">{productName}</h3>
-        <p className="my-1 text-sm">갯수: {quantity}개</p>
+        <p className="my-1 text-sm">수량: {quantity}개</p>
         <p className="text-xs text-gray-500">키트 가격: {price}원</p>
       </div>
     </div>
