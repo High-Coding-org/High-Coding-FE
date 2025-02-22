@@ -2,12 +2,12 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
 
+import OrderItem from './OrderItem/OrderItem';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 
 const purchaseData = {
@@ -16,7 +16,7 @@ const purchaseData = {
   discount: 0,
   shippingFee: 3000,
 };
-const orderItems = {
+const DUMMY_ORDER_ITEMS = {
   productName: '스마트팜',
   price: 200000,
   quantity: 2,
@@ -75,11 +75,12 @@ export default function KitOrderPage() {
   };
 
   //결제 금액 계산
-  const totalProductPrice = orderItems.price * orderItems.quantity;
+  const totalProductPrice =
+    DUMMY_ORDER_ITEMS.price * DUMMY_ORDER_ITEMS.quantity;
   // 결제 금액 계산
   const totalPayment = totalProductPrice + data.shippingFee - data.discount;
 
-  // ? todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
+  // todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
   // useEffect(() => {
   //   if (!kitId || !location.state) {
   //     // ? error store 하나 추가해서 alert 창 + 홈으로 리다이렉트
@@ -91,7 +92,9 @@ export default function KitOrderPage() {
   return (
     <>
       <div className="w-24 h-12">브레드크럼 들어갈 자리</div>
-      <Breadcrumb />
+      {/* BreadCrumb */}
+      {/* <BreadcrumbAndTitle /> */}
+
       <main className="flex justify-between h-full w-pageWidth">
         {/* 주문 정보 */}
         <section className="w-[70%]">
@@ -106,19 +109,12 @@ export default function KitOrderPage() {
           />
 
           {/* 주문상품 */}
-          <section className="flex flex-col gap-4 mb-6">
-            <Label className="pl-4 font-bold">주문상품</Label>
-
-            <div>
-              <div className="px-6 py-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                <p className="text-xs text-gray-500">{orderItems.price}원</p>
-                <h3 className="text-base font-bold">
-                  {orderItems.productName}
-                </h3>
-                <p className="text-sm">{orderItems.quantity}개</p>
-              </div>
-            </div>
-          </section>
+          {/* // todo: 더미데이터를 실제 데이터로 교체해야 함. */}
+          <OrderItem
+            productName={DUMMY_ORDER_ITEMS.productName}
+            quantity={DUMMY_ORDER_ITEMS.quantity}
+            price={DUMMY_ORDER_ITEMS.price}
+          />
 
           {/* 할인 */}
           <section className="flex flex-col gap-4 mb-6 font-bold">
@@ -139,34 +135,6 @@ export default function KitOrderPage() {
               </div>
             </div>
           </section>
-
-          {/* 결제수단 */}
-          <section className="flex flex-col gap-4 mb-6">
-            <Label className="pl-4 font-bold">결제수단</Label>
-            <div className="px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-              <RadioGroup defaultValue="option-one">
-                {PAYMENT_METHODS.map((method, index) => (
-                  <div key={method.id}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem
-                        value={method.id}
-                        id={method.id}
-                      />
-                      <Label
-                        htmlFor={method.id}
-                        className="font-bold">
-                        {method.label}
-                      </Label>
-                    </div>
-                    {index < PAYMENT_METHODS.length - 1 && (
-                      <hr className="my-2" />
-                    )}
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
-          </section>
-
           {/* 쿠폰 리스트 모달 */}
           {isCouponModalOpen && (
             <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -204,6 +172,33 @@ export default function KitOrderPage() {
               </div>
             </section>
           )}
+
+          {/* 결제수단 */}
+          <section className="flex flex-col gap-4 mb-6">
+            <Label className="pl-4 font-bold">결제수단</Label>
+            <div className="px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
+              <RadioGroup defaultValue="option-one">
+                {PAYMENT_METHODS.map((method, index) => (
+                  <div key={method.id}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value={method.id}
+                        id={method.id}
+                      />
+                      <Label
+                        htmlFor={method.id}
+                        className="font-bold">
+                        {method.label}
+                      </Label>
+                    </div>
+                    {index < PAYMENT_METHODS.length - 1 && (
+                      <hr className="my-2" />
+                    )}
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          </section>
         </section>
 
         {/* 결제 정보 */}
