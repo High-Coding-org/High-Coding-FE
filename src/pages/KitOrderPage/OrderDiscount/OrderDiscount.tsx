@@ -73,7 +73,7 @@ export default function OrderDiscount({
     <>
       <Label className="pl-4 font-bold">쿠폰</Label>
 
-      <div className="flex flex-col my-6 font-bold">
+      <div className="flex flex-col my-6 font-bold bg-white border border-gray-200 rounded-lg shadow-md ">
         <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
           <div className="flex items-center">
             <h3>쿠폰 적용하기</h3>
@@ -128,16 +128,3 @@ export default function OrderDiscount({
     </>
   );
 }
-
-/**
-    KitOrderPage.tsx
-        필요한 변수 : 얼마나 할인됐는지, 쿠폰 적용 여부
-    OrderDiscount.tsx
-        필요한 변수 : 
-
-    const func =()=>{
-        // 쿠폰 => 1. 단순 금액 할인형 / 2. 퍼센티지 할인형 
-        const discount = dummyCoupons.
-        setODC(쿠폰)
-    }
- */
