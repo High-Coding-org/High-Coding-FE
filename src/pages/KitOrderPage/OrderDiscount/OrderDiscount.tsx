@@ -80,7 +80,7 @@ export default function OrderDiscount({
             <Button
               className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
               onClick={() => setIsCouponModalOpen(true)}>
-              변경
+              {selectedCoupon ? '변경' : '적용'}
             </Button>
           </div>
           <span>- {discount}원</span>
