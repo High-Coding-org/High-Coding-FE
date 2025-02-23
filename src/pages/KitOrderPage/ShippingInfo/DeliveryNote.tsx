@@ -8,10 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  DELIVERY_NOTES,
-  DELIVERY_PLACEHOLDER,
-} from '@/constants/deliveryNotes';
+import { DELIVERY_NOTES, DELIVERY_PLACEHOLDER } from '@/constants/delivery';
 
 interface DeliveryNoteProps {
   deliveryNote: string;
