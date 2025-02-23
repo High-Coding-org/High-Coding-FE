@@ -1,5 +1,6 @@
-import { Label } from '@/components/ui/label';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
+
+import SectionContainer from '../components/SectionContainer';
 
 interface PriceInfoProps {
   totalPrice: number;
@@ -19,26 +20,24 @@ export default function PriceInfo({ totalPrice, discount }: PriceInfoProps) {
   ];
 
   return (
-    <>
-      <Label className="pl-4 font-bold">결제 정보</Label>
+    <SectionContainer
+      label="결제 정보"
+      className="flex flex-col gap-4 p-6">
+      {priceItems.map(({ label, amount }, index) => (
+        <ul
+          key={label}
+          className="last:font-bold">
+          <li className="flex justify-between text-sm ">
+            <span>{label}</span>
+            <span>
+              {label === '할인' && '- '}
+              {formatMoneyKR(Math.abs(amount))}
+            </span>
+          </li>
 
-      <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-        {priceItems.map(({ label, amount }, index) => (
-          <ul
-            key={label}
-            className="last:font-bold">
-            <li className="flex justify-between text-sm ">
-              <span>{label}</span>
-              <span>
-                {label === '할인' && '- '}
-                {formatMoneyKR(Math.abs(amount))}
-              </span>
-            </li>
-
-            {index === priceItems.length - 2 && <hr className="mt-4" />}
-          </ul>
-        ))}
-      </div>
-    </>
+          {index === priceItems.length - 2 && <hr className="mt-4" />}
+        </ul>
+      ))}
+    </SectionContainer>
   );
 }
