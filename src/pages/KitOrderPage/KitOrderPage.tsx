@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
 import OrderDiscount from './OrderDiscount/OrderDiscount';
 import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
+import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 
 const DUMMY_PURCHASE_DATA = {
@@ -31,7 +30,6 @@ export default function KitOrderPage() {
   const [discount, setDiscount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<string>('');
 
-  //결제 금액 (키트 가격 x 수량)
   const totalPrice = DUMMY_ORDER_ITEMS.price * DUMMY_ORDER_ITEMS.quantity;
 
   // todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
@@ -81,29 +79,10 @@ export default function KitOrderPage() {
 
         {/* 결제 정보 */}
         <nav className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit ">
-          <Label className="pl-4 font-bold">결제 정보</Label>
-
-          <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-            <div className="flex justify-between text-sm">
-              <span>상품금액</span>
-              <span>{formatMoneyKR(totalPrice)}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>배송비</span>
-              {/* // todo: 배송비 실제 데이터로 교체 */}
-              <span>{formatMoneyKR(3000)}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>할인</span>
-              <span>- {formatMoneyKR(discount)}</span>
-            </div>
-            <hr />
-            <div className="flex justify-between text-sm font-bold">
-              <span>결제금액</span>
-              {/* // todo: 배송비 실제 데이터로 교체 */}
-              <span>{formatMoneyKR(totalPrice + 3000 - discount)}</span>
-            </div>
-          </div>
+          <PriceInfo
+            totalPrice={totalPrice}
+            discount={discount}
+          />
           <Button className="bg-[#007AFD] hover:bg-blue-800">결제하기</Button>
         </nav>
       </main>
