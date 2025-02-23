@@ -78,7 +78,7 @@ export default function OrderDiscount({
           <div className="flex items-center">
             <h3 className="font-semibold">쿠폰 적용하기</h3>
             <Button
-              className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
+              className="ml-5 text-black bg-white border border-gray-200 hover:bg-slate-100"
               onClick={() => setIsCouponModalOpen(true)}>
               {selectedCoupon ? '변경' : '적용'}
             </Button>
@@ -110,7 +110,7 @@ export default function OrderDiscount({
                   <li
                     key={`${couponIndex} - ${coupon.name}`}
                     onClick={() => handleRadioGroupItemClick(couponIndex)}
-                    className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer">
+                    className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100">
                     <div className="flex items-center gap-2">
                       <RadioGroupItem
                         value={coupon.name}
