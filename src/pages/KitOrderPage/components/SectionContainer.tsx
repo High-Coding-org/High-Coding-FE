@@ -18,7 +18,7 @@ export default function SectionContainer({
       <Label className="pl-4 font-bold">{label}</Label>
 
       <div
-        className={`p-6 bg-white border border-gray-200 rounded-lg shadow-md ${className}`}>
+        className={`${className} bg-white border border-gray-200 rounded-lg shadow-md`}>
         {children}
       </div>
     </section>

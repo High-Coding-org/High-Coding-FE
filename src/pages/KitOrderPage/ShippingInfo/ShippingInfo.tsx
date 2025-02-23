@@ -1,5 +1,4 @@
-import { Label } from '@/components/ui/label';
-
+import SectionContainer from '../components/SectionContainer';
 import DeliveryAddress from './DeliveryAddress';
 import DeliveryNote from './DeliveryNote';
 import ShippingUser from './ShippingUser';
@@ -27,30 +26,28 @@ export default function ShippingInfo({
   setDetailedAddress,
 }: ShippingInfoProps) {
   return (
-    <div className="flex flex-col gap-4 mb-6">
-      <Label className="pl-4 font-bold">배송 정보</Label>
+    <SectionContainer
+      label="배송 정보"
+      className="flex flex-col gap-2 p-6">
+      {/* 배송자 정보 */}
+      <ShippingUser
+        name={name}
+        phoneNumber={phoneNumber}
+      />
 
-      <div className="flex flex-col gap-2 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-        {/* 배송자 정보 */}
-        <ShippingUser
-          name={name}
-          phoneNumber={phoneNumber}
-        />
+      <div className="mt-1" />
 
-        <div className="mt-1" />
+      {/* 배송지 주소 */}
+      <DeliveryAddress
+        setRegionalAddress={setRegionalAddress}
+        setDetailedAddress={setDetailedAddress}
+      />
 
-        {/* 배송지 주소 */}
-        <DeliveryAddress
-          setRegionalAddress={setRegionalAddress}
-          setDetailedAddress={setDetailedAddress}
-        />
-
-        {/* 배송 메모 */}
-        <DeliveryNote
-          deliveryNote={deliveryNote}
-          setDeliveryNote={setDeliveryNote}
-        />
-      </div>
-    </div>
+      {/* 배송 메모 */}
+      <DeliveryNote
+        deliveryNote={deliveryNote}
+        setDeliveryNote={setDeliveryNote}
+      />
+    </SectionContainer>
   );
 }
