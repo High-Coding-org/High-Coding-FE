@@ -21,7 +21,7 @@ export default function PaymentMethod({
         {PAYMENT_METHODS.map((method, index) => (
           <label
             key={index + method.id}
-            className="flex items-center h-12 gap-2 border-b-2 last:border-none hover:cursor-pointer"
+            className="flex items-center h-12 gap-2 border-b-2 last:border-none hover:cursor-pointer hover:bg-slate-50 hover:rounded-md hover:px-1"
             htmlFor={method.id}>
             <RadioGroupItem
               value={method.label}
