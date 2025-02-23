@@ -11,7 +11,7 @@ export default function PaymentMethod({
 }: PaymentMethodProps) {
   return (
     <div className="flex flex-col gap-4 mb-6">
-      <Label className="pl-4 font-bold">결제수단</Label>
+      <Label className="pl-4 font-bold">결제 수단</Label>
 
       <div className="px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
         <RadioGroup

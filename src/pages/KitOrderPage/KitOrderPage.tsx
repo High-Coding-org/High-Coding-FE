@@ -47,7 +47,7 @@ export default function KitOrderPage() {
 
       <main className="flex justify-between h-full w-pageWidth">
         {/* 주문 정보 */}
-        <section className="w-[70%]">
+        <article className="w-[70%]">
           {/* 배송지 */}
           <ShippingInfo
             name={DUMMY_PURCHASE_DATA.name}
@@ -73,9 +73,9 @@ export default function KitOrderPage() {
             setDiscount={setDiscount}
           />
 
-          {/* 결제수단 */}
+          {/* 결제 수단 */}
           <PaymentMethod setPaymentMethod={setPaymentMethod} />
-        </section>
+        </article>
 
         {/* 결제 정보 */}
         <nav className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit ">
