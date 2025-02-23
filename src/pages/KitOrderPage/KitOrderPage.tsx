@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
-import OrderDiscount from './OrderDiscount/OrderDiscount';
+import OrderCoupon from './OrderCoupon/OrderCoupon';
 import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
@@ -67,7 +67,7 @@ export default function KitOrderPage() {
           />
 
           {/* 쿠폰 */}
-          <OrderDiscount
+          <OrderCoupon
             totalPrice={totalPrice}
             discount={discount}
             setDiscount={setDiscount}

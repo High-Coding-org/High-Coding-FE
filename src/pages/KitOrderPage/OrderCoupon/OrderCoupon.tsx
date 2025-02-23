@@ -15,7 +15,7 @@ interface Coupon {
   date: string;
 }
 
-interface OrderDiscountProps {
+interface OrderCouponProps {
   totalPrice: number;
   discount: number;
   setDiscount: (discount: number) => void;
@@ -45,11 +45,11 @@ const dummyCoupons: Coupon[] = [
   },
 ];
 
-export default function OrderDiscount({
+export default function OrderCoupon({
   totalPrice,
   discount,
   setDiscount,
-}: OrderDiscountProps) {
+}: OrderCouponProps) {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
 
