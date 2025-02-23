@@ -2,9 +2,10 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
+
+import SectionContainer from '../components/SectionContainer';
 
 interface Coupon {
   name: string;
@@ -72,9 +73,7 @@ export default function OrderDiscount({
 
   return (
     <>
-      <Label className="pl-4 font-bold">쿠폰</Label>
-
-      <div className="flex flex-col my-6 font-bold bg-white border border-gray-200 rounded-lg shadow-md ">
+      <SectionContainer label="쿠폰">
         <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
           <div className="flex items-center">
             <h3 className="font-semibold">쿠폰 적용하기</h3>
@@ -84,14 +83,16 @@ export default function OrderDiscount({
               {selectedCoupon ? '변경' : '적용'}
             </Button>
           </div>
-          <span>- {formatMoneyKR(discount)}</span>
+          <span className="font-bold">- {formatMoneyKR(discount)}</span>
         </div>
 
         <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
           <h3 className="font-semibold">할인 적용 금액 : </h3>
-          <span>{formatMoneyKR(totalPrice - discount)}</span>
+          <span className="font-bold">
+            {formatMoneyKR(totalPrice - discount)}
+          </span>
         </div>
-      </div>
+      </SectionContainer>
 
       {isCouponModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
