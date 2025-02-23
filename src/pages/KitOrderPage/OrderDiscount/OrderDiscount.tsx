@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
 interface Coupon {
   name: string;
@@ -83,12 +84,12 @@ export default function OrderDiscount({
               {selectedCoupon ? '변경' : '적용'}
             </Button>
           </div>
-          <span>- {discount}원</span>
+          <span>- {formatMoneyKR(discount)}</span>
         </div>
 
         <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
           <span>할인 적용 금액:</span>
-          <span>{totalPrice - discount}원</span>
+          <span>{formatMoneyKR(totalPrice - discount)}</span>
         </div>
       </div>
 
