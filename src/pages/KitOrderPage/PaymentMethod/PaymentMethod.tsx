@@ -1,4 +1,3 @@
-import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PAYMENT_METHODS } from '@/constants/paymentMethods';
 
@@ -20,19 +19,16 @@ export default function PaymentMethod({
         defaultValue={PAYMENT_METHODS[0].id}
         onValueChange={value => setPaymentMethod(value)}>
         {PAYMENT_METHODS.map((method, index) => (
-          <div
+          <label
             key={index + method.id}
-            className="flex items-center h-12 gap-2 border-b-2 last:border-none">
+            className="flex items-center h-12 gap-2 border-b-2 last:border-none hover:cursor-pointer"
+            htmlFor={method.id}>
             <RadioGroupItem
               value={method.label}
               id={method.id}
             />
-            <Label
-              htmlFor={method.id}
-              className="font-bold hover:cursor-pointer">
-              {method.label}
-            </Label>
-          </div>
+            <span className="font-bold">{method.label}</span>
+          </label>
         ))}
       </RadioGroup>
     </SectionContainer>
