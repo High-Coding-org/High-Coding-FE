@@ -3,19 +3,13 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import SideBar from '@/components/common/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
-import PasswordInput from './PasswordInput';
 import { usePasswordChange } from './usePasswordChange';
 import { formSchema } from './passwordSchema';
+import { toast } from 'react-toastify';
+import { PasswordFormField } from './PasswordFormField';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -39,12 +33,24 @@ export default function ProfileEdit() {
     },
   });
 
-  function onSubmit(values) {
-    mutate({
-      currentPassword: values.currentPassword,
-      newPassword: values.newPassword,
-    });
-  }
+  const handleSuccess = data => {
+    toast.success(data);
+    form.reset();
+  };
+
+  const handleError = error => {
+    toast.error('비밀번호 변경 실패: ' + error.message);
+  };
+
+  const onSubmit = values => {
+    mutate(
+      {
+        currentPassword: values.currentPassword,
+        newPassword: values.newPassword,
+      },
+      { onSuccess: handleSuccess, onError: handleError }
+    );
+  };
 
   return (
     <>
@@ -55,74 +61,32 @@ export default function ProfileEdit() {
         <div className="flex-1">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
+              <PasswordFormField
                 control={form.control}
                 name="currentPassword"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row">
-                    <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
-                      기존 비밀번호
-                    </FormLabel>
-                    <div className="flex flex-col w-[24rem] gap-2 pb-2">
-                      <FormControl>
-                        <PasswordInput
-                          showPassword={showCurrentPassword}
-                          togglePasswordVisibility={() =>
-                            setShowCurrentPassword(!showCurrentPassword)
-                          }
-                          field={field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
+                label="기존 비밀번호"
+                showPassword={showCurrentPassword}
+                togglePasswordVisibility={() =>
+                  setShowCurrentPassword(!showCurrentPassword)
+                }
               />
-              <FormField
+              <PasswordFormField
                 control={form.control}
                 name="newPassword"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row">
-                    <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
-                      새 비밀번호
-                    </FormLabel>
-                    <div className="flex flex-col w-[24rem] gap-2 pb-2">
-                      <FormControl>
-                        <PasswordInput
-                          showPassword={showNewPassword}
-                          togglePasswordVisibility={() =>
-                            setShowNewPassword(!showNewPassword)
-                          }
-                          field={field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
+                label="새 비밀번호"
+                showPassword={showNewPassword}
+                togglePasswordVisibility={() =>
+                  setShowNewPassword(!showNewPassword)
+                }
               />
-              <FormField
+              <PasswordFormField
                 control={form.control}
                 name="confirmNewPassword"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row">
-                    <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
-                      새 비밀번호 확인
-                    </FormLabel>
-                    <div className="flex flex-col w-[24rem] gap-2 pb-2">
-                      <FormControl>
-                        <PasswordInput
-                          showPassword={showConfirmNewPassword}
-                          togglePasswordVisibility={() =>
-                            setShowConfirmNewPassword(!showConfirmNewPassword)
-                          }
-                          field={field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
+                label="새 비밀번호 확인"
+                showPassword={showConfirmNewPassword}
+                togglePasswordVisibility={() =>
+                  setShowConfirmNewPassword(!showConfirmNewPassword)
+                }
               />
               <div className="flex gap-4 mt-4">
                 <Button
