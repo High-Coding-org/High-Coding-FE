@@ -17,9 +17,9 @@ export default function OrderItem({
     <SectionContainer
       label="주문 상품"
       className="p-6">
-      <h3 className="text-base font-bold">{productName}</h3>
+      <h3 className="text-lg font-extrabold">{productName}</h3>
       <p className="my-1 text-sm">수량: {quantity}개</p>
-      <p className="text-xs text-gray-500">키트 가격: {formatMoneyKR(price)}</p>
+      <p className="text-sm text-gray-500">키트 가격: {formatMoneyKR(price)}</p>
     </SectionContainer>
   );
 }

@@ -74,7 +74,7 @@ export default function OrderCoupon({
   return (
     <>
       <SectionContainer label="쿠폰">
-        <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
+        <div className="flex items-center justify-between px-6 py-3 border-t border-l border-r rounded-t-lg">
           <div className="flex items-center">
             <h3 className="font-semibold">쿠폰 적용하기</h3>
             <Button
@@ -86,7 +86,7 @@ export default function OrderCoupon({
           <span className="font-bold">- {formatMoneyKR(discount)}</span>
         </div>
 
-        <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
+        <div className="flex justify-between px-6 py-5 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
           <h3 className="font-semibold">할인 적용 금액 : </h3>
           <span className="font-bold">
             {formatMoneyKR(totalPrice - discount)}

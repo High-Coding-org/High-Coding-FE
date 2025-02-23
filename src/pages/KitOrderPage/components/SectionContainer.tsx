@@ -14,11 +14,11 @@ export default function SectionContainer({
   className,
 }: SectionContainerProps) {
   return (
-    <section>
-      <Label className="pl-4 font-bold">{label}</Label>
+    <section className="mb-6 mt-9">
+      <Label className="pl-2 text-lg font-extrabold">{label}</Label>
 
       <div
-        className={`${className} bg-white border border-gray-200 rounded-lg shadow-md`}>
+        className={`${className} mt-3 bg-white border border-gray-200 rounded-lg shadow-md`}>
         {children}
       </div>
     </section>

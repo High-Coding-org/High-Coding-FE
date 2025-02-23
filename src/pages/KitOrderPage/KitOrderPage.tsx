@@ -45,7 +45,7 @@ export default function KitOrderPage() {
     <>
       {/* <BreadcrumbAndTitle /> */}
 
-      <main className="flex justify-between h-full w-pageWidth">
+      <main className="flex justify-between h-full w-pageWidth text-[#222]">
         {/* 주문 정보 */}
         <article className="w-[70%]">
           {/* 배송지 */}
@@ -78,7 +78,7 @@ export default function KitOrderPage() {
         </article>
 
         {/* 결제 정보 */}
-        <nav className="sticky w-[25%] flex flex-col gap-4 top-24 h-fit ">
+        <nav className="sticky w-[25%] flex flex-col top-14 h-fit ">
           <PriceInfo
             totalPrice={totalPrice}
             discount={discount}
