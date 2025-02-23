@@ -14,8 +14,8 @@ export default function PriceInfo({ totalPrice, discount }: PriceInfoProps) {
   const priceItems = [
     { label: '상품금액', amount: totalPrice },
     { label: '배송비', amount: DELIVERY_SHIPPING_FEE },
-    { label: '할인', amount: -discount, isNegative: true },
-    { label: '결제금액', amount: finalAmount, isNegative: true },
+    { label: '할인', amount: -discount },
+    { label: '결제금액', amount: finalAmount },
   ];
 
   return (
@@ -23,20 +23,20 @@ export default function PriceInfo({ totalPrice, discount }: PriceInfoProps) {
       <Label className="pl-4 font-bold">결제 정보</Label>
 
       <div className="flex flex-col gap-4 px-6 py-6 bg-white border border-gray-200 rounded-lg shadow-md">
-        {priceItems.map(({ label, amount, isNegative }, index) => (
-          <>
-            <div
-              key={label}
-              className="flex justify-between text-sm last:font-bold">
+        {priceItems.map(({ label, amount }, index) => (
+          <ul
+            key={label}
+            className="last:font-bold">
+            <li className="flex justify-between text-sm ">
               <span>{label}</span>
               <span>
-                {isNegative && '- '}
+                {label === '할인' && '- '}
                 {formatMoneyKR(Math.abs(amount))}
               </span>
-            </div>
+            </li>
 
-            {index === priceItems.length - 2 && <hr />}
-          </>
+            {index === priceItems.length - 2 && <hr className="mt-4" />}
+          </ul>
         ))}
       </div>
     </>
