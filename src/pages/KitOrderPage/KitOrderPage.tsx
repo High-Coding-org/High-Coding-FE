@@ -10,12 +10,6 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 
-const purchaseData = {
-  name: '김가연',
-  phoneNumber: '01023811425',
-  discount: 0,
-  shippingFee: 3000,
-};
 const DUMMY_PURCHASE_DATA = {
   name: '김가연',
   phoneNumber: '01023811425',
@@ -27,21 +21,15 @@ const DUMMY_ORDER_ITEMS = {
 };
 
 export default function KitOrderPage() {
-  // 페이지가 로드될 때 location.state 값이 없다면, home으로 redirect
   const navigate = useNavigate();
   const location = useLocation();
   const { kitId, productName, quantity, price } = location.state;
 
-  const [data, setData] = useState({ ...purchaseData });
   const [deliveryNote, setDeliveryNote] = useState<string>('');
   const [regionalAddress, setRegionalAddress] = useState<string>('');
   const [detailedAddress, setDetailedAddress] = useState<string>('');
   const [discount, setDiscount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<string>('');
-  // console.log('kitOrderPage에서 DN : ', deliveryNote);
-  // console.log('kitOrderPage에서 지역 주소 : ', regionalAddress);
-  // console.log('kitOrderPage에서 상세 주소 : ', detailedAddress);
-  // console.log('kitOrderPage에서 결제 수단 : ', paymentMethod);
 
   //결제 금액 (키트 가격 x 수량)
   const totalPrice = DUMMY_ORDER_ITEMS.price * DUMMY_ORDER_ITEMS.quantity;
