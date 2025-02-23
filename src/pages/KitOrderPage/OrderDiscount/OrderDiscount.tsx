@@ -77,7 +77,7 @@ export default function OrderDiscount({
       <div className="flex flex-col my-6 font-bold bg-white border border-gray-200 rounded-lg shadow-md ">
         <div className="flex items-center justify-between px-6 py-4 border-t border-l border-r rounded-t-lg">
           <div className="flex items-center">
-            <h3>쿠폰 적용하기</h3>
+            <h3 className="font-semibold">쿠폰 적용하기</h3>
             <Button
               className="ml-5 text-black bg-white border border-gray-200 hover:bg-white"
               onClick={() => setIsCouponModalOpen(true)}>
@@ -88,7 +88,7 @@ export default function OrderDiscount({
         </div>
 
         <div className="flex justify-between px-6 py-6 bg-blue-100 border-b border-l border-r border-gray-200 rounded-b-lg">
-          <span>할인 적용 금액:</span>
+          <h3 className="font-semibold">할인 적용 금액 : </h3>
           <span>{formatMoneyKR(totalPrice - discount)}</span>
         </div>
       </div>
