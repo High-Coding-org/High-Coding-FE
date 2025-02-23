@@ -4,8 +4,8 @@ import NoProfileData from '@/pages/ProfilePage/NoProfileData';
 import { useProfile } from './useProfile';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { useNavigate } from 'react-router';
-import { useEffect } from 'react';
-import { ProfileField } from './profilefield';
+import { ProfileField } from './Profilefield';
+import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -41,13 +41,14 @@ const ProfileFields = ({ userInfo }) => (
 export default function ProfilePage() {
   const { isLoading, data, error } = useProfile();
   const navigate = useNavigate();
+  const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
-  useEffect(() => {
-    if (error) {
-      console.error('정보를 불러오는데 실패했습니다.', error.message);
-      navigate('/');
-    }
-  }, [error, navigate]);
+  if (error) {
+    kitDetailErrorOccur();
+    setErrorMsg('정보를 불러오는데 실패했습니다.');
+
+    navigate('/');
+  }
 
   if (isLoading) return <Spinner />;
   if (!data) return <NoProfileData />;
