@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
@@ -13,33 +13,17 @@ const DUMMY_PURCHASE_DATA = {
   name: '김가연',
   phoneNumber: '01023811425',
 };
-const DUMMY_ORDER_ITEMS = {
-  productName: '스마트팜',
-  price: 200000,
-  quantity: 2,
-};
 
 export default function KitOrderPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { kitId, productName, quantity, price } = location.state;
-
+  const { kitId, productName, quantity, price } = useParams();
   const [deliveryNote, setDeliveryNote] = useState<string>('');
   const [regionalAddress, setRegionalAddress] = useState<string>('');
   const [detailedAddress, setDetailedAddress] = useState<string>('');
   const [discount, setDiscount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<string>('');
 
-  const totalPrice = DUMMY_ORDER_ITEMS.price * DUMMY_ORDER_ITEMS.quantity;
-
-  // todo: 비정상적 접근시 home으로 redirect 하는 코드 구현
-  // useEffect(() => {
-  //   if (!kitId || !location.state) {
-  //     // ? error store 하나 추가해서 alert 창 + 홈으로 리다이렉트
-  //     alert('주문 정보를 불러오는데 실패했습니다.');
-  //     navigate(PATH.HOME);
-  //   }
-  // }, [location.state]);
+  const totalPrice = Number(price) * Number(quantity);
 
   return (
     <>
@@ -61,9 +45,9 @@ export default function KitOrderPage() {
           {/* // todo: 더미데이터를 실제 데이터로 교체해야 함. */}
           {/* 주문상품 */}
           <OrderItem
-            productName={DUMMY_ORDER_ITEMS.productName}
-            quantity={DUMMY_ORDER_ITEMS.quantity}
-            price={DUMMY_ORDER_ITEMS.price}
+            productName={productName}
+            quantity={Number(quantity)}
+            price={Number(price)}
           />
 
           {/* 쿠폰 */}
