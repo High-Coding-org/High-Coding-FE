@@ -17,6 +17,13 @@ import { useKit } from './useKit';
  * 특정 키트의 상세 정보를 렌더링하며, 이미지, 이름, 가격, 별점, 리뷰 수, 수량 선택기 및 구매 버튼을 포함합니다.
  */
 
+const DUMMY_KIT_ORDER = {
+  id: '1',
+  productName: '스마트팜 식물 성장 키트',
+  quantity: 4,
+  price: 200000,
+};
+
 export default function KitDetailPage() {
   const { isLoading, data, error } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
@@ -25,20 +32,15 @@ export default function KitDetailPage() {
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
   const handleOrder = () => {
-    navigate(PATH.PRODUCT_ORDER, {
-      state: {
-        // kitId: kit?.id,
-        // productName: kit?.productName,
-        // quantity,
-        // price: kit?.price,
-        kitId: 'hi',
-        productName: 'hi',
-        quantity: 1234,
-        price: 'hi',
-        // ! 이미지 추가 필요
-        // image: kit?.image,
-      },
-    });
+    // if(!kit) return;
+
+    // const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
+    const orderPath = `${PATH.PRODUCT_ORDER}/
+    ${DUMMY_KIT_ORDER.id}/
+    ${DUMMY_KIT_ORDER.productName}/
+    ${DUMMY_KIT_ORDER.quantity}/
+    ${DUMMY_KIT_ORDER.price}`;
+    navigate(orderPath);
   };
 
   useEffect(() => {

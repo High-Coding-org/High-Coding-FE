@@ -21,3 +21,10 @@ export const PATH: IPath = {
   // 404 Not Found
   NOT_FOUND: '*',
 };
+
+export const PRODUCT_ORDER_PARAMS = {
+  KIT_ID: 'kitId',
+  PRODUCT_NAME: 'productName',
+  QUANTITY: 'quantity',
+  PRICE: 'price',
+};
