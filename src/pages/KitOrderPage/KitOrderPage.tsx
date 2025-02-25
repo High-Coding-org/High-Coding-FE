@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
@@ -14,61 +14,79 @@ const DUMMY_PURCHASE_DATA = {
   phoneNumber: '01023811425',
 };
 
+interface kitOrderValues {
+  deliveryNote: string;
+  regionalAddress: string;
+  detailedAddress: string;
+  paymentMethod: string;
+}
+
 export default function KitOrderPage() {
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
-  const [deliveryNote, setDeliveryNote] = useState<string>('');
-  const [regionalAddress, setRegionalAddress] = useState<string>('');
-  const [detailedAddress, setDetailedAddress] = useState<string>('');
-  const [discount, setDiscount] = useState<number>(0);
-  const [paymentMethod, setPaymentMethod] = useState<string>('');
-
   const totalPrice = Number(price) * Number(quantity);
 
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<kitOrderValues>({
+    defaultValues: {
+      deliveryNote: '',
+      regionalAddress: '',
+      detailedAddress: '',
+      paymentMethod: '',
+    },
+  });
+
+  const onSubmit = (data: kitOrderValues) => {
+    // 모든 필드가 채워졌다면 여기로 옵니다.
+    console.log('제출 데이터:', data);
+    // 결제 로직 진행 또는 다음 단계로 이동
+  };
+
+  // 제출 버튼을 누른 후 필드에 오류가 있으면 alert 처리
+  const onError = () => {
+    alert('모든 필드를 입력해 주세요.');
+  };
+
   return (
-    <>
-      {/* <BreadcrumbAndTitle /> */}
+    <form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      className="flex justify-between h-full w-pageWidth text-[#222]">
+      <div className="w-[70%]">
+        <ShippingInfo
+          name={DUMMY_PURCHASE_DATA.name}
+          phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
+          control={control}
+          errors={errors}
+        />
 
-      <main className="flex justify-between h-full w-pageWidth text-[#222]">
-        {/* 주문 정보 */}
-        <div className="w-[70%]">
-          {/* 배송지 */}
-          <ShippingInfo
-            name={DUMMY_PURCHASE_DATA.name}
-            phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
-            deliveryNote={deliveryNote}
-            setDeliveryNote={setDeliveryNote}
-            setRegionalAddress={setRegionalAddress}
-            setDetailedAddress={setDetailedAddress}
-          />
+        <OrderItem
+          productName={productName!}
+          quantity={Number(quantity)}
+          price={Number(price)}
+        />
 
-          {/* 주문상품 */}
-          <OrderItem
-            productName={productName}
-            quantity={Number(quantity)}
-            price={Number(price)}
-          />
+        <OrderCoupon totalPrice={totalPrice} />
 
-          {/* 쿠폰 */}
-          <OrderCoupon
-            totalPrice={totalPrice}
-            discount={discount}
-            setDiscount={setDiscount}
-          />
+        <PaymentMethod
+          control={control}
+          errors={errors}
+        />
+      </div>
 
-          {/* 결제 수단 */}
-          <PaymentMethod setPaymentMethod={setPaymentMethod} />
-        </div>
-
-        {/* 결제 정보 */}
-        <nav className="sticky w-[25%] flex flex-col top-14 h-fit ">
-          <PriceInfo
-            totalPrice={totalPrice}
-            discount={discount}
-          />
-          <Button className="bg-primary active:bg-blue-800">결제하기</Button>
-        </nav>
-      </main>
-    </>
+      <nav className="sticky w-[25%] flex flex-col top-14 h-fit">
+        <PriceInfo
+          totalPrice={totalPrice}
+          discount={0}
+        />
+        <Button
+          type="submit"
+          className="bg-primary active:bg-blue-800">
+          결제하기
+        </Button>
+      </nav>
+    </form>
   );
 }
