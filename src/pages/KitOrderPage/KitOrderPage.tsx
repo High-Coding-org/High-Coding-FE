@@ -8,18 +8,12 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
+import { kitOrderValues } from './type';
 
 const DUMMY_PURCHASE_DATA = {
   name: '김가연',
   phoneNumber: '01023811425',
 };
-
-interface kitOrderValues {
-  deliveryNote: string;
-  regionalAddress: string;
-  detailedAddress: string;
-  paymentMethod: string;
-}
 
 export default function KitOrderPage() {
   const navigate = useNavigate();
