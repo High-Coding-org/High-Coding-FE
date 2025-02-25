@@ -54,7 +54,7 @@ export default function KitOrderPage() {
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex justify-between h-full w-pageWidth text-[#222]">
-      <div className="w-[70%]">
+      <main className="w-[70%]">
         <ShippingInfo
           name={DUMMY_PURCHASE_DATA.name}
           phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
@@ -74,9 +74,9 @@ export default function KitOrderPage() {
           control={control}
           errors={errors}
         />
-      </div>
+      </main>
 
-      <nav className="sticky w-[25%] flex flex-col top-14 h-fit">
+      <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
         <PriceInfo
           totalPrice={totalPrice}
           discount={0}
@@ -86,7 +86,7 @@ export default function KitOrderPage() {
           className="bg-primary active:bg-blue-800">
           결제하기
         </Button>
-      </nav>
+      </aside>
     </form>
   );
 }
