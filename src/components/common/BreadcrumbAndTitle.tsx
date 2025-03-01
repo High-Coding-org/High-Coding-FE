@@ -9,7 +9,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 
-import { titles } from '@/routes/Breadcrumb/titles';
+import { TITLES } from '@/routes/Breadcrumb/titles';
 
 /**
  * Breadcrumb & 제목 컴포넌트
@@ -22,8 +22,8 @@ export default function BreadcrumbAndTitle() {
 
   const validPathNames = location.pathname
     .split('/')
-    .filter(name => titles[name]);
-  const pageTitle = titles[validPathNames.at(-1)];
+    .filter(name => TITLES[name]);
+  const pageTitle = TITLES[validPathNames.at(-1)];
 
   return (
     <div>
@@ -42,9 +42,9 @@ export default function BreadcrumbAndTitle() {
                 <BreadcrumbSeparator />
                 <BreadcrumbItem key={value}>
                   {isLastItem ? (
-                    <BreadcrumbPage>{titles[value]}</BreadcrumbPage>
+                    <BreadcrumbPage>{TITLES[value]}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={to}>{titles[value]}</BreadcrumbLink>
+                    <BreadcrumbLink href={to}>{TITLES[value]}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
               </>
