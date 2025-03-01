@@ -26,9 +26,7 @@ export default function DeliveryNote({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const deliveryNoteClass = (inputMode: boolean) =>
-    `focus-visible:ring-0 focus:ring-0 ${
-      inputMode && error ? 'border-red-500' : ''
-    }`;
+    `${inputMode && error ? 'border-red-500' : ''} focus-visible:ring-0 focus:ring-0`;
 
   const handleDeliveryNoteChange = (value: string) => {
     if (value === '직접 입력하기') {

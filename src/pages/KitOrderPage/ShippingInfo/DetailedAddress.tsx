@@ -16,7 +16,7 @@ export default function DetailedAddress({
   return (
     <div className="w-full">
       <Input
-        className={`w-full disabled:cursor-default disabled:opacity-100 ${
+        className={`w-full disabled:cursor-default disabled:opacity-100 focus-visible:ring-0 focus:ring-0 ${
           error ? 'border-red-500' : ''
         }`}
         type="text"
