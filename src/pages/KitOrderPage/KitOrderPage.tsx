@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 
 import OrderCoupon from './OrderCoupon/OrderCoupon';
 import OrderItem from './OrderItem/OrderItem';
+import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 import { kitOrderValues } from './type';
@@ -65,10 +66,7 @@ export default function KitOrderPage() {
           setDiscount={setDiscount}
         />
 
-        {/* <PaymentMethod
-          control={control}
-          errors={errors}
-        /> */}
+        <PaymentMethod control={control} />
       </main>
 
       <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
