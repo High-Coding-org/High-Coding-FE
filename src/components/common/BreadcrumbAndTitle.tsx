@@ -26,7 +26,7 @@ export default function BreadcrumbAndTitle() {
   const pageTitle = titles[validPathNames.at(-1)];
 
   return (
-    <div className="inline-block">
+    <div>
       <BreadcrumbComponent>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -38,19 +38,16 @@ export default function BreadcrumbAndTitle() {
             const isLastItem = index === validPathNames.length - 1;
 
             return (
-              <BreadcrumbItem key={value}>
-                {isLastItem ? (
-                  <>
-                    <BreadcrumbSeparator />
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem key={value}>
+                  {isLastItem ? (
                     <BreadcrumbPage>{titles[value]}</BreadcrumbPage>
-                  </>
-                ) : (
-                  <>
-                    <BreadcrumbSeparator />
+                  ) : (
                     <BreadcrumbLink href={to}>{titles[value]}</BreadcrumbLink>
-                  </>
-                )}
-              </BreadcrumbItem>
+                  )}
+                </BreadcrumbItem>
+              </>
             );
           })}
         </BreadcrumbList>
