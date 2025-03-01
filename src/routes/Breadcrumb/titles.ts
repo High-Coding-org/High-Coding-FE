@@ -2,7 +2,7 @@ import { PATH_TO_TITLES } from '@/routes/Breadcrumb/pathToTitles';
 import { PATH } from '@/routes/path';
 
 // titles 생성 (PATH_TO_TITLES의 경로에서 앞에 있는 / 제거)
-export const titles: { [key: string]: string } = Object.keys(
+export const TITLES: { [key: string]: string } = Object.keys(
   PATH_TO_TITLES
 ).reduce(
   (acc, key) => {
