@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
-import OrderCoupon from './OrderCoupon/OrderCoupon';
 import OrderItem from './OrderItem/OrderItem';
-import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 import { kitOrderValues } from './type';
@@ -34,12 +32,9 @@ export default function KitOrderPage() {
   });
 
   const onSubmit = (data: kitOrderValues) => {
-    // 모든 필드가 채워졌다면 여기로 옵니다.
     console.log('제출 데이터:', data);
-    // 결제 로직 진행 또는 다음 단계로 이동
   };
 
-  // 제출 버튼을 누른 후 필드에 오류가 있으면 alert 처리
   const onError = () => {
     alert('모든 필드를 입력해 주세요.');
   };
@@ -62,12 +57,12 @@ export default function KitOrderPage() {
           price={Number(price)}
         />
 
-        <OrderCoupon totalPrice={totalPrice} />
+        {/* <OrderCoupon totalPrice={totalPrice} />
 
         <PaymentMethod
           control={control}
           errors={errors}
-        />
+        /> */}
       </main>
 
       <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
