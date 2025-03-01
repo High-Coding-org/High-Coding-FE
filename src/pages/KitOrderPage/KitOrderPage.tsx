@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
+import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
 import OrderCoupon from './OrderCoupon/OrderCoupon';
 import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
@@ -25,9 +26,9 @@ export default function KitOrderPage() {
     formState: { errors },
   } = useForm<kitOrderValues>({
     defaultValues: {
-      deliveryNote: '',
       regionalAddress: '',
       detailedAddress: '',
+      deliveryNote: '',
       paymentMethod: '',
     },
   });
@@ -38,8 +39,15 @@ export default function KitOrderPage() {
     console.log('제출 데이터:', data);
   };
 
-  const onError = () => {
-    alert('모든 필드를 입력해 주세요.');
+  const onError = (errors: FieldErrors<kitOrderValues>) => {
+    const shippingInfoErrors =
+      errors.deliveryNote || errors.regionalAddress || errors.detailedAddress;
+
+    alert(
+      shippingInfoErrors
+        ? SUBMIT_ERROR_MESSAGE.SHIPPING_INFO
+        : SUBMIT_ERROR_MESSAGE.PAYMENT_METHOD
+    );
   };
 
   return (
