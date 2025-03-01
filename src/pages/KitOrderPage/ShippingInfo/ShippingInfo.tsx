@@ -35,8 +35,6 @@ export default function ShippingInfo({
         phoneNumber={phoneNumber}
       />
 
-      {/* br 로 바꿀 수 있으려나 */}
-      {/* <div className="mt-1" /> */}
       <br />
 
       {/* 배송지 주소 */}

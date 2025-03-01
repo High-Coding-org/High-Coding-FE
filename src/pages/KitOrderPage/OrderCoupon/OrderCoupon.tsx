@@ -79,6 +79,7 @@ export default function OrderCoupon({
             <h3 className="font-semibold">쿠폰 적용하기</h3>
             <Button
               className="ml-5 text-black bg-white border border-gray-200 hover:bg-slate-100"
+              type="button"
               onClick={() => setIsCouponModalOpen(true)}>
               {selectedCoupon ? '변경' : '적용'}
             </Button>

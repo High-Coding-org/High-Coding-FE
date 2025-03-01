@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
+import OrderCoupon from './OrderCoupon/OrderCoupon';
 import OrderItem from './OrderItem/OrderItem';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
@@ -16,8 +18,6 @@ const DUMMY_PURCHASE_DATA = {
 export default function KitOrderPage() {
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
-  const totalPrice = Number(price) * Number(quantity);
-
   const {
     handleSubmit,
     control,
@@ -30,6 +30,8 @@ export default function KitOrderPage() {
       paymentMethod: '',
     },
   });
+  const [discount, setDiscount] = useState<number>(0);
+  const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {
     console.log('제출 데이터:', data);
@@ -57,9 +59,13 @@ export default function KitOrderPage() {
           price={Number(price)}
         />
 
-        {/* <OrderCoupon totalPrice={totalPrice} />
+        <OrderCoupon
+          totalPrice={totalPrice}
+          discount={discount}
+          setDiscount={setDiscount}
+        />
 
-        <PaymentMethod
+        {/* <PaymentMethod
           control={control}
           errors={errors}
         /> */}
