@@ -1,15 +1,17 @@
+import { Control, Controller, FieldErrors } from 'react-hook-form';
+
 import SectionContainer from '../components/SectionContainer';
-import DeliveryAddress from './DeliveryAddress';
+import { kitOrderValues } from '../type';
 import DeliveryNote from './DeliveryNote';
+import DetailedAddress from './DetailedAddress';
+import RegionalAddressInput from './RegionalAddress';
 import ShippingUser from './ShippingUser';
 
 interface ShippingInfoProps {
   name: string;
   phoneNumber: string;
-  deliveryNote: string;
-  setDeliveryNote: (deliveryNote: string) => void;
-  setRegionalAddress: (regionalAddress: string) => void;
-  setDetailedAddress: (detailedAddress: string) => void;
+  control: Control<kitOrderValues>;
+  errors: FieldErrors<kitOrderValues>;
 }
 
 /**
@@ -20,10 +22,8 @@ interface ShippingInfoProps {
 export default function ShippingInfo({
   name,
   phoneNumber,
-  deliveryNote,
-  setDeliveryNote,
-  setRegionalAddress,
-  setDetailedAddress,
+  control,
+  errors,
 }: ShippingInfoProps) {
   return (
     <SectionContainer
@@ -35,18 +35,48 @@ export default function ShippingInfo({
         phoneNumber={phoneNumber}
       />
 
-      <div className="mt-1" />
+      {/* br 로 바꿀 수 있으려나 */}
+      {/* <div className="mt-1" /> */}
+      <br />
 
       {/* 배송지 주소 */}
-      <DeliveryAddress
-        setRegionalAddress={setRegionalAddress}
-        setDetailedAddress={setDetailedAddress}
+      <Controller
+        name="regionalAddress"
+        control={control}
+        rules={{ required: '지역 주소를 입력해주세요.' }}
+        render={({ field }) => (
+          <RegionalAddressInput
+            value={field.value}
+            onChange={field.onChange}
+            error={errors.regionalAddress}
+          />
+        )}
       />
 
-      {/* 배송 메모 */}
-      <DeliveryNote
-        deliveryNote={deliveryNote}
-        setDeliveryNote={setDeliveryNote}
+      <Controller
+        name="detailedAddress"
+        control={control}
+        rules={{ required: '상세 주소를 입력해주세요.' }}
+        render={({ field }) => (
+          <DetailedAddress
+            value={field.value}
+            onChange={field.onChange}
+            error={errors.detailedAddress}
+          />
+        )}
+      />
+
+      <Controller
+        name="deliveryNote"
+        control={control}
+        rules={{ required: '배송 메모를 입력해주세요.' }}
+        render={({ field }) => (
+          <DeliveryNote
+            value={field.value}
+            onChange={field.onChange}
+            error={errors.deliveryNote}
+          />
+        )}
       />
     </SectionContainer>
   );

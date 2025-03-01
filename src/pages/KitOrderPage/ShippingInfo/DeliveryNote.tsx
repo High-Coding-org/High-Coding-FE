@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { FieldError } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 import {
@@ -11,23 +12,30 @@ import {
 import { DELIVERY_NOTES, DELIVERY_PLACEHOLDER } from '@/constants/delivery';
 
 interface DeliveryNoteProps {
-  deliveryNote: string;
-  setDeliveryNote: (deliveryNote: string) => void;
+  value: string;
+  onChange: (value: string) => void;
+  error: FieldError;
 }
 
 export default function DeliveryNote({
-  deliveryNote,
-  setDeliveryNote,
+  value: deliveryNote,
+  onChange,
+  error,
 }: DeliveryNoteProps) {
   const [inputMode, setInputMode] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const deliveryNoteClass = (inputMode: boolean) =>
+    `focus-visible:ring-0 focus:ring-0 ${
+      inputMode && error ? 'border-red-500' : ''
+    }`;
+
   const handleDeliveryNoteChange = (value: string) => {
     if (value === '직접 입력하기') {
-      setDeliveryNote('');
+      onChange('');
       setInputMode(true);
     } else {
-      setDeliveryNote(value);
+      onChange(value);
       setInputMode(false);
     }
   };
@@ -43,7 +51,7 @@ export default function DeliveryNote({
   return (
     <>
       <Select onValueChange={handleDeliveryNoteChange}>
-        <SelectTrigger className="focus-visible:ring-0 focus:ring-0">
+        <SelectTrigger className={deliveryNoteClass(!inputMode)}>
           <SelectValue placeholder={DELIVERY_PLACEHOLDER.SELECT} />
         </SelectTrigger>
         <SelectContent>
@@ -58,10 +66,11 @@ export default function DeliveryNote({
       </Select>
       {inputMode && (
         <Input
+          className={deliveryNoteClass(inputMode)}
           ref={inputRef}
           type="text"
           placeholder={DELIVERY_PLACEHOLDER.INPUT}
-          onChange={e => setDeliveryNote(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           value={deliveryNote}
         />
       )}
