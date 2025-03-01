@@ -25,7 +25,7 @@ export default function RegionalAddressInput({
   }, [address, onChange]);
 
   return (
-    <div className="flex gap-2 mb-2">
+    <div className="flex gap-2">
       <Input
         className={`w-full disabled:cursor-default disabled:opacity-100 ${
           error ? 'border-red-500' : ''
