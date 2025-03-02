@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
@@ -38,16 +39,16 @@ export default function BreadcrumbAndTitle() {
             const isLastItem = index === validPathNames.length - 1;
 
             return (
-              <>
+              <Fragment key={value}>
                 <BreadcrumbSeparator />
-                <BreadcrumbItem key={value}>
+                <BreadcrumbItem>
                   {isLastItem ? (
                     <BreadcrumbPage>{TITLES[value]}</BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink href={to}>{TITLES[value]}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-              </>
+              </Fragment>
             );
           })}
         </BreadcrumbList>
