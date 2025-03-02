@@ -1,3 +1,5 @@
+import { Control, FieldValues, UseFormTrigger } from 'react-hook-form';
+
 import {
   FormControl,
   FormField,
@@ -5,8 +7,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+
 import PasswordInput from './PasswordInput';
-import { Control } from 'react-hook-form';
 
 interface PasswordFormFieldProps {
   control: Control;
@@ -14,14 +16,16 @@ interface PasswordFormFieldProps {
   label: string;
   showPassword: boolean;
   togglePasswordVisibility: () => void;
+  trigger: UseFormTrigger<FieldValues>;
 }
 
-export function PasswordFormField({
+export default function PasswordFormField({
   control,
   name,
   label,
   showPassword,
   togglePasswordVisibility,
+  trigger,
 }: PasswordFormFieldProps) {
   return (
     <FormField
@@ -38,6 +42,7 @@ export function PasswordFormField({
                 showPassword={showPassword}
                 togglePasswordVisibility={togglePasswordVisibility}
                 field={field}
+                trigger={trigger}
               />
             </FormControl>
             <FormMessage />

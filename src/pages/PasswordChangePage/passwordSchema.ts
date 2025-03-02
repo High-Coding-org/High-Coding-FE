@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 export const formSchema = z
   .object({
     currentPassword: z.string().min(6, {

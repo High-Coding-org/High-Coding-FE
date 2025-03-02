@@ -1,15 +1,17 @@
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'react-toastify';
+
+import { usePasswordChange } from './usePasswordChange';
+import { formSchema } from './passwordSchema';
+
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import SideBar from '@/components/common/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
-import { usePasswordChange } from './usePasswordChange';
-import { formSchema } from './passwordSchema';
-import { toast } from 'react-toastify';
-import { PasswordFormField } from './PasswordFormField';
+import PasswordFormField from './PasswordFormField';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -19,9 +21,16 @@ const DUMMY_SIDEBAR_DATA = [
 
 export default function ProfileEdit() {
   const { mutate } = usePasswordChange();
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+
+  const [showPasswords, setShowPasswords] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmNewPassword: false,
+  });
+
+  const togglePasswordVisibility = field => {
+    setShowPasswords(prev => ({ ...prev, [field]: !prev[field] }));
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,35 +67,38 @@ export default function ProfileEdit() {
         <BreadcrumbAndTitle />
       </header>
       <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4">
-        <div className="flex-1">
+        <main className="flex-1">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <PasswordFormField
                 control={form.control}
                 name="currentPassword"
                 label="기존 비밀번호"
-                showPassword={showCurrentPassword}
+                showPassword={showPasswords.currentPassword}
                 togglePasswordVisibility={() =>
-                  setShowCurrentPassword(!showCurrentPassword)
+                  togglePasswordVisibility('currentPassword')
                 }
+                trigger={form.trigger}
               />
               <PasswordFormField
                 control={form.control}
                 name="newPassword"
                 label="새 비밀번호"
-                showPassword={showNewPassword}
+                showPassword={showPasswords.newPassword}
                 togglePasswordVisibility={() =>
-                  setShowNewPassword(!showNewPassword)
+                  togglePasswordVisibility('newPassword')
                 }
+                trigger={form.trigger}
               />
               <PasswordFormField
                 control={form.control}
                 name="confirmNewPassword"
                 label="새 비밀번호 확인"
-                showPassword={showConfirmNewPassword}
+                showPassword={showPasswords.confirmNewPassword}
                 togglePasswordVisibility={() =>
-                  setShowConfirmNewPassword(!showConfirmNewPassword)
+                  togglePasswordVisibility('confirmNewPassword')
                 }
+                trigger={form.trigger}
               />
               <div className="flex gap-4 mt-4">
                 <Button
@@ -98,7 +110,7 @@ export default function ProfileEdit() {
               </div>
             </form>
           </Form>
-        </div>
+        </main>
         <aside className="h-auto w-[12rem]">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
         </aside>

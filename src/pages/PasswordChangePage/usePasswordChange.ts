@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { changePassword } from '@/services/password/changePassword';
+
 export const usePasswordChange = () => {
   const mutation = useMutation<
     string,
