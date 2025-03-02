@@ -9,7 +9,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 
-import { TITLES } from '@/routes/Breadcrumb/titles';
+import { TITLES } from '@/components/common/Breadcrumb/titles';
 
 /**
  * Breadcrumb & 제목 컴포넌트
