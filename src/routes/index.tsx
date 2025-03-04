@@ -5,6 +5,7 @@ import {
   LoginPage,
   MyPlantPage,
   NotFoundPage,
+  OrderComplete,
   OrderList,
   PlantDetail,
   PlantRecommend,
@@ -46,6 +47,10 @@ export function AppRoutes() {
           <Route
             path={PATH.PRODUCT_PURCHASE}
             element={<PrivateRoute page={<PurchasePage />} />}
+          />
+          <Route
+            path={PATH.ORDER_COMPLETE}
+            element={<PrivateRoute page={<OrderComplete />} />}
           />
         </Route>
 
