@@ -1,10 +1,11 @@
-import { CircleHelp, CircleUserRound, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
   ADDITIONAL_MENU_ITEMS,
   MENU_ITEMS,
+  MENU_ITEMS_ICON,
   NAME_TO_PATH,
 } from '@/constants/header';
 
@@ -17,7 +18,6 @@ import Logo from '../Logo/Logo';
 
 export default function Header() {
   const navigate = useNavigate();
-  const icons = [CircleHelp, CircleUserRound];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
@@ -69,9 +69,10 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-6">
-          {icons.map((Icon, index) => (
+          {Object.values(MENU_ITEMS_ICON).map((Icon, index) => (
             <Icon
               key={index}
+              onClick={() => handleMenuClick(ADDITIONAL_MENU_ITEMS[index])}
               className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
             />
           ))}
