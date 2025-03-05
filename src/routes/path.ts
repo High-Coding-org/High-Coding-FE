@@ -25,6 +25,9 @@ export const PATH: IPath = {
   PLANT_DICTIONARY: 'dictionary',
   PLANT_RECOMMEND: 'AIRecommend',
 
+  // Customer Center
+  CUSTOMER_CENTER: 'customer-center',
+
   // 404 Not Found
   NOT_FOUND: '*',
 };

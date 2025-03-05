@@ -14,6 +14,7 @@ import {
   PlantRegister,
   ProfilePage,
 } from '@/pages';
+import CustomerCenter from '@/pages/CustomerCenter/CustomerCenter';
 import { Layout } from '@/pages/Layout/Layout';
 import PlantDictionary from '@/pages/MyPlantPage/PlantDictionary/PlantDictionary';
 
@@ -29,6 +30,7 @@ export function AppRoutes() {
           element={<HomePage />}
         />
 
+        {/* 프로필 페이지 */}
         <Route path={PATH.PROFILE}>
           <Route
             index
@@ -40,6 +42,7 @@ export function AppRoutes() {
           />
         </Route>
 
+        {/* 키트 페이지 */}
         <Route path={PATH.PRODUCT}>
           <Route
             index
@@ -55,6 +58,7 @@ export function AppRoutes() {
           />
         </Route>
 
+        {/* 식물 페이지 */}
         <Route path={PATH.PLANT}>
           <Route
             path={PATH.PLANT_MY_PLANT}
@@ -82,6 +86,12 @@ export function AppRoutes() {
             element={<PrivateRoute page={<PlantRecommend />} />}
           />
         </Route>
+
+        {/* 고객 센터 페이지 */}
+        <Route
+          path={PATH.CUSTOMER_CENTER}
+          element={<PrivateRoute page={<CustomerCenter />} />}
+        />
       </Route>
 
       <Route element={<Layout showHeader={false} />}>
