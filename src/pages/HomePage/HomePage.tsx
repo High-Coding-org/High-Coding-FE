@@ -41,7 +41,7 @@ export default function HomePage() {
       toast.error(kitDetailErrorMsg);
       clearKitDetailError();
     }
-  }, []);
+  }, [kitDetailError, kitDetailErrorMsg, clearKitDetailError]);
 
   const handleScrollToSubTitle = () => {
     subTitleRef.current?.scrollIntoView({ behavior: 'smooth' });
