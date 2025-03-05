@@ -1,4 +1,4 @@
-import { CircleHelp, CircleUserRound, Menu, MoonStar, X } from 'lucide-react';
+import { CircleHelp, CircleUserRound, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { ADDITIONAL_MENU_ITEMS, MENU_ITEMS } from '@/constants/header';
@@ -11,7 +11,7 @@ import Logo from '../Logo/Logo';
  */
 
 export default function Header() {
-  const icons = [MoonStar, CircleHelp, CircleUserRound];
+  const icons = [CircleHelp, CircleUserRound];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
