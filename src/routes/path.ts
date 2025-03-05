@@ -1,16 +1,20 @@
 import { IPath } from '@/types/path';
 
 export const PATH: IPath = {
+  HOME: '/',
+
   // Login & Signup
   SIGN: '/sign',
 
   // Profile
   PROFILE: '/profile',
   PROFILE_MY_ORDER: 'my-order',
+  PROFILE_ORDER_LIST: 'order-list',
 
   // Product
   PRODUCT: '/product',
   PRODUCT_ORDER: 'order',
+  ORDER_COMPLETE: 'order/complete',
 
   // Plant
   PLANT: '/plant',

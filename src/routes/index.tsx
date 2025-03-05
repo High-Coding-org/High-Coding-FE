@@ -7,6 +7,7 @@ import {
   LoginPage,
   MyPlantPage,
   NotFoundPage,
+  OrderComplete,
   OrderList,
   PlantDetail,
   PlantRecommend,
@@ -46,6 +47,10 @@ export function AppRoutes() {
           <Route
             path={`${PATH.PRODUCT_ORDER}/:${PRODUCT_ORDER_PARAMS.KIT_ID}/:${PRODUCT_ORDER_PARAMS.PRODUCT_NAME}/:${PRODUCT_ORDER_PARAMS.QUANTITY}/:${PRODUCT_ORDER_PARAMS.PRICE}`}
             element={<PrivateRoute page={<KitOrderPage />} />}
+          />
+          <Route
+            path={PATH.ORDER_COMPLETE}
+            element={<PrivateRoute page={<OrderComplete />} />}
           />
         </Route>
 
