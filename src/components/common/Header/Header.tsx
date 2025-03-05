@@ -84,19 +84,12 @@ export default function Header() {
         <div
           className={`absolute top-[3.75rem] left-0 w-full h-screen bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
           <nav className="flex flex-col items-start p-4 mx-4 space-y-2 transform">
-            {MENU_ITEMS.map((item, index) => (
-              <span
+            {[...MENU_ITEMS, ...ADDITIONAL_MENU_ITEMS].map((item, index) => (
+              <button
                 key={index}
                 className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
                 {item}
-              </span>
-            ))}
-            {ADDITIONAL_MENU_ITEMS.map((item, index) => (
-              <span
-                key={index}
-                className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
-                {item}
-              </span>
+              </button>
             ))}
           </nav>
         </div>
