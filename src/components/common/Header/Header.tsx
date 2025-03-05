@@ -1,7 +1,12 @@
 import { CircleHelp, CircleUserRound, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import { ADDITIONAL_MENU_ITEMS, MENU_ITEMS } from '@/constants/header';
+import {
+  ADDITIONAL_MENU_ITEMS,
+  MENU_ITEMS,
+  NAME_TO_PATH,
+} from '@/constants/header';
 
 import Logo from '../Logo/Logo';
 
@@ -11,10 +16,10 @@ import Logo from '../Logo/Logo';
  */
 
 export default function Header() {
+  const navigate = useNavigate();
   const icons = [CircleHelp, CircleUserRound];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(prevState => {
       const newState = !prevState;
@@ -45,11 +50,13 @@ export default function Header() {
 
           <nav className="flex items-center h-[3.75rem] ">
             {MENU_ITEMS.map((item, index) => (
-              <span
+              <button
+                type="button"
                 key={index}
+                onClick={() => navigate(NAME_TO_PATH[item])}
                 className="hidden px-4 py-2 text-sm font-bold rounded cursor-pointer md:block hover:bg-gray-100">
                 {item}
-              </span>
+              </button>
             ))}
           </nav>
         </div>
