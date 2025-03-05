@@ -20,12 +20,19 @@ export default function Header() {
   const icons = [CircleHelp, CircleUserRound];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
+
   const toggleMenu = () => {
     setIsMenuOpen(prevState => {
       const newState = !prevState;
       document.body.style.overflow = newState ? 'hidden' : 'auto';
       return newState;
     });
+  };
+
+  const handleMenuClick = (item: string) => {
+    navigate(NAME_TO_PATH[item]);
+
+    setIsMenuOpen(false);
   };
 
   useEffect(() => {
@@ -53,7 +60,7 @@ export default function Header() {
               <button
                 type="button"
                 key={index}
-                onClick={() => navigate(NAME_TO_PATH[item])}
+                onClick={() => handleMenuClick(item)}
                 className="hidden px-4 py-2 text-sm font-bold rounded cursor-pointer md:block hover:bg-gray-100">
                 {item}
               </button>
@@ -88,7 +95,7 @@ export default function Header() {
               <button
                 key={index}
                 type="button"
-                onClick={() => navigate(NAME_TO_PATH[item])}
+                onClick={() => handleMenuClick(item)}
                 className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
                 {item}
               </button>
