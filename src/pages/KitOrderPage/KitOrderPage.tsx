@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 
 import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
@@ -51,43 +52,47 @@ export default function KitOrderPage() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onError)}
-      className="flex justify-between h-full w-pageWidth text-[#222]">
-      <main className="w-[70%]">
-        <ShippingInfo
-          name={DUMMY_PURCHASE_DATA.name}
-          phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
-          control={control}
-          errors={errors}
-        />
+    <>
+      <BreadcrumbAndTitle />
 
-        <OrderItem
-          productName={productName!}
-          quantity={Number(quantity)}
-          price={Number(price)}
-        />
+      <form
+        onSubmit={handleSubmit(onSubmit, onError)}
+        className="flex justify-between h-full w-pageWidth text-[#222]">
+        <main className="w-[70%]">
+          <ShippingInfo
+            name={DUMMY_PURCHASE_DATA.name}
+            phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
+            control={control}
+            errors={errors}
+          />
 
-        <OrderCoupon
-          totalPrice={totalPrice}
-          discount={discount}
-          setDiscount={setDiscount}
-        />
+          <OrderItem
+            productName={productName!}
+            quantity={Number(quantity)}
+            price={Number(price)}
+          />
 
-        <PaymentMethod control={control} />
-      </main>
+          <OrderCoupon
+            totalPrice={totalPrice}
+            discount={discount}
+            setDiscount={setDiscount}
+          />
 
-      <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
-        <PriceInfo
-          totalPrice={totalPrice}
-          discount={0}
-        />
-        <Button
-          type="submit"
-          className="bg-primary active:bg-blue-800">
-          결제하기
-        </Button>
-      </aside>
-    </form>
+          <PaymentMethod control={control} />
+        </main>
+
+        <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
+          <PriceInfo
+            totalPrice={totalPrice}
+            discount={0}
+          />
+          <Button
+            type="submit"
+            className="bg-primary active:bg-blue-800">
+            결제하기
+          </Button>
+        </aside>
+      </form>
+    </>
   );
 }
