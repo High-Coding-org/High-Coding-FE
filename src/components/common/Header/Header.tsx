@@ -87,6 +87,8 @@ export default function Header() {
             {[...MENU_ITEMS, ...ADDITIONAL_MENU_ITEMS].map((item, index) => (
               <button
                 key={index}
+                type="button"
+                onClick={() => navigate(NAME_TO_PATH[item])}
                 className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
                 {item}
               </button>
