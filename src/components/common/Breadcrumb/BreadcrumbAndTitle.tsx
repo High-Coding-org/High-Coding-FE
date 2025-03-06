@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
@@ -9,7 +10,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 
-import { titles } from '@/routes/BreadcrumbTitle';
+import { TITLES } from '@/components/common/Breadcrumb/titles';
 
 /**
  * Breadcrumb & 제목 컴포넌트
@@ -19,39 +20,43 @@ import { titles } from '@/routes/BreadcrumbTitle';
  */
 export default function BreadcrumbAndTitle() {
   const location = useLocation();
-  const pathNames = location.pathname.split('/').filter(Boolean);
-  const validPathNames = pathNames.filter(name => titles[name]);
-  const pageTitles = titles[validPathNames[validPathNames.length - 1]];
+
+  const validPathNames = location.pathname
+    .split('/')
+    .filter(name => TITLES[name]);
+  const pageTitle = TITLES[validPathNames.at(-1)];
 
   return (
-    <div className="inline-block">
+    <>
       <BreadcrumbComponent>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
-          {validPathNames.length > 0 && <BreadcrumbSeparator />}
+
           {validPathNames.map((value, index) => {
             const to = `/${validPathNames.slice(0, index + 1).join('/')}`;
             const isLastItem = index === validPathNames.length - 1;
 
             return (
-              <>
-                <BreadcrumbItem key={value}>
+              <Fragment key={value}>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
                   {isLastItem ? (
-                    <BreadcrumbPage>{titles[value]}</BreadcrumbPage>
+                    <BreadcrumbPage>{TITLES[value]}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={to}>{titles[value]}</BreadcrumbLink>
+                    <BreadcrumbLink href={to}>{TITLES[value]}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-                {index < validPathNames.length - 1 && <BreadcrumbSeparator />}
-              </>
+              </Fragment>
             );
           })}
         </BreadcrumbList>
       </BreadcrumbComponent>
 
-      <h1 className="font-bold text-[1.75rem] mt-2">{pageTitles}</h1>
-    </div>
+      {pageTitle && (
+        <h1 className="font-bold text-[1.75rem] mt-2">{pageTitle}</h1>
+      )}
+    </>
   );
 }
