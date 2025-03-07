@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
@@ -15,7 +15,7 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
-import { kitOrderValues } from './type';
+import { kitOrderValues, OrderResponse } from './type';
 
 const DUMMY_PURCHASE_DATA = {
   name: '김가연',
@@ -25,42 +25,10 @@ const DUMMY_PURCHASE_DATA = {
 const DUMMY_TOKEN =
  
 
-export interface UserInfo {
-  userId: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  address?: string;
-}
-
 // 주문 상품
-export interface OrderItem {
-  itemId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  options?: Record<string, string | number>;
-}
 
 // 쿠폰 정보
 // 쿠폰이 배열로 오는데 interface로 어떻게 정의해야하지?
-export interface Coupon {
-  couponId: number;
-  couponPublishId: number;
-  couponName: string;
-  discountAmount: number;
-  status: string;
-}
-
-// 주문 응답 데이터
-export interface OrderResponseData {
-  userInfo: UserInfo;
-  orderItems: OrderItem[];
-  coupons: Coupon[];
-}
-
-// Axios 응답 전체를 포함하는 타입
-export type OrderResponse = AxiosResponse<OrderResponseData>;
 
 export default function KitOrderPage() {
   /**
@@ -94,8 +62,8 @@ export default function KitOrderPage() {
   const useOrderData = () => {
     return useMutation({
       mutationFn: getOrderData,
-      onSuccess: data => {
-        console.log(data);
+      onSuccess: (data: OrderResponse) => {
+        console.log(data.data);
       },
       onError: error => {
         console.log(error);
@@ -103,7 +71,7 @@ export default function KitOrderPage() {
     });
   };
 
-  const { mutate, isError } = useOrderData();
+  const { mutate, isError, isPending } = useOrderData();
 
   // itemId => useParams의 kitId
   // itemCount => useParams의 quantity 로 교체해야 함.
@@ -147,6 +115,7 @@ export default function KitOrderPage() {
         : SUBMIT_ERROR_MESSAGE.PAYMENT_METHOD
     );
   };
+
 
   return (
     <>
