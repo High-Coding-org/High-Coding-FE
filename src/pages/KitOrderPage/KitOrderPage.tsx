@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
+import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
+import { axiosInstance } from '@/services/axiosInstance';
 
 import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
 import OrderCoupon from './OrderCoupon/OrderCoupon';
@@ -18,7 +22,100 @@ const DUMMY_PURCHASE_DATA = {
   phoneNumber: '01023811425',
 };
 
+const DUMMY_TOKEN =
+ 
+
+export interface UserInfo {
+  userId: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  address?: string;
+}
+
+// 주문 상품
+export interface OrderItem {
+  itemId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  options?: Record<string, string | number>;
+}
+
+// 쿠폰 정보
+// 쿠폰이 배열로 오는데 interface로 어떻게 정의해야하지?
+export interface Coupon {
+  couponId: number;
+  couponPublishId: number;
+  couponName: string;
+  discountAmount: number;
+  status: string;
+}
+
+// 주문 응답 데이터
+export interface OrderResponseData {
+  userInfo: UserInfo;
+  orderItems: OrderItem[];
+  coupons: Coupon[];
+}
+
+// Axios 응답 전체를 포함하는 타입
+export type OrderResponse = AxiosResponse<OrderResponseData>;
+
 export default function KitOrderPage() {
+  /**
+    어떤 api가 필요할지 생각해보자
+    // ! 로딩스피너 나오게끔 처리합시다.
+    <> 로딩 스피너 돌려야 함.
+    2. order - /user/order/create
+   */
+
+  const getOrderData = async data => {
+    const reqBody = [
+      {
+        itemId: data[0].itemId,
+        itemCount: data[0].itemCount,
+      },
+    ];
+
+    const res = await axiosInstance.post(
+      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.LOOK_UP}`,
+      reqBody,
+      {
+        headers: {
+          Authorization: `Bearer ${DUMMY_TOKEN}`,
+        },
+      }
+    );
+
+    return res;
+  };
+
+  const useOrderData = () => {
+    return useMutation({
+      mutationFn: getOrderData,
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    });
+  };
+
+  const { mutate, isError } = useOrderData();
+
+  // itemId => useParams의 kitId
+  // itemCount => useParams의 quantity 로 교체해야 함.
+  useEffect(() => {
+    mutate([
+      {
+        itemId: 1,
+        itemCount: 2,
+      },
+    ]);
+  }, []);
+
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
   const {
@@ -37,7 +134,7 @@ export default function KitOrderPage() {
   const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {
-    console.log('제출 데이터:', data);
+    console.log(data);
   };
 
   const onError = (errors: FieldErrors<kitOrderValues>) => {
