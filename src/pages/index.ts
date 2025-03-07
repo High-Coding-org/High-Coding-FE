@@ -9,4 +9,4 @@ export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as ProfilePage } from './ProfilePage/ProfilePage';
 export { default as OrderList } from './OrderList/OrderList';
 export { default as PurchasePage } from './PurchasePage/PurchasePage';
-export { default as PasswordChange } from './PasswordChange/PasswordChange';
+export { default as PasswordChange } from './PasswordChangePage/PasswordChangePage';
