@@ -23,22 +23,15 @@ const DUMMY_PURCHASE_DATA = {
 };
 
 const DUMMY_TOKEN =
- 
-
-// 주문 상품
-
-// 쿠폰 정보
-// 쿠폰이 배열로 오는데 interface로 어떻게 정의해야하지?
+  
 
 export default function KitOrderPage() {
   /**
-    어떤 api가 필요할지 생각해보자
-    // ! 로딩스피너 나오게끔 처리합시다.
-    <> 로딩 스피너 돌려야 함.
+    // ! 이제 결제하기 기능을 구현해보자.
     2. order - /user/order/create
    */
 
-  const getOrderData = async data => {
+  const postOrderData = async data => {
     const reqBody = [
       {
         itemId: data[0].itemId,
@@ -61,7 +54,7 @@ export default function KitOrderPage() {
 
   const useOrderData = () => {
     return useMutation({
-      mutationFn: getOrderData,
+      mutationFn: postOrderData,
       onSuccess: (data: OrderResponse) => {
         console.log(data.data);
       },
@@ -71,18 +64,73 @@ export default function KitOrderPage() {
     });
   };
 
-  const { mutate, isError, isPending } = useOrderData();
+  const {
+    mutate: mutateOrder,
+    isError: isOrderDataError,
+    isPending: isOrderDataPending,
+  } = useOrderData();
 
   // itemId => useParams의 kitId
   // itemCount => useParams의 quantity 로 교체해야 함.
   useEffect(() => {
-    mutate([
+    mutateOrder([
       {
         itemId: 1,
         itemCount: 2,
       },
     ]);
   }, []);
+
+  /* ------------------------------------------------------------ */
+
+  const postOrderPurchase = async ({
+    orderItems,
+    receiverName,
+    receiverPhone,
+    deliveryAddress,
+    orderNote,
+    couponPublishId,
+  }) => {
+    const reqBody = {
+      orderItems,
+      receiverName,
+      receiverPhone,
+      deliveryAddress,
+      orderNote,
+    };
+
+    const res = await axiosInstance.post(
+      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.CREATE}?couponPublishId=${couponPublishId}`,
+      reqBody,
+      {
+        headers: {
+          Authorization: `Bearer ${DUMMY_TOKEN}`,
+        },
+      }
+    );
+
+    return res;
+  };
+
+  const useOrderPurchase = () => {
+    return useMutation({
+      mutationFn: postOrderPurchase,
+      onSuccess: data => {
+        console.log(data);
+      },
+      onError: error => {
+        console.log(error);
+      },
+    });
+  };
+
+  const {
+    mutate: mutateOrderPurchase,
+    isError: isOrderPurchaseError,
+    isPending: isOrderPurchasePending,
+  } = useOrderPurchase();
+
+  /* ------------------------------------------------------------ */
 
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
@@ -103,6 +151,20 @@ export default function KitOrderPage() {
 
   const onSubmit = (data: kitOrderValues) => {
     console.log(data);
+    // mutateOrderPurchase(data);
+    mutateOrderPurchase({
+      orderItems: [
+        {
+          itemId: 1,
+          itemCount: 3,
+        },
+      ],
+      receiverName: 'test-ghTest',
+      receiverPhone: '01043211234',
+      deliveryAddress: 'test-서울특별시 강남구 테헤란로 14길 6 남도빌딩 2층',
+      orderNote: 'test-주문 메모',
+      couponPublishId: 2,
+    });
   };
 
   const onError = (errors: FieldErrors<kitOrderValues>) => {
@@ -116,7 +178,7 @@ export default function KitOrderPage() {
     );
   };
 
-  if (isPending) return <Spinner />;
+  if (isOrderDataPending) return <Spinner />;
 
   return (
     <>
