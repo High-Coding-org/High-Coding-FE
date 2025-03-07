@@ -116,6 +116,7 @@ export default function KitOrderPage() {
     );
   };
 
+  if (isPending) return <Spinner />;
 
   return (
     <>
