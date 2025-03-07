@@ -48,7 +48,7 @@ export default function ProfileEdit() {
   };
 
   const handleError = error => {
-    toast.error('비밀번호 변경 실패: ' + error.message);
+    toast.error(error.response.data.message);
   };
 
   const onSubmit = values => {
