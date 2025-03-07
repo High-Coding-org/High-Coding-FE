@@ -35,12 +35,14 @@ export default function ProfilePage() {
       <header className="w-full max-w-[1140px] p-6 mt-2">
         <BreadcrumbAndTitle />
       </header>
-      <main className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4">
-        <ProfileList {...data.userInfo} />
+      <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4">
+        <main className="flex-1">
+          <ProfileList {...data.userInfo} />
+        </main>
         <aside className="h-auto w-[12rem] whitespace-nowrap">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
         </aside>
-      </main>
+      </div>
     </>
   );
 }

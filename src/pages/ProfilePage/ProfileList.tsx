@@ -4,7 +4,7 @@ import ProfileItem from './ProfileItem';
 
 export default function ProfileList(userInfo: IUserInfo) {
   return (
-    <div className="flex-1">
+    <>
       <ProfileItem
         label="이름"
         value={userInfo.name}
@@ -25,6 +25,6 @@ export default function ProfileList(userInfo: IUserInfo) {
         label="아이디"
         value={userInfo.username}
       />
-    </div>
+    </>
   );
 }
