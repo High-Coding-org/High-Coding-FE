@@ -1,6 +1,8 @@
 import { IPath } from '@/types/path';
 
 export const PATH: IPath = {
+  HOME: '/',
+
   // Login & Signup
   SIGN: '/sign',
 
@@ -8,10 +10,12 @@ export const PATH: IPath = {
   PROFILE: '/profile',
   PROFILE_PASSWORD: 'password',
   PROFILE_MY_ORDER: 'my-order',
+  PROFILE_ORDER_LIST: 'order-list',
 
   // Product
   PRODUCT: '/product',
-  PRODUCT_PURCHASE: 'purchase',
+  PRODUCT_ORDER: 'order',
+  ORDER_COMPLETE: 'order/complete',
 
   // Plant
   PLANT: '/plant',
@@ -21,4 +25,11 @@ export const PATH: IPath = {
 
   // 404 Not Found
   NOT_FOUND: '*',
+};
+
+export const PRODUCT_ORDER_PARAMS = {
+  KIT_ID: 'kitId',
+  PRODUCT_NAME: 'productName',
+  QUANTITY: 'quantity',
+  PRICE: 'price',
 };
