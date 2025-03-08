@@ -10,7 +10,7 @@ import { formSchema } from './passwordSchema';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import SideBar from '@/components/common/SideBar';
-import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import PasswordFormField from './PasswordFormField';
 
 const DUMMY_SIDEBAR_DATA = [

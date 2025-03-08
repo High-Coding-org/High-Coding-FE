@@ -5,7 +5,7 @@ import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 import ProfileList from './ProfileList';
 import Spinner from '@/components/common/Spinner/Spinner';
 import NoProfileData from '@/pages/ProfilePage/NoProfileData';
-import BreadcrumbAndTitle from '@/components/common/Breadcrumb';
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import SideBar from '@/components/common/SideBar';
 
 //! DUMMY DATA
