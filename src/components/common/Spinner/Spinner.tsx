@@ -1,14 +1,19 @@
 interface SpinnerProps {
   width?: number;
   height?: number;
+  className?: string;
 }
 
-export default function Spinner({ width = 16, height = 16 }: SpinnerProps) {
+export default function Spinner({
+  width = 16,
+  height = 16,
+  className,
+}: SpinnerProps) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`w-${width} h-${height} mt-20 text-gray-200 animate-spin dark:text-gray-600 fill-primary`}
+        className={`w-${width} h-${height} mt-20 text-gray-200 animate-spin dark:text-gray-600 fill-primary ${className}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
