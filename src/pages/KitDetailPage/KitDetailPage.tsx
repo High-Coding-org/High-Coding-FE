@@ -9,9 +9,9 @@ import { PATH } from '@/routes/path';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
+import { useKit } from '../../hooks/api/useKit';
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
-import { useKit } from './useKit';
 
 /**
  * KitDetailPage 컴포넌트
