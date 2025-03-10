@@ -15,7 +15,7 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
-import { kitOrderValues, OrderResponse } from './type';
+import { kitOrderValues } from './type';
 
 const DUMMY_PURCHASE_DATA = {
   name: '김가연',
@@ -23,14 +23,9 @@ const DUMMY_PURCHASE_DATA = {
 };
 
 const DUMMY_TOKEN =
-  
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnaFRlc3QiLCJpYXQiOjE3NDEzNDQxNTUsImV4cCI6MTc0MTQzMDU1NX0.gkLKCFfnHy3tTaBGxoZPyLbCf3ekhivq42rG_-56gr0';
 
 export default function KitOrderPage() {
-  /**
-    // ! 이제 결제하기 기능을 구현해보자.
-    2. order - /user/order/create
-   */
-
   const postOrderData = async data => {
     const reqBody = [
       {
@@ -52,36 +47,8 @@ export default function KitOrderPage() {
     return res;
   };
 
-  const useOrderData = () => {
-    return useMutation({
-      mutationFn: postOrderData,
-      onSuccess: (data: OrderResponse) => {
-        console.log(data.data);
-      },
-      onError: error => {
-        console.log(error);
-      },
-    });
-  };
-
-  const {
-    mutate: mutateOrder,
-    isError: isOrderDataError,
-    isPending: isOrderDataPending,
-  } = useOrderData();
-
-  // itemId => useParams의 kitId
-  // itemCount => useParams의 quantity 로 교체해야 함.
-  useEffect(() => {
-    mutateOrder([
-      {
-        itemId: 1,
-        itemCount: 2,
-      },
-    ]);
-  }, []);
-
   /* ------------------------------------------------------------ */
+  /* -------------------------------결제 프로세스--------------------- */
 
   const postOrderPurchase = async ({
     orderItems,
@@ -134,6 +101,7 @@ export default function KitOrderPage() {
 
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
+  const [discount, setDiscount] = useState<number>(0);
   const {
     handleSubmit,
     control,
@@ -146,11 +114,19 @@ export default function KitOrderPage() {
       paymentMethod: '',
     },
   });
-  const [discount, setDiscount] = useState<number>(0);
+  const {
+    mutate: mutateOrder,
+    isError: isOrderDataError,
+    isPending: isOrderDataPending,
+  } = useOrderData();
+
   const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {
-    console.log(data);
+    // deliveryNote : "배송 전에 미리 연락 바랍니다."
+    // detailedAddress : "1"
+    // paymentMethod : "일반 결제"
+    // regionalAddress : "충북 청주시 서원구 1순환로 627 (사창동, 청주 센트럴 리슈빌DS)"
     // mutateOrderPurchase(data);
     mutateOrderPurchase({
       orderItems: [
@@ -177,6 +153,15 @@ export default function KitOrderPage() {
         : SUBMIT_ERROR_MESSAGE.PAYMENT_METHOD
     );
   };
+
+  useEffect(() => {
+    mutateOrder([
+      {
+        itemId: Number(kitId),
+        itemCount: Number(quantity),
+      },
+    ]);
+  }, []);
 
   if (isOrderDataPending) return <Spinner />;
 
