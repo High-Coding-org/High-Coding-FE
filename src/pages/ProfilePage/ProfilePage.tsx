@@ -28,7 +28,7 @@ export default function ProfilePage() {
   }
 
   if (isLoading) return <Spinner />;
-  if (!data) return <NoProfileData />;
+  if (!data.userInfo) return <NoProfileData />;
 
   return (
     <>
