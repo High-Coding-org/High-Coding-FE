@@ -30,5 +30,6 @@ export interface OrderResponseData {
   coupons: IOrderCoupon[];
 }
 
-// Axios 응답 전체를 포함하는 타입
 export type OrderResponse = AxiosResponse<OrderResponseData>;
+
+export type PurchaseResponse = AxiosResponse<number>;

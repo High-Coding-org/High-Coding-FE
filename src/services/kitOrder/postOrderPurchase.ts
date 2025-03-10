@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { PurchaseResponse } from '@/pages/KitOrderPage/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
@@ -24,7 +25,7 @@ export const postOrderPurchase = async ({
     couponPublishId ? `?couponPublishId=${couponPublishId}` : ''
   }`;
 
-  const res = await axiosInstance.post(address, reqBody, {
+  const res: PurchaseResponse = await axiosInstance.post(address, reqBody, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
