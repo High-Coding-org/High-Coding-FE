@@ -24,7 +24,7 @@ interface IOrderCoupon {
   status: string;
 }
 
-interface OrderResponseData {
+export interface OrderResponseData {
   userInfo: Pick<UserInfo, 'username' | 'name' | 'phoneNumber'>;
   orderItems: IOrderItems[];
   coupons: IOrderCoupon[];

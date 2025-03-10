@@ -13,7 +13,7 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
-import { kitOrderValues } from './type';
+import { kitOrderValues, OrderResponseData } from './type';
 
 const DUMMY_PURCHASE_DATA = {
   name: '김가연',
@@ -24,6 +24,20 @@ export default function KitOrderPage() {
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
   const [discount, setDiscount] = useState<number>(0);
+  const [orderData, setOrderData] = useState<OrderResponseData>();
+  const {
+    mutate: mutateOrder,
+    isError: isOrderDataError,
+    isPending: isOrderDataPending,
+    data: mutateOrderData,
+  } = useOrderData();
+
+  const {
+    mutate: mutateOrderPurchase,
+    isError: isOrderPurchaseError,
+    isPending: isOrderPurchasePending,
+  } = useOrderPurchase();
+
   const {
     handleSubmit,
     control,
@@ -36,16 +50,6 @@ export default function KitOrderPage() {
       paymentMethod: '',
     },
   });
-  const {
-    mutate: mutateOrder,
-    isError: isOrderDataError,
-    isPending: isOrderDataPending,
-  } = useOrderData();
-  const {
-    mutate: mutateOrderPurchase,
-    isError: isOrderPurchaseError,
-    isPending: isOrderPurchasePending,
-  } = useOrderPurchase();
   const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {
@@ -81,6 +85,12 @@ export default function KitOrderPage() {
   };
 
   useEffect(() => {
+    if (!mutateOrderData) return;
+
+    setOrderData(mutateOrderData?.data);
+  }, [mutateOrderData]);
+
+  useEffect(() => {
     mutateOrder([
       {
         itemId: Number(kitId),
@@ -89,7 +99,9 @@ export default function KitOrderPage() {
     ]);
   }, []);
 
-  if (isOrderDataPending) return <Spinner />;
+  console.log(orderData);
+
+  if (isOrderDataPending || !orderData) return <Spinner />;
 
   return (
     <>
@@ -100,14 +112,14 @@ export default function KitOrderPage() {
         className="flex justify-between h-full w-pageWidth text-[#222]">
         <main className="w-[70%]">
           <ShippingInfo
-            name={DUMMY_PURCHASE_DATA.name}
-            phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
+            name={orderData?.userInfo.name}
+            phoneNumber={orderData?.userInfo.phoneNumber}
             control={control}
             errors={errors}
           />
 
           <OrderItem
-            productName={productName!}
+            productName={productName}
             quantity={Number(quantity)}
             price={Number(price)}
           />

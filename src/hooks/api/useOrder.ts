@@ -8,7 +8,6 @@ export const useOrderData = () => {
   return useMutation({
     mutationFn: postOrderData,
     onSuccess: (data: OrderResponse) => {
-      console.log(data.data);
       return data.data;
     },
     onError: error => {
@@ -21,10 +20,11 @@ export const useOrderPurchase = () => {
   return useMutation({
     mutationFn: postOrderPurchase,
     onSuccess: data => {
-      console.log(data);
+      // console.log(data);
+      return data;
     },
     onError: error => {
-      console.log(error);
+      console.error('useOrderPurchase 오류', error);
     },
   });
 };
