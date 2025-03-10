@@ -22,17 +22,18 @@ export default function KitOrderPage() {
   const [discount, setDiscount] = useState<number>(0);
   const [orderData, setOrderData] = useState<OrderResponseData>();
   const [appliedCouponID, setAppliedCouponID] = useState<number | null>(null);
+
   const {
     mutate: mutateOrder,
     isError: isOrderDataError,
     isPending: isOrderDataPending,
     data: mutateOrderData,
   } = useOrderData();
-
   const {
     mutate: mutateOrderPurchase,
     isError: isOrderPurchaseError,
     isPending: isOrderPurchasePending,
+    data: mutateOrderPurchaseData,
   } = useOrderPurchase();
 
   const {
@@ -74,6 +75,16 @@ export default function KitOrderPage() {
         : SUBMIT_ERROR_MESSAGE.PAYMENT_METHOD
     );
   };
+
+  useEffect(() => {
+    if (mutateOrderPurchaseData) {
+      navigate(`${PATH.PRODUCT}/${PATH.ORDER_COMPLETE}`, {
+        state: {
+          orderId: mutateOrderPurchaseData.data,
+        },
+      });
+    }
+  }, [mutateOrderPurchaseData, navigate]);
 
   useEffect(() => {
     if (isOrderDataError || isOrderPurchaseError) {
