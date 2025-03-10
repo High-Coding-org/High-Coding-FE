@@ -13,6 +13,7 @@ interface OrderCouponProps {
   discount: number;
   setDiscount: (discount: number) => void;
   coupons: IOrderCoupon[];
+  setAppliedCouponID: (couponId: number) => void;
 }
 
 export default function OrderCoupon({
@@ -20,6 +21,7 @@ export default function OrderCoupon({
   discount,
   setDiscount,
   coupons,
+  setAppliedCouponID,
 }: OrderCouponProps) {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
@@ -28,11 +30,13 @@ export default function OrderCoupon({
     setSelectedCoupon(coupon.couponName);
     setDiscount(coupon.discountAmount);
     setIsCouponModalOpen(false);
+    setAppliedCouponID(coupon.couponId);
   };
 
   const handleResetClick = () => {
     setSelectedCoupon('');
     setDiscount(0);
+    setAppliedCouponID(null);
   };
 
   return (

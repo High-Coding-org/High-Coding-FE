@@ -21,6 +21,7 @@ export default function KitOrderPage() {
   const { kitId, quantity } = useParams();
   const [discount, setDiscount] = useState<number>(0);
   const [orderData, setOrderData] = useState<OrderResponseData>();
+  const [appliedCouponID, setAppliedCouponID] = useState<number | null>(null);
   const {
     mutate: mutateOrder,
     isError: isOrderDataError,
@@ -48,23 +49,18 @@ export default function KitOrderPage() {
   });
 
   const onSubmit = (data: kitOrderValues) => {
-    // deliveryNote : "배송 전에 미리 연락 바랍니다."
-    // detailedAddress : "1"
-    // paymentMethod : "일반 결제"
-    // regionalAddress : "충북 청주시 서원구 1순환로 627 (사창동, 청주 센트럴 리슈빌DS)"
-    // mutateOrderPurchase(data);
     mutateOrderPurchase({
       orderItems: [
         {
-          itemId: 1,
-          itemCount: 3,
+          itemId: Number(kitId),
+          itemCount: Number(quantity),
         },
       ],
-      receiverName: 'test-ghTest',
-      receiverPhone: '01043211234',
-      deliveryAddress: 'test-서울특별시 강남구 테헤란로 14길 6 남도빌딩 2층',
-      orderNote: 'test-주문 메모',
-      couponPublishId: 2,
+      receiverName: orderData?.userInfo.name,
+      receiverPhone: orderData?.userInfo.phoneNumber,
+      deliveryAddress: data.regionalAddress + ' ' + data.detailedAddress,
+      orderNote: data.deliveryNote,
+      couponPublishId: appliedCouponID,
     });
   };
 
@@ -129,6 +125,7 @@ export default function KitOrderPage() {
             discount={discount}
             setDiscount={setDiscount}
             coupons={orderData?.coupons}
+            setAppliedCouponID={setAppliedCouponID}
           />
 
           <PaymentMethod control={control} />
