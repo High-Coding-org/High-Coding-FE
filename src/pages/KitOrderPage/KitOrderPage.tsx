@@ -26,30 +26,6 @@ const DUMMY_TOKEN =
   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnaFRlc3QiLCJpYXQiOjE3NDEzNDQxNTUsImV4cCI6MTc0MTQzMDU1NX0.gkLKCFfnHy3tTaBGxoZPyLbCf3ekhivq42rG_-56gr0';
 
 export default function KitOrderPage() {
-  const postOrderData = async data => {
-    const reqBody = [
-      {
-        itemId: data[0].itemId,
-        itemCount: data[0].itemCount,
-      },
-    ];
-
-    const res = await axiosInstance.post(
-      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.LOOK_UP}`,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${DUMMY_TOKEN}`,
-        },
-      }
-    );
-
-    return res;
-  };
-
-  /* ------------------------------------------------------------ */
-  /* -------------------------------결제 프로세스--------------------- */
-
   const postOrderPurchase = async ({
     orderItems,
     receiverName,
