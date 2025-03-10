@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router';
 
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 
+import { PATH } from './path';
+
 interface PrivateRouteProps {
   page: ReactElement;
 }
@@ -15,7 +17,7 @@ export default function PrivateRoute({ page }: PrivateRouteProps) {
 
     if (!token) {
       alert('로그인이 필요한 서비스 입니다.');
-      navigate('/');
+      navigate(PATH.SIGN);
     }
   }, [navigate]);
 
