@@ -6,6 +6,7 @@ import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitl
 import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
 import { useOrderData, useOrderPurchase } from '@/hooks/api/useOrder';
+import { PATH } from '@/routes/path';
 
 import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
 import OrderCoupon from './OrderCoupon/OrderCoupon';
@@ -50,7 +51,6 @@ export default function KitOrderPage() {
       paymentMethod: '',
     },
   });
-  const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {
     // deliveryNote : "배송 전에 미리 연락 바랍니다."
@@ -85,6 +85,13 @@ export default function KitOrderPage() {
   };
 
   useEffect(() => {
+    if (isOrderDataError || isOrderPurchaseError) {
+      alert('주문 데이터를 불러오는데 실패했습니다.');
+      navigate(PATH.HOME);
+    }
+  }, [isOrderDataError, isOrderPurchaseError, navigate]);
+
+  useEffect(() => {
     if (!mutateOrderData) return;
 
     setOrderData(mutateOrderData?.data);
@@ -98,8 +105,6 @@ export default function KitOrderPage() {
       },
     ]);
   }, []);
-
-  console.log(orderData);
 
   if (isOrderDataPending || !orderData) return <Spinner />;
 
@@ -125,7 +130,7 @@ export default function KitOrderPage() {
           />
 
           <OrderCoupon
-            totalPrice={totalPrice}
+            totalPrice={orderData?.orderItems[0].totalPrice}
             discount={discount}
             setDiscount={setDiscount}
           />
@@ -135,7 +140,7 @@ export default function KitOrderPage() {
 
         <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
           <PriceInfo
-            totalPrice={totalPrice}
+            totalPrice={orderData?.orderItems[0].totalPrice}
             discount={0}
           />
           <Button
