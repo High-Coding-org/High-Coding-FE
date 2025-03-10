@@ -119,9 +119,9 @@ export default function KitOrderPage() {
           />
 
           <OrderItem
-            productName={productName}
-            quantity={Number(quantity)}
-            price={Number(price)}
+            productName={orderData?.orderItems[0].itemName}
+            quantity={orderData?.orderItems[0].itemCount}
+            price={orderData?.orderItems[0].totalPrice}
           />
 
           <OrderCoupon
