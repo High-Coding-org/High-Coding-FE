@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { OrderResponse } from '@/pages/KitOrderPage/type';
 import { postOrderData } from '@/services/kitOrder/postOrderData';
+import { postOrderPurchase } from '@/services/kitOrder/postOrderPurchase';
 
 export const useOrderData = () => {
   return useMutation({

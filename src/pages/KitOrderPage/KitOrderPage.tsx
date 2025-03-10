@@ -5,9 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
-import { useOrderData } from '@/hooks/api/useOrder';
-import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
-import { axiosInstance } from '@/services/axiosInstance';
+import { useOrderData, useOrderPurchase } from '@/hooks/api/useOrder';
 
 import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
 import OrderCoupon from './OrderCoupon/OrderCoupon';
@@ -22,41 +20,7 @@ const DUMMY_PURCHASE_DATA = {
   phoneNumber: '01023811425',
 };
 
-const DUMMY_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnaFRlc3QiLCJpYXQiOjE3NDEzNDQxNTUsImV4cCI6MTc0MTQzMDU1NX0.gkLKCFfnHy3tTaBGxoZPyLbCf3ekhivq42rG_-56gr0';
-
 export default function KitOrderPage() {
-  const postOrderPurchase = async ({
-    orderItems,
-    receiverName,
-    receiverPhone,
-    deliveryAddress,
-    orderNote,
-    couponPublishId,
-  }) => {
-    const reqBody = {
-      orderItems,
-      receiverName,
-      receiverPhone,
-      deliveryAddress,
-      orderNote,
-    };
-
-    const res = await axiosInstance.post(
-      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.CREATE}?couponPublishId=${couponPublishId}`,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${DUMMY_TOKEN}`,
-        },
-      }
-    );
-
-    return res;
-  };
-
-  /* ------------------------------------------------------------ */
-
   const navigate = useNavigate();
   const { kitId, productName, quantity, price } = useParams();
   const [discount, setDiscount] = useState<number>(0);
