@@ -16,11 +16,11 @@ const DUMMY_SIDEBAR_DATA = [
 ];
 
 export default function ProfilePage() {
-  const { isLoading, data, error } = useProfile();
+  const { isLoading, data, isError } = useProfile();
   const navigate = useNavigate();
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
-  if (error) {
+  if (isError) {
     kitDetailErrorOccur();
     setErrorMsg('정보를 불러오는데 실패했습니다.');
 
