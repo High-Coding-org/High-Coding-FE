@@ -6,69 +6,32 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
 import SectionContainer from '../components/SectionContainer';
-
-interface Coupon {
-  name: string;
-  type: 'percent' | 'amount';
-  percent: number;
-  amount: number;
-  date: string;
-}
+import { IOrderCoupon } from '../type';
 
 interface OrderCouponProps {
   totalPrice: number;
   discount: number;
   setDiscount: (discount: number) => void;
+  coupons: IOrderCoupon[];
 }
-
-const dummyCoupons: Coupon[] = [
-  {
-    name: '10% 할인 쿠폰',
-    type: 'percent',
-    percent: 10,
-    amount: 0,
-    date: '2025-02-21',
-  },
-  {
-    name: '배송비 무료 쿠폰',
-    type: 'amount',
-    percent: 0,
-    amount: 3000,
-    date: '2025-02-21',
-  },
-  {
-    name: '5,000원 할인 쿠폰',
-    type: 'amount',
-    percent: 0,
-    amount: 5000,
-    date: '2025-02-21',
-  },
-];
 
 export default function OrderCoupon({
   totalPrice,
   discount,
   setDiscount,
+  coupons,
 }: OrderCouponProps) {
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
 
-  const handleDiscountSelect = (couponIndex: number) => {
-    const coupon = dummyCoupons[couponIndex];
-    const discountAmount =
-      coupon.type === 'percent'
-        ? (totalPrice * coupon.percent) / 100
-        : coupon.amount;
-
-    setDiscount(discountAmount);
+  const handleDiscountSelect = (coupon: IOrderCoupon) => {
+    setDiscount(coupon.discountAmount);
     setIsCouponModalOpen(false);
   };
 
-  const handleRadioGroupItemClick = (couponIndex: number) => {
-    const selected = dummyCoupons[couponIndex];
-
-    setSelectedCoupon(selected.name);
-    handleDiscountSelect(couponIndex);
+  const handleRadioGroupItemClick = (coupon: IOrderCoupon) => {
+    setSelectedCoupon(coupon.couponName);
+    handleDiscountSelect(coupon);
   };
 
   return (
@@ -107,20 +70,20 @@ export default function OrderCoupon({
             </div>
             <ul>
               <RadioGroup>
-                {dummyCoupons.map((coupon, couponIndex) => (
+                {coupons.map((coupon, couponIndex) => (
                   <li
-                    key={`${couponIndex} - ${coupon.name}`}
-                    onClick={() => handleRadioGroupItemClick(couponIndex)}
+                    key={`${couponIndex} - couponId: ${coupon.couponId}`}
+                    onClick={() => handleRadioGroupItemClick(coupon)}
                     className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100">
                     <div className="flex items-center gap-2">
                       <RadioGroupItem
-                        value={coupon.name}
-                        checked={selectedCoupon === coupon.name}
+                        value={coupon.couponName}
+                        checked={selectedCoupon === coupon.couponName}
                       />
-                      <span className="font-bold">{coupon.name}</span>
+                      <span className="font-bold">{coupon.couponName}</span>
                     </div>
                     <hr className="my-2 " />
-                    <span className="text-gray-500">~ {coupon.date}</span>
+                    <span className="text-gray-500">{`할인 금액 : ${formatMoneyKR(coupon.discountAmount)}`}</span>
                   </li>
                 ))}
               </RadioGroup>

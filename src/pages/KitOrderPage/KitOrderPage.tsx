@@ -16,14 +16,9 @@ import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
 import { kitOrderValues, OrderResponseData } from './type';
 
-const DUMMY_PURCHASE_DATA = {
-  name: '김가연',
-  phoneNumber: '01023811425',
-};
-
 export default function KitOrderPage() {
   const navigate = useNavigate();
-  const { kitId, productName, quantity, price } = useParams();
+  const { kitId, quantity } = useParams();
   const [discount, setDiscount] = useState<number>(0);
   const [orderData, setOrderData] = useState<OrderResponseData>();
   const {
@@ -133,6 +128,7 @@ export default function KitOrderPage() {
             totalPrice={orderData?.orderItems[0].totalPrice}
             discount={discount}
             setDiscount={setDiscount}
+            coupons={orderData?.coupons}
           />
 
           <PaymentMethod control={control} />
@@ -141,7 +137,7 @@ export default function KitOrderPage() {
         <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
           <PriceInfo
             totalPrice={orderData?.orderItems[0].totalPrice}
-            discount={0}
+            discount={discount}
           />
           <Button
             type="submit"

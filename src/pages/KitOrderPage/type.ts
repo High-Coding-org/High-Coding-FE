@@ -16,7 +16,7 @@ interface IOrderItems {
   totalPrice: number;
 }
 
-interface IOrderCoupon {
+export interface IOrderCoupon {
   couponId: number;
   couponPublishId: number;
   couponName: string;
