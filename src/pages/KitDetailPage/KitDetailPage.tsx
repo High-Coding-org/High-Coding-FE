@@ -61,7 +61,7 @@ export default function KitDetailPage() {
           setErrorMsg('정보를 불러오는데 실패했습니다.');
       }
 
-      navigate('/');
+      navigate(PATH.HOME);
     }
   }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
