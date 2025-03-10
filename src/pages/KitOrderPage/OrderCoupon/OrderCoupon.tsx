@@ -24,14 +24,15 @@ export default function OrderCoupon({
   const [isCouponModalOpen, setIsCouponModalOpen] = useState<boolean>(false);
   const [selectedCoupon, setSelectedCoupon] = useState<string>('');
 
-  const handleDiscountSelect = (coupon: IOrderCoupon) => {
+  const handleItemClick = (coupon: IOrderCoupon) => {
+    setSelectedCoupon(coupon.couponName);
     setDiscount(coupon.discountAmount);
     setIsCouponModalOpen(false);
   };
 
-  const handleRadioGroupItemClick = (coupon: IOrderCoupon) => {
-    setSelectedCoupon(coupon.couponName);
-    handleDiscountSelect(coupon);
+  const handleResetClick = () => {
+    setSelectedCoupon('');
+    setDiscount(0);
   };
 
   return (
@@ -45,6 +46,14 @@ export default function OrderCoupon({
               type="button"
               onClick={() => setIsCouponModalOpen(true)}>
               {selectedCoupon ? '변경' : '적용'}
+            </Button>
+            <Button
+              className={`ml-3 text-black bg-white border border-gray-200 hover:bg-slate-100 ${
+                selectedCoupon ? 'visible' : 'invisible'
+              }`}
+              type="button"
+              onClick={handleResetClick}>
+              초기화
             </Button>
           </div>
           <span className="font-bold">- {formatMoneyKR(discount)}</span>
@@ -68,12 +77,12 @@ export default function OrderCoupon({
                 className="cursor-pointer hover:text-gray-500"
               />
             </div>
-            <ul>
-              <RadioGroup>
+            <RadioGroup>
+              <ul>
                 {coupons.map((coupon, couponIndex) => (
                   <li
                     key={`${couponIndex} - couponId: ${coupon.couponId}`}
-                    onClick={() => handleRadioGroupItemClick(coupon)}
+                    onClick={() => handleItemClick(coupon)}
                     className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100">
                     <div className="flex items-center gap-2">
                       <RadioGroupItem
@@ -86,8 +95,8 @@ export default function OrderCoupon({
                     <span className="text-gray-500">{`할인 금액 : ${formatMoneyKR(coupon.discountAmount)}`}</span>
                   </li>
                 ))}
-              </RadioGroup>
-            </ul>
+              </ul>
+            </RadioGroup>
           </div>
         </div>
       )}

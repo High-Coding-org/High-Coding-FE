@@ -20,7 +20,6 @@ export const useOrderPurchase = () => {
   return useMutation({
     mutationFn: postOrderPurchase,
     onSuccess: data => {
-      // console.log(data);
       return data;
     },
     onError: error => {
