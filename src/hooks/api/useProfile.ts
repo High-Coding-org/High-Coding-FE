@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getProfile } from '@/services/profile/getProfile';
 
-import { IProfile } from './type';
+import { IProfile } from '../../pages/ProfilePage/type';
 
 export const useProfile = () => {
   const token = localStorage.getItem('authToken');

@@ -1,4 +1,4 @@
-import { useProfile } from './useProfile';
+import { useProfile } from '@/hooks/api/useProfile';
 import { useNavigate } from 'react-router';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 
