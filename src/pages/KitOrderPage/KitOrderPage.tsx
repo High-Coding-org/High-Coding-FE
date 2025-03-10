@@ -99,7 +99,6 @@ export default function KitOrderPage() {
 
   if (isOrderDataPending || !orderData) return <Spinner />;
 
-  console.log(isOrderPurchasePending);
   return (
     <>
       <BreadcrumbAndTitle />
@@ -139,8 +138,12 @@ export default function KitOrderPage() {
           />
           <Button
             type="submit"
-            className="bg-primary active:bg-blue-800">
-            결제하기
+            className=" bg-primary active:bg-blue-800">
+            {isOrderPurchasePending ? (
+              <Spinner className="absolute bottom-2" />
+            ) : (
+              '결제하기'
+            )}
           </Button>
         </aside>
       </form>
