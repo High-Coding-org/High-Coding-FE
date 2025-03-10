@@ -18,13 +18,6 @@ import { useKit } from './useKit';
  * 특정 키트의 상세 정보를 렌더링하며, 이미지, 이름, 가격, 별점, 리뷰 수, 수량 선택기 및 구매 버튼을 포함합니다.
  */
 
-const DUMMY_KIT_ORDER = {
-  id: '1',
-  productName: '스마트팜 식물 성장 키트',
-  quantity: 4,
-  price: 200000,
-};
-
 export default function KitDetailPage() {
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
@@ -33,14 +26,14 @@ export default function KitDetailPage() {
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
   const handleOrder = () => {
-    // if(!kit) return;
+    if (!kit) return;
 
-    // const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
     const orderPath = `${PATH.PRODUCT_ORDER}/
-    ${DUMMY_KIT_ORDER.id}/
-    ${DUMMY_KIT_ORDER.productName}/
-    ${DUMMY_KIT_ORDER.quantity}/
-    ${DUMMY_KIT_ORDER.price}`;
+    ${kit?.id}/
+    ${kit?.productName}/
+    ${quantity}/
+    ${kit?.price}`;
+
     navigate(orderPath);
   };
 
@@ -66,7 +59,7 @@ export default function KitDetailPage() {
     }
   }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !kit) return <Spinner />;
   if (!data) return <NoKitData />;
 
   return (
@@ -102,7 +95,8 @@ export default function KitDetailPage() {
                 <span className="text-lg font-bold">{quantity}</span>
                 <Button
                   className="bg-gray-700"
-                  onClick={() => setQuantity(prev => prev + 1)}>
+                  onClick={() => setQuantity(prev => prev + 1)}
+                  disabled={quantity === kit?.stock}>
                   +
                 </Button>
               </div>
