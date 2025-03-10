@@ -48,7 +48,7 @@ export default function KitOrderPage() {
     },
   });
 
-  const onSubmit = (data: kitOrderValues) => {
+  const onPurchase = (data: kitOrderValues) => {
     mutateOrderPurchase({
       orderItems: [
         {
@@ -99,12 +99,13 @@ export default function KitOrderPage() {
 
   if (isOrderDataPending || !orderData) return <Spinner />;
 
+  console.log(isOrderPurchasePending);
   return (
     <>
       <BreadcrumbAndTitle />
 
       <form
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(onPurchase, onError)}
         className="flex justify-between h-full w-pageWidth text-[#222]">
         <main className="w-[70%]">
           <ShippingInfo

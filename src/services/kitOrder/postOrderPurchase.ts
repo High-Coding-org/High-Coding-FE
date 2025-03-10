@@ -20,16 +20,15 @@ export const postOrderPurchase = async ({
   };
 
   const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+  const address = `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.CREATE}${
+    couponPublishId ? `?couponPublishId=${couponPublishId}` : ''
+  }`;
 
-  const res = await axiosInstance.post(
-    `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.CREATE}?couponPublishId=${couponPublishId}`,
-    reqBody,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await axiosInstance.post(address, reqBody, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return res;
 };
