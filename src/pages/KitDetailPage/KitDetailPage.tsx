@@ -7,6 +7,7 @@ import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
@@ -25,10 +26,10 @@ const DUMMY_KIT_ORDER = {
 };
 
 export default function KitDetailPage() {
-  const { isLoading, data, error } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
+  const { isLoading, data, error } = useKit(KIT_ID);
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
   const handleOrder = () => {
@@ -66,7 +67,7 @@ export default function KitDetailPage() {
   }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
   if (isLoading) return <Spinner />;
-  if (!kit) return <NoKitData />;
+  if (!data) return <NoKitData />;
 
   return (
     <main className="w-kitDetailPage_pageWidth">
@@ -75,8 +76,7 @@ export default function KitDetailPage() {
 
         <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
-            {/* <h1 className="text-xl font-bold">{kit?.productName}</h1> */}
-            <h1 className="text-xl font-bold">키트 이름</h1>
+            <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-gray-700">4.5</span>
@@ -86,8 +86,7 @@ export default function KitDetailPage() {
               </a>
             </div>
             <p className="flex mt-4 text-xl font-bold text-center text-red-700">
-              {/* {kit?.price.toLocaleString() + ' '}원 */}
-              10000원
+              {formatMoneyKR(kit?.price)}
             </p>
           </header>
 
@@ -109,8 +108,7 @@ export default function KitDetailPage() {
               </div>
               <div className="mt-2">
                 <span className="text-sm text-gray-500">
-                  {/* 총 금액: {(kit?.price * quantity).toLocaleString()}원 */}
-                  총 금액: 10000원
+                  총 금액: {formatMoneyKR(kit?.price * quantity)}
                 </span>
               </div>
             </div>

@@ -6,7 +6,7 @@ import { axiosInstance } from '../axiosInstance';
 export const getKitDetail = async (id: number) => {
   try {
     const res: KitResponse = await axiosInstance.get(
-      `${API_AUTHORITY.PUBLIC}${API_ENDPOINT.PRODUCT.KIT}${id}`
+      `${API_AUTHORITY.PUBLIC}${API_ENDPOINT.PRODUCT.KIT}/${id}`
     );
 
     return res?.data;
