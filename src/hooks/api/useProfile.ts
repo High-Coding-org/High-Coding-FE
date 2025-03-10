@@ -5,11 +5,10 @@ import { IProfile } from '../../pages/ProfilePage/type';
 
 export const useProfile = () => {
   const token = localStorage.getItem('authToken');
-  const { isLoading, data, error } = useQuery<IProfile>({
+
+  return useQuery<IProfile>({
     queryKey: ['profileData', token],
-    queryFn: async () => await getProfile(token),
+    queryFn: () => getProfile(token),
     retry: false,
   });
-
-  return { isLoading, data, error };
 };
