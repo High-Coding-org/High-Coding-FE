@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
@@ -6,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
+import { useOrderData } from '@/hooks/api/useOrder';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
@@ -55,24 +55,6 @@ export default function KitOrderPage() {
     return res;
   };
 
-  const useOrderPurchase = () => {
-    return useMutation({
-      mutationFn: postOrderPurchase,
-      onSuccess: data => {
-        console.log(data);
-      },
-      onError: error => {
-        console.log(error);
-      },
-    });
-  };
-
-  const {
-    mutate: mutateOrderPurchase,
-    isError: isOrderPurchaseError,
-    isPending: isOrderPurchasePending,
-  } = useOrderPurchase();
-
   /* ------------------------------------------------------------ */
 
   const navigate = useNavigate();
@@ -95,7 +77,11 @@ export default function KitOrderPage() {
     isError: isOrderDataError,
     isPending: isOrderDataPending,
   } = useOrderData();
-
+  const {
+    mutate: mutateOrderPurchase,
+    isError: isOrderPurchaseError,
+    isPending: isOrderPurchasePending,
+  } = useOrderPurchase();
   const totalPrice = Number(price) * Number(quantity);
 
   const onSubmit = (data: kitOrderValues) => {

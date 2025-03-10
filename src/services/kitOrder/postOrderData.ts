@@ -1,3 +1,8 @@
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+
+import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
+import { axiosInstance } from '../axiosInstance';
+
 export const postOrderData = async data => {
   const reqBody = [
     {
@@ -6,12 +11,14 @@ export const postOrderData = async data => {
     },
   ];
 
+  const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+
   const res = await axiosInstance.post(
     `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.LOOK_UP}`,
     reqBody,
     {
       headers: {
-        Authorization: `Bearer ${DUMMY_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
