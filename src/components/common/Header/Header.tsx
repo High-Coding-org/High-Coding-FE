@@ -1,17 +1,25 @@
-import { CircleHelp, CircleUserRound, Menu, MoonStar, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import { ADDITIONAL_MENU_ITEMS, MENU_ITEMS } from '@/constants/header';
+import {
+  ADDITIONAL_MENU_ITEMS,
+  MENU_ITEMS,
+  MENU_ITEMS_ICON,
+  NAME_TO_PATH,
+} from '@/constants/header';
 
 import Logo from '../Logo/Logo';
 
 /**
  * Header 컴포넌트.
- * 상단 네비게이션 바를 렌더링하며, 로고와 텍스트 메뉴(키트 구매, 내 키트, 키트 영상, 프로모션, 로그인), 아이콘(다크모드, 고객 관리, 마이페이지)을 포함합니다.
+ * 상단 네비게이션 바를 렌더링하며, 로고와 텍스트 메뉴를 포함 합니다.
+ * 텍스트: (키트 정보, 나의 식물, 식물 지식백과, AI 식물 추천)
+ * 아이콘: (고객 센터, 내 정보)
  */
 
 export default function Header() {
-  const icons = [MoonStar, CircleHelp, CircleUserRound];
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
 
@@ -21,6 +29,12 @@ export default function Header() {
       document.body.style.overflow = newState ? 'hidden' : 'auto';
       return newState;
     });
+  };
+
+  const handleMenuClick = (item: string) => {
+    navigate(NAME_TO_PATH[item]);
+
+    setIsMenuOpen(false);
   };
 
   useEffect(() => {
@@ -45,19 +59,22 @@ export default function Header() {
 
           <nav className="flex items-center h-[3.75rem] ">
             {MENU_ITEMS.map((item, index) => (
-              <span
+              <button
+                type="button"
                 key={index}
+                onClick={() => handleMenuClick(item)}
                 className="hidden px-4 py-2 text-sm font-bold rounded cursor-pointer md:block hover:bg-gray-100">
                 {item}
-              </span>
+              </button>
             ))}
           </nav>
         </div>
 
         <div className="flex items-center space-x-6">
-          {icons.map((Icon, index) => (
+          {Object.values(MENU_ITEMS_ICON).map((Icon, index) => (
             <Icon
               key={index}
+              onClick={() => handleMenuClick(ADDITIONAL_MENU_ITEMS[index])}
               className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
             />
           ))}
@@ -77,19 +94,14 @@ export default function Header() {
         <div
           className={`absolute top-[3.75rem] left-0 w-full h-screen bg-white shadow-md transition-max-height duration-500 ease overflow-hidden  ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}>
           <nav className="flex flex-col items-start p-4 mx-4 space-y-2 transform">
-            {MENU_ITEMS.map((item, index) => (
-              <span
+            {[...MENU_ITEMS, ...ADDITIONAL_MENU_ITEMS].map((item, index) => (
+              <button
                 key={index}
+                type="button"
+                onClick={() => handleMenuClick(item)}
                 className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
                 {item}
-              </span>
-            ))}
-            {ADDITIONAL_MENU_ITEMS.map((item, index) => (
-              <span
-                key={index}
-                className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
-                {item}
-              </span>
+              </button>
             ))}
           </nav>
         </div>
