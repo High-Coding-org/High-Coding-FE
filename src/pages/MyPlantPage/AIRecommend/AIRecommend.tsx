@@ -16,7 +16,7 @@ export default function AIRecommend() {
     <>
       <BreadcrumbAndTitle />
 
-      <main className="w-[95%] h-[1150px] mb-8 bg-[#F5F5F5] flex flex-col justify-between gap-8 p-12 rounded h-auto md:flex-row md:gap-20 md:w-[1140px] md:h-auto ">
+      <main className="w-[95%] md:w-[1140px] h-auto md:h-auto mb-8 bg-[#F5F5F5] p-12 rounded flex flex-col md:flex-row justify-between gap-8 md:gap-20">
         {/* 환경 설정 입력 폼 */}
         <section className="flex-1 flex flex-col gap-8">
           <h1 className="font-bold text-lg">
