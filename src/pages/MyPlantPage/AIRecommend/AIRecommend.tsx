@@ -7,7 +7,7 @@ import ResultContainer from './ResultContainer';
 
 import { ENVIRONMENT_FIELDS } from '@/constants/environmentsFields';
 
-export default function PlantRecommend() {
+export default function AIRecommend() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };

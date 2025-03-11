@@ -4,7 +4,7 @@ export { default as KitOrderPage } from './KitOrderPage/KitOrderPage';
 export { default as LoginPage } from './LoginPage/LoginPage';
 export { default as MyPlantPage } from './MyPlantPage/MyPlantPage';
 export { default as PlantDetail } from './MyPlantPage/PlantDetail/PlantDetail';
-export { default as PlantRecommend } from './MyPlantPage/PlantRecommend/PlantRecommend';
+export { default as PlantRecommend } from './MyPlantPage/AIRecommend/AIRecommend';
 export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegister';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as OrderComplete } from './OrderComplete/OrderComplete';
