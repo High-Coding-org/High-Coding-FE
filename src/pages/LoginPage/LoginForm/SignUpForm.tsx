@@ -27,7 +27,7 @@ import { SignUpFormData } from '@/types/auth';
 import CustomFormField from '../components/CustomFormField';
 
 export default function SignUpForm() {
-  const { mutate: signUp, isError } = useSignUp();
+  const { mutate: signUp, data } = useSignUp();
   const [birthDate, setBirthDate] = useState<Date>();
   const form = useForm<SignUpFormData>({
     defaultValues: {
@@ -42,25 +42,31 @@ export default function SignUpForm() {
   });
 
   const onSubmit = (data: SignUpFormData) => {
-    const { passwordCheck, ...signUpData } = data;
+    // const { passwordCheck, ...signUpData } = data;
 
     const formData = {
-      ...signUpData,
-      phone: `${signUpData.phonePrefix}${signUpData.phoneNumber}`,
+      // ...signUpData,
+      // phone: `${signUpData.phonePrefix}${signUpData.phoneNumber}`,
+      name: data.name,
+      id: data.id,
+      password: data.password,
+      phonePrefix: data.phonePrefix,
+      phoneNumber: data.phoneNumber,
+      birth: data.birth,
     };
+    // console.log(formData);
 
     signUp(formData);
   };
 
-  useEffect(() => {
-    if (isError) {
-      form.setError('id', {
-        type: 'manual',
-        // message: '이미 사용중인 아이디입니다',
-        message: '에러 발생',
-      });
-    }
-  }, [form, isError]);
+  // useEffect(() => {
+  //   if (!data?.error) return;
+
+  //   form.setError('id', {
+  //     type: 'manual',
+  //     message: data.error,
+  //   });
+  // }, [data, form]);
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {

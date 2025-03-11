@@ -1,6 +1,7 @@
 import { SignUpFormData } from '@/types/auth';
+import { SignUpResponse } from '@/types/Login/signUp';
 
-import { API_ENDPOINT } from '../apiEndpoint';
+import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
 
 const signUp = async ({
@@ -19,9 +20,12 @@ const signUp = async ({
     birth,
   };
 
-  const res = await axiosInstance.post(`${API_ENDPOINT.AUTH.SIGNUP}`, reqBody);
+  const res: SignUpResponse = await axiosInstance.post(
+    `${API_AUTHORITY.PUBLIC}${API_ENDPOINT.AUTH.SIGNUP}`,
+    reqBody
+  );
 
-  return res;
+  return res.data;
 };
 
 export default signUp;

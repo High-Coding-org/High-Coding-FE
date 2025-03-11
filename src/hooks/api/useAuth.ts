@@ -42,16 +42,9 @@ export const useSignUp = () => {
 
   return useMutation({
     mutationFn: signUp,
-    onSuccess: (data, signUpReqBody) => {
-      // const { id, password } = signUpReqBody;
-
-      // signInMutate({ id, password });
-      // return data;
-      console.log(data, signUpReqBody);
-    },
-    onError: error => {
-      console.log(error);
-      // return error.response?.data.error.errorCode;
+    onSuccess: () => {
+      // alert('회원가입 성공');
+      // refetch();
     },
   });
 };
