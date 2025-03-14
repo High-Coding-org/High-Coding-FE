@@ -1,5 +1,7 @@
 import { CircleHelp, CircleUserRound } from 'lucide-react';
 
+import { getUserToken } from '@/utils/getUserToken';
+
 export const MENU_ITEMS = [
   '키트 정보',
   '나의 식물',
@@ -22,4 +24,5 @@ export const ADDITIONAL_MENU_ITEMS = ['고객 센터', '내 정보'];
 export const MENU_ITEMS_ICON = {
   '고객 센터': CircleHelp,
   '내 정보': CircleUserRound,
+  '로그인/로그아웃': getUserToken() ? CircleUserRound : CircleUserRound,
 };

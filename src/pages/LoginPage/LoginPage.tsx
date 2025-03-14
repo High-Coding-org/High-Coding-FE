@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { PATH } from '@/routes/path';
+import { getUserToken } from '@/utils/getUserToken';
 
 import { AuthOverlay } from './AuthOverlay';
 import SignInForm from './LoginForm/SignInForm';
@@ -13,7 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+    const token = getUserToken();
 
     if (token) {
       navigate(PATH.HOME);
