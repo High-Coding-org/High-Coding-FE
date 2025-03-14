@@ -41,14 +41,21 @@ export default function SignUpForm() {
     },
   });
 
-  const onSubmit = (data: SignUpFormData) => {
+  const onSubmit = ({
+    name,
+    username,
+    password,
+    phonePrefix,
+    phoneNumber,
+    birth,
+  }: SignUpFormData) => {
     const formData = {
-      name: data.name,
-      username: data.username,
-      password: data.password,
-      phonePrefix: data.phonePrefix,
-      phoneNumber: data.phoneNumber,
-      birth: data.birth,
+      name,
+      username,
+      password,
+      phonePrefix,
+      phoneNumber,
+      birth,
     };
 
     signUp(formData);
