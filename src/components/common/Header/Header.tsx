@@ -43,7 +43,7 @@ export default function Header() {
   };
 
   const handleMenuClick = (item: string) => {
-    if (item === '로그인/로그아웃') {
+    if (item === ADDITIONAL_MENU_ITEMS[2]) {
       if (isLoggedIn) {
         const checkLogOut = confirm('로그아웃 하시겠습니까?');
 
@@ -53,7 +53,7 @@ export default function Header() {
         alert('로그아웃 되었습니다.');
         navigate(PATH.HOME);
       } else {
-        navigate('/sign');
+        navigate(PATH.SIGN);
       }
       setIsMenuOpen(false);
 
