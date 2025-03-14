@@ -42,11 +42,7 @@ export default function SignUpForm() {
   });
 
   const onSubmit = (data: SignUpFormData) => {
-    // const { passwordCheck, ...signUpData } = data;
-
     const formData = {
-      // ...signUpData,
-      // phone: `${signUpData.phonePrefix}${signUpData.phoneNumber}`,
       name: data.name,
       id: data.id,
       password: data.password,
@@ -54,19 +50,19 @@ export default function SignUpForm() {
       phoneNumber: data.phoneNumber,
       birth: data.birth,
     };
-    // console.log(formData);
 
     signUp(formData);
   };
 
-  // useEffect(() => {
-  //   if (!data?.error) return;
-
-  //   form.setError('id', {
-  //     type: 'manual',
-  //     message: data.error,
-  //   });
-  // }, [data, form]);
+  useEffect(() => {
+    if (!data) return;
+    if (data.statusCode === 400) {
+      form.setError('id', {
+        type: 'manual',
+        message: '이미 존재하는 아이디입니다.',
+      });
+    }
+  }, [data, form]);
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
