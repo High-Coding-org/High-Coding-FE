@@ -13,11 +13,11 @@ const signUp = async ({
   birth,
 }: SignUpFormData) => {
   const reqBody = {
-    name,
-    id,
+    username: id,
     password,
-    phone: `${phonePrefix}${phoneNumber}`,
     birth,
+    name,
+    phoneNumber: `${phonePrefix}${phoneNumber}`,
   };
 
   const res: SignUpResponse = await axiosInstance.post(
