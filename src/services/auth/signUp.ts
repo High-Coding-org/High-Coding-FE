@@ -6,14 +6,14 @@ import { axiosInstance } from '../axiosInstance';
 
 const signUp = async ({
   name,
-  id,
+  username,
   password,
   phonePrefix,
   phoneNumber,
   birth,
 }: SignUpFormData) => {
   const reqBody = {
-    username: id,
+    username,
     password,
     birth,
     name,

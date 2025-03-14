@@ -46,10 +46,10 @@ export const useSignUp = () => {
       if (data.statusCode === 400) return;
 
       signInMutate({
-        username: signUpResponse.id,
+        username: signUpResponse.username,
         password: signUpResponse.password,
       });
-      // alert('회원가입에 성공했습니다.');
+      alert('회원가입에 성공했습니다.');
     },
   });
 };

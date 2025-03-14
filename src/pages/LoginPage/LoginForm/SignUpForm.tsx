@@ -32,7 +32,7 @@ export default function SignUpForm() {
   const form = useForm<SignUpFormData>({
     defaultValues: {
       name: '',
-      id: '',
+      username: '',
       password: '',
       passwordCheck: '',
       phonePrefix: '',
@@ -44,7 +44,7 @@ export default function SignUpForm() {
   const onSubmit = (data: SignUpFormData) => {
     const formData = {
       name: data.name,
-      id: data.id,
+      username: data.username,
       password: data.password,
       phonePrefix: data.phonePrefix,
       phoneNumber: data.phoneNumber,
@@ -57,7 +57,7 @@ export default function SignUpForm() {
   useEffect(() => {
     if (!data) return;
     if (data.statusCode === 400) {
-      form.setError('id', {
+      form.setError('username', {
         type: 'manual',
         message: '이미 존재하는 아이디입니다.',
       });
@@ -90,7 +90,7 @@ export default function SignUpForm() {
 
         {/* ID */}
         <CustomFormField
-          name="id"
+          name="username"
           control={form.control}
           rules={RULES.ID}
           pattern={PATTERN.ID}
