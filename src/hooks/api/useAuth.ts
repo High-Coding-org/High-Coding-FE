@@ -42,9 +42,14 @@ export const useSignUp = () => {
 
   return useMutation({
     mutationFn: signUp,
-    onSuccess: () => {
-      // alert('회원가입 성공');
-      // refetch();
+    onSuccess: (data, signUpResponse) => {
+      if (data.statusCode === 400) return;
+
+      signInMutate({
+        username: signUpResponse.id,
+        password: signUpResponse.password,
+      });
+      // alert('회원가입에 성공했습니다.');
     },
   });
 };
