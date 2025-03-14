@@ -7,6 +7,7 @@ export const API_ENDPOINT = {
     KIT: 'items',
   },
   PROFILE: '/info',
+  PASSWORD: '/changePassword',
 };
 
 export const API_AUTHORITY = {
