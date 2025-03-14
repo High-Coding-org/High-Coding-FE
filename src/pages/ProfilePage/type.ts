@@ -1,16 +1,16 @@
 export interface IUserInfo {
-  id: number;
-  username: string;
-  password: string;
   birth: string;
-  name: string;
-  phoneNumber: string;
   email: string;
+  id: number;
+  name: string;
+  password: string;
+  phoneNumber: string;
+  username: string;
 }
 
-export interface IProfile {
-  statusCode: number;
+export interface IProfileData {
+  error: boolean;
   message: string;
-  error: string;
+  statusCode: number;
   userInfo: IUserInfo;
 }
