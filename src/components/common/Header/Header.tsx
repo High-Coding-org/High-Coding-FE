@@ -1,13 +1,22 @@
-import { Menu, X } from 'lucide-react';
+import {
+  CircleHelp,
+  CircleUserRound,
+  LogIn,
+  LogOut,
+  Menu,
+  X,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
   ADDITIONAL_MENU_ITEMS,
   MENU_ITEMS,
-  MENU_ITEMS_ICON,
   NAME_TO_PATH,
 } from '@/constants/header';
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { PATH } from '@/routes/path';
 
 import Logo from '../Logo/Logo';
 
@@ -15,13 +24,15 @@ import Logo from '../Logo/Logo';
  * Header 컴포넌트.
  * 상단 네비게이션 바를 렌더링하며, 로고와 텍스트 메뉴를 포함 합니다.
  * 텍스트: (키트 정보, 나의 식물, 식물 지식백과, AI 식물 추천)
- * 아이콘: (고객 센터, 내 정보)
+ * 아이콘: (고객 센터, 내 정보, 로그인/로그아웃)
  */
 
 export default function Header() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
+  const [authToken, setAuthToken] = useLocalStorage(LOCAL_STORAGE_AUTH_TOKEN);
+  const isLoggedIn = !!authToken;
 
   const toggleMenu = () => {
     setIsMenuOpen(prevState => {
@@ -32,8 +43,24 @@ export default function Header() {
   };
 
   const handleMenuClick = (item: string) => {
-    navigate(NAME_TO_PATH[item]);
+    if (item === '로그인/로그아웃') {
+      if (isLoggedIn) {
+        const checkLogOut = confirm('로그아웃 하시겠습니까?');
 
+        if (!checkLogOut) return;
+
+        setAuthToken('');
+        alert('로그아웃 되었습니다.');
+        navigate(PATH.HOME);
+      } else {
+        navigate('/sign');
+      }
+      setIsMenuOpen(false);
+
+      return;
+    }
+
+    navigate(NAME_TO_PATH[item]);
     setIsMenuOpen(false);
   };
 
@@ -71,13 +98,25 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-6">
-          {Object.values(MENU_ITEMS_ICON).map((Icon, index) => (
-            <Icon
-              key={index}
-              onClick={() => handleMenuClick(ADDITIONAL_MENU_ITEMS[index])}
+          <CircleHelp
+            onClick={() => handleMenuClick('고객 센터')}
+            className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
+          />
+          <CircleUserRound
+            onClick={() => handleMenuClick('내 정보')}
+            className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
+          />
+          {isLoggedIn ? (
+            <LogOut
+              onClick={() => handleMenuClick('로그인/로그아웃')}
               className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
             />
-          ))}
+          ) : (
+            <LogIn
+              onClick={() => handleMenuClick('로그인/로그아웃')}
+              className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
+            />
+          )}
           {isMenuOpen ? (
             <X
               onClick={toggleMenu}
@@ -100,7 +139,11 @@ export default function Header() {
                 type="button"
                 onClick={() => handleMenuClick(item)}
                 className="w-full px-4 py-2 text-sm font-bold text-left rounded cursor-pointer hover:bg-gray-100">
-                {item}
+                {item === '로그인/로그아웃'
+                  ? isLoggedIn
+                    ? '로그아웃'
+                    : '로그인'
+                  : item}
               </button>
             ))}
           </nav>
