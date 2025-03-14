@@ -6,4 +6,11 @@ export const API_ENDPOINT = {
   PRODUCT: {
     KIT: 'items',
   },
+  PROFILE: '/info',
+};
+
+export const API_AUTHORITY = {
+  PUBLIC: '/public',
+  ADMIN: '/admin',
+  USER: '/user',
 };
