@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { changePassword } from '@/services/password/changePassword';
+import { changePassword } from '@/services/passwordChange/changePassword';
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 
 export const usePasswordChange = () => {
