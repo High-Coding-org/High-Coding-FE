@@ -1,18 +1,14 @@
-interface PasswordData {
-  currentPassword: string;
-  newPassword: string;
-}
-import axios from 'axios';
 import { AxiosResponse } from 'axios';
-import { IPasswordChangeData } from '@/pages/PasswordChangePage/type';
+import { IPasswordChangeResponse } from '@/pages/PasswordChangePage/type';
+import { PasswordChangeData } from '@/types/PasswordChange/passwordChange';
 import { axiosInstance } from '../axiosInstance';
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 
-type PasswordResponse = AxiosResponse<IPasswordChangeData>;
+type PasswordResponse = AxiosResponse<IPasswordChangeResponse>;
 
 export const changePassword = async (
   token: string,
-  passwordData: PasswordData
+  passwordData: PasswordChangeData
 ) => {
   try {
     const response: PasswordResponse = await axiosInstance.put(
