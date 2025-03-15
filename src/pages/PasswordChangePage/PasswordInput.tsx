@@ -22,11 +22,9 @@ export default function PasswordInput({
   const handleChange = e => {
     field.onChange(e);
 
-    if (field.name === 'currentPassword') {
-      trigger('newPassword');
-    } else if (field.name === 'newPassword') {
-      trigger(['currentPassword', 'confirmPassword']);
-    } else if (field.name === 'confirmPassword') {
+    if (field.name === 'newPassword') {
+      trigger('confirmNewPassword');
+    } else if (field.name === 'confirmNewPassword') {
       trigger('newPassword');
     }
   };
