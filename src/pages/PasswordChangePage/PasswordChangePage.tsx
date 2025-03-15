@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 
-import { usePasswordChange } from './usePasswordChange';
+import { usePasswordChange } from '@/hooks/api/usePasswordChange';
 import { formSchema } from './passwordSchema';
 
 import { Button } from '@/components/ui/button';
