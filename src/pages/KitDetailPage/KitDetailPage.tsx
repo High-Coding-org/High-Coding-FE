@@ -28,11 +28,7 @@ export default function KitDetailPage() {
   const handleOrder = () => {
     if (!kit) return;
 
-    const orderPath = `${PATH.PRODUCT_ORDER}/
-    ${kit?.id}/
-    ${kit?.productName}/
-    ${quantity}/
-    ${kit?.price}`;
+    const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
 
     navigate(orderPath);
   };
