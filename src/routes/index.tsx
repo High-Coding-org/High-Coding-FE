@@ -34,7 +34,7 @@ export function AppRoutes() {
             element={<PrivateRoute page={<ProfilePage />} />}
           />
           <Route
-            path={PATH.PROFILE_MY_ORDER}
+            path={PATH.PROFILE_ORDER_LIST}
             element={<PrivateRoute page={<OrderList />} />}
           />
         </Route>
