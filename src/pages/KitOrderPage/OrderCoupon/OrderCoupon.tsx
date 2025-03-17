@@ -30,7 +30,7 @@ export default function OrderCoupon({
     setSelectedCoupon(coupon.couponName);
     setDiscount(coupon.discountAmount);
     setIsCouponModalOpen(false);
-    setAppliedCouponID(coupon.couponId);
+    setAppliedCouponID(coupon.couponPublishId);
   };
 
   const handleResetClick = () => {
