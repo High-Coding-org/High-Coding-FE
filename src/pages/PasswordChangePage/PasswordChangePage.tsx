@@ -13,6 +13,7 @@ import SideBar from '@/components/common/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import PasswordFormField from './PasswordFormField';
 
+//! DUMMY_SIDEBAR_DATA
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
   { name: '회원 정보 수정', url: '/profile' },
@@ -43,12 +44,14 @@ export default function ProfileEdit() {
   });
 
   const handleSuccess = data => {
-    toast.success(data);
+    toast.success(data.message);
     form.reset();
   };
 
   const handleError = error => {
-    toast.error(error.response.data.message);
+    toast.error(
+      error.response.data.message || '예상치 못한 오류가 발생했습니다'
+    );
   };
 
   const onSubmit = values => {

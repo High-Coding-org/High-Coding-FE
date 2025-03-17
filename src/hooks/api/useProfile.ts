@@ -10,7 +10,7 @@ export const useProfile = () => {
 
   return useQuery<IProfileData>({
     queryKey: [PROFILE_DATA_KEY, token],
-    queryFn: () => getProfile(token),
+    queryFn: () => getProfile(),
     retry: false,
   });
 };
