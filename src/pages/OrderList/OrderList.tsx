@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { useEffect } from 'react';
 
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import SideBar from '@/components/common/SideBar';
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
@@ -60,5 +62,20 @@ export default function OrderList() {
     네모 디자인의 경우, orderPage 참고.
    */
 
-  return <></>;
+  return (
+    <>
+      <BreadcrumbAndTitle />
+      {/* <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4"> */}
+      <div className="flex w-[1140px] border-2 border-red-500">
+        <main className="flex-1">
+          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
+          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
+          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
+        </main>
+        <aside className="h-auto w-[12rem] whitespace-nowrap">
+          <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
+        </aside>
+      </div>
+    </>
+  );
 }
