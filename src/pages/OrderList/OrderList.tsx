@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -12,22 +11,7 @@ import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
 import OrderData from './OrderData';
-
-interface IOrderItemListData {
-  itemCount: number;
-  itemId: number;
-  itemName: string;
-  totalPrice: number;
-}
-
-interface IOrderListData {
-  orderAmount: number;
-  orderDate: string;
-  orderId: number;
-  orderItemList: IOrderItemListData[];
-}
-
-type OrderListResponse = AxiosResponse<IOrderListData[]>;
+import { OrderListResponse } from './type';
 
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
@@ -73,18 +57,10 @@ export default function OrderList() {
     getOrderList();
   }, []);
 
-  /**
-    구조의 경우, pr에 올라온 프로필 페이지
-
-    네모 규격: w: 750, h: 150
-    네모 디자인의 경우, orderPage 참고.
-   */
-
   return (
     <>
       <BreadcrumbAndTitle />
-      {/* <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4"> */}
-      <div className="flex w-[1140px] border-2 border-red-500">
+      <div className="flex w-[1140px] border-2 border-red-500 mb-24">
         <main className="flex-1">
           {isLoading ? (
             <div className="flex justify-center">
@@ -92,9 +68,19 @@ export default function OrderList() {
             </div>
           ) : (
             <>
-              {orderList?.map((data, idx) => {
-                return <OrderData key={idx} />;
-              })}
+              {orderList?.map(
+                ({ orderAmount, orderDate, orderId, orderItemList }, idx) => {
+                  return (
+                    <OrderData
+                      key={idx}
+                      orderAmount={orderAmount}
+                      orderDate={orderDate}
+                      orderId={orderId}
+                      orderItemList={orderItemList}
+                    />
+                  );
+                }
+              )}
             </>
           )}
         </main>
