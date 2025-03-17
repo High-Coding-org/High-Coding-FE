@@ -15,6 +15,8 @@ import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { useSignIn } from '@/hooks/api/useAuth';
 import { SignInFormData } from '@/types/auth';
 
+import Separator from '../components/Separator';
+
 export default function SignInForm() {
   const { mutate: signIn, isError, error, isPending } = useSignIn();
   const form = useForm<SignInFormData>({
@@ -93,11 +95,7 @@ export default function SignInForm() {
           {isPending ? <Loader2 className="animate-spin" /> : '로그인'}
         </Button>
 
-        <div className="flex items-center w-full mt-4 mb-2">
-          <div className="flex-grow h-[1px] bg-gray-300"></div>
-          <span className="px-4 text-sm text-gray-500">또는</span>
-          <div className="flex-grow h-[1px] bg-gray-300"></div>
-        </div>
+        <Separator />
 
         <div className="flex items-center justify-center gap-4">
           {SOCIAL_LOGOS.map((Logo, idx) => (
