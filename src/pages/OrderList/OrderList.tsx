@@ -30,6 +30,10 @@ const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
   { name: '회원 정보 수정', url: '/profile/edit' },
   { name: '로그아웃', url: '/logout' },
+  { name: '프로필', url: '/profile' },
+  { name: '회원 정보 수정', url: '/profile/edit' },
+  { name: '로그아웃', url: '/logout' },
+  { name: '프로필', url: '/profile' },
 ];
 
 export default function OrderList() {
@@ -80,7 +84,7 @@ export default function OrderList() {
             return <OrderData key={idx} />;
           })}
         </main>
-        <aside className="h-auto w-[12rem] whitespace-nowrap">
+        <aside className="w-[12rem] whitespace-nowrap sticky top-[80px] h-fit">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
         </aside>
       </div>
