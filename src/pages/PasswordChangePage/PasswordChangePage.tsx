@@ -35,7 +35,8 @@ export default function ProfileEdit() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: 'onChange',
+    mode: 'onSubmit',
+    shouldUnregister: true,
     defaultValues: {
       currentPassword: '',
       newPassword: '',
@@ -81,7 +82,6 @@ export default function ProfileEdit() {
                 togglePasswordVisibility={() =>
                   togglePasswordVisibility('currentPassword')
                 }
-                trigger={form.trigger}
               />
               <PasswordFormField
                 control={form.control}
@@ -91,7 +91,6 @@ export default function ProfileEdit() {
                 togglePasswordVisibility={() =>
                   togglePasswordVisibility('newPassword')
                 }
-                trigger={form.trigger}
               />
               <PasswordFormField
                 control={form.control}
@@ -101,7 +100,6 @@ export default function ProfileEdit() {
                 togglePasswordVisibility={() =>
                   togglePasswordVisibility('confirmNewPassword')
                 }
-                trigger={form.trigger}
               />
               <div className="flex gap-4 mt-4">
                 <Button

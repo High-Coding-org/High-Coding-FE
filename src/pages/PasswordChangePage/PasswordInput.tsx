@@ -1,8 +1,4 @@
-import {
-  FieldValues,
-  ControllerRenderProps,
-  UseFormTrigger,
-} from 'react-hook-form';
+import { FieldValues, ControllerRenderProps } from 'react-hook-form';
 
 import { Eye, EyeClosed } from 'lucide-react';
 
@@ -10,25 +6,13 @@ interface PasswordInputProps {
   showPassword: boolean;
   togglePasswordVisibility: () => void;
   field: ControllerRenderProps<FieldValues, string>;
-  trigger: UseFormTrigger<FieldValues>;
 }
 
 export default function PasswordInput({
   showPassword,
   togglePasswordVisibility,
   field,
-  trigger,
 }: PasswordInputProps) {
-  const handleChange = e => {
-    field.onChange(e);
-
-    if (field.name === 'newPassword') {
-      trigger('confirmNewPassword');
-    } else if (field.name === 'confirmNewPassword') {
-      trigger('newPassword');
-    }
-  };
-
   return (
     <div className="relative flex items-centers border border-gray-200 h-9 px-3 py-1 rounded-md w-full focus-within:border-blue-500 focus-within:border-2">
       <input
@@ -36,7 +20,6 @@ export default function PasswordInput({
         type={showPassword ? 'text' : 'password'}
         placeholder="비밀번호를 입력해주세요."
         {...field}
-        onChange={handleChange}
       />
       <div
         onClick={togglePasswordVisibility}
