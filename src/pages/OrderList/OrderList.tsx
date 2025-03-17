@@ -8,6 +8,8 @@ import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
+import OrderData from './OrderData';
+
 interface IOrderItemListData {
   itemCount: number;
   itemId: number;
@@ -68,9 +70,15 @@ export default function OrderList() {
       {/* <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4"> */}
       <div className="flex w-[1140px] border-2 border-red-500">
         <main className="flex-1">
-          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
-          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
-          <div className="w-[750px] h-[150px] border-2 border-blue-500"></div>
+          {orderList.map((data, idx) => {
+            return <OrderData key={idx} />;
+          })}
+          {orderList.map((data, idx) => {
+            return <OrderData key={idx} />;
+          })}
+          {orderList.map((data, idx) => {
+            return <OrderData key={idx} />;
+          })}
         </main>
         <aside className="h-auto w-[12rem] whitespace-nowrap">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
