@@ -87,7 +87,7 @@ export default function OrderCoupon({
                   <li
                     key={`${couponIndex} - couponId: ${coupon.couponId}`}
                     onClick={() => handleItemClick(coupon)}
-                    className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100">
+                    className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100 hover:border-blue-500">
                     <div className="flex items-center gap-2">
                       <RadioGroupItem
                         value={coupon.couponName}
