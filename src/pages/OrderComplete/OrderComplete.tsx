@@ -16,7 +16,7 @@ export default function OrderComplete() {
       alert('비정상적인 접근입니다.');
       navigate(PATH.HOME);
     }
-  }, [orderId, navigate]);
+  }, []);
 
   if (!orderId) return null;
 
@@ -37,7 +37,9 @@ export default function OrderComplete() {
       <div className="flex gap-4">
         <Button
           type="button"
-          onClick={() => navigate(PATH.ORDER_LIST)}>
+          onClick={() =>
+            navigate(`${PATH.PROFILE}/${PATH.PROFILE_ORDER_LIST}`)
+          }>
           주문 상세 보기
         </Button>
         <Button
