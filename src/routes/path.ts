@@ -8,7 +8,6 @@ export const PATH: IPath = {
 
   // Profile
   PROFILE: '/profile',
-  PROFILE_MY_ORDER: 'my-order',
   PROFILE_ORDER_LIST: 'order-list',
 
   // Product
