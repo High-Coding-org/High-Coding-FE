@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import SideBar from '@/components/common/SideBar';
+import Spinner from '@/components/common/Spinner/Spinner';
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { PATH } from '@/routes/path';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
@@ -37,22 +40,31 @@ const DUMMY_SIDEBAR_DATA = [
 ];
 
 export default function OrderList() {
+  const navigate = useNavigate();
+
   const getOrderList = async () => {
-    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+    try {
+      const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
 
-    const res: OrderListResponse = await axiosInstance.get(
-      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.ORDER_LIST}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res: OrderListResponse = await axiosInstance.get(
+        `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.ORDER_LIST}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return res?.data;
+    } catch (error) {
+      if (error) {
+        alert('주문 목록을 불러오는데 실패했습니다.');
+        navigate(PATH.PROFILE);
       }
-    );
-
-    return res.data;
+    }
   };
 
-  const { data: orderList } = useQuery({
+  const { data: orderList, isLoading } = useQuery({
     queryKey: ['orderList'],
     queryFn: getOrderList,
   });
@@ -74,15 +86,17 @@ export default function OrderList() {
       {/* <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4"> */}
       <div className="flex w-[1140px] border-2 border-red-500">
         <main className="flex-1">
-          {orderList.map((data, idx) => {
-            return <OrderData key={idx} />;
-          })}
-          {orderList.map((data, idx) => {
-            return <OrderData key={idx} />;
-          })}
-          {orderList.map((data, idx) => {
-            return <OrderData key={idx} />;
-          })}
+          {isLoading ? (
+            <div className="flex justify-center">
+              <Spinner />
+            </div>
+          ) : (
+            <>
+              {orderList?.map((data, idx) => {
+                return <OrderData key={idx} />;
+              })}
+            </>
+          )}
         </main>
         <aside className="w-[12rem] whitespace-nowrap sticky top-[80px] h-fit">
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
