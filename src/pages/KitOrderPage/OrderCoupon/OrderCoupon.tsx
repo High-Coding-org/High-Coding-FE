@@ -83,22 +83,25 @@ export default function OrderCoupon({
             </div>
             <RadioGroup>
               <ul>
-                {coupons.map((coupon, couponIndex) => (
-                  <li
-                    key={`${couponIndex} - couponId: ${coupon.couponId}`}
-                    onClick={() => handleItemClick(coupon)}
-                    className="w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100 hover:border-blue-500">
-                    <div className="flex items-center gap-2">
-                      <RadioGroupItem
-                        value={coupon.couponName}
-                        checked={selectedCoupon === coupon.couponName}
-                      />
-                      <span className="font-bold">{coupon.couponName}</span>
-                    </div>
-                    <hr className="my-2 " />
-                    <span className="text-gray-500">{`할인 금액 : ${formatMoneyKR(coupon.discountAmount)}`}</span>
-                  </li>
-                ))}
+                {coupons.map(
+                  (coupon, couponIndex) =>
+                    coupon.status === 'available' && (
+                      <li
+                        key={`${couponIndex} - couponId: ${coupon.couponId}`}
+                        onClick={() => handleItemClick(coupon)}
+                        className={`w-64 p-4 mb-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-slate-100 hover:border-blue-500`}>
+                        <div className="flex items-center gap-2">
+                          <RadioGroupItem
+                            value={coupon.couponName}
+                            checked={selectedCoupon === coupon.couponName}
+                          />
+                          <span className="font-bold">{coupon.couponName}</span>
+                        </div>
+                        <hr className="my-2" />
+                        <span className="text-gray-500">{`할인 금액 : ${formatMoneyKR(coupon.discountAmount)}`}</span>
+                      </li>
+                    )
+                )}
               </ul>
             </RadioGroup>
           </div>
