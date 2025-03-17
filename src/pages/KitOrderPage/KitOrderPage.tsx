@@ -33,7 +33,6 @@ export default function KitOrderPage() {
     mutate: mutateOrderPurchase,
     isError: isOrderPurchaseError,
     isPending: isOrderPurchasePending,
-    data: mutateOrderPurchaseData,
   } = useOrderPurchase();
 
   const {
@@ -75,16 +74,6 @@ export default function KitOrderPage() {
         : SUBMIT_ERROR_MESSAGE.PAYMENT_METHOD
     );
   };
-
-  useEffect(() => {
-    if (mutateOrderPurchaseData) {
-      navigate(`${PATH.PRODUCT}/${PATH.ORDER_COMPLETE}`, {
-        state: {
-          orderId: mutateOrderPurchaseData.data,
-        },
-      });
-    }
-  }, [mutateOrderPurchaseData, navigate]);
 
   useEffect(() => {
     if (isOrderDataError || isOrderPurchaseError) {
