@@ -45,7 +45,7 @@ export default function ProfileEdit() {
   });
 
   const handleSuccess = data => {
-    toast.success(data.message);
+    toast.success(data.data.message);
     form.reset();
   };
 
