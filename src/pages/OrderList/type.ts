@@ -8,9 +8,7 @@ interface IOrderItemListData {
 }
 
 export interface IOrderData {
-  orderAmount: number;
   orderDate: string;
-  orderId: number;
   orderItemList: IOrderItemListData[];
 }
 

@@ -6,13 +6,13 @@ import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitl
 import SideBar from '@/components/common/SideBar';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
-import { PATH } from '@/routes/path';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
 import OrderData from './OrderData';
 import { OrderListResponse } from './type';
 
+// ! 공통 컴포넌트 - SideBar 변경 후 더미데이터 제거 예정
 const DUMMY_SIDEBAR_DATA = [
   { name: '프로필', url: '/profile' },
   { name: '회원 정보 수정', url: '/profile/edit' },
@@ -27,25 +27,18 @@ export default function OrderList() {
   const navigate = useNavigate();
 
   const getOrderList = async () => {
-    try {
-      const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
 
-      const res: OrderListResponse = await axiosInstance.get(
-        `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.ORDER_LIST}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      return res?.data;
-    } catch (error) {
-      if (error) {
-        alert('주문 목록을 불러오는데 실패했습니다.');
-        navigate(PATH.PROFILE);
+    const res: OrderListResponse = await axiosInstance.get(
+      `${API_AUTHORITY.USER}${API_ENDPOINT.ORDER.ORDER_LIST}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    }
+    );
+
+    return res?.data;
   };
 
   const { data: orderList, isLoading } = useQuery({
@@ -60,7 +53,7 @@ export default function OrderList() {
   return (
     <>
       <BreadcrumbAndTitle />
-      <div className="flex w-[1140px] border-2 border-red-500 mb-24">
+      <div className="flex w-[1140px] border-2">
         <main className="flex-1">
           {isLoading ? (
             <div className="flex justify-center">
@@ -68,19 +61,15 @@ export default function OrderList() {
             </div>
           ) : (
             <>
-              {orderList?.map(
-                ({ orderAmount, orderDate, orderId, orderItemList }, idx) => {
-                  return (
-                    <OrderData
-                      key={idx}
-                      orderAmount={orderAmount}
-                      orderDate={orderDate}
-                      orderId={orderId}
-                      orderItemList={orderItemList}
-                    />
-                  );
-                }
-              )}
+              {orderList?.map(({ orderDate, orderItemList }, idx) => {
+                return (
+                  <OrderData
+                    key={idx}
+                    orderDate={orderDate}
+                    orderItemList={orderItemList}
+                  />
+                );
+              })}
             </>
           )}
         </main>
