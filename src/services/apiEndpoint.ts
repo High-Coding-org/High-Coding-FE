@@ -9,6 +9,7 @@ export const API_ENDPOINT = {
   ORDER: {
     LOOK_UP: '/order',
     CREATE: '/order/create',
+    ORDER_LIST: '/order/history',
   },
   PROFILE: '/info',
   PASSWORD: '/changePassword',
