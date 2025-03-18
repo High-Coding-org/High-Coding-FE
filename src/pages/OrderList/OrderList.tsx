@@ -53,7 +53,7 @@ export default function OrderList() {
   return (
     <>
       <BreadcrumbAndTitle />
-      <div className="flex w-[1140px] border-2">
+      <div className="flex w-[1140px] mt-2">
         <main className="flex-1">
           {isLoading ? (
             <div className="flex justify-center">
