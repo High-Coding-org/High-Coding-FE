@@ -9,7 +9,6 @@ export const PATH: IPath = {
   // Profile
   PROFILE: '/profile',
   PROFILE_PASSWORD: 'password',
-  PROFILE_MY_ORDER: 'my-order',
   PROFILE_ORDER_LIST: 'order-list',
 
   // Product
@@ -19,9 +18,15 @@ export const PATH: IPath = {
 
   // Plant
   PLANT: '/plant',
-  PLANT_RECOMMEND: 'recommend',
+  PLANT_MY_PLANT: 'myPlant',
   PLANT_REGISTER: 'register',
-  PLANT_DETAIL: 'detail/:id',
+  PLANT_MODIFY: 'modify',
+  PLANT_DETAIL: 'detail',
+  PLANT_DICTIONARY: 'dictionary',
+  PLANT_RECOMMEND: 'AIRecommend',
+
+  // Customer Center
+  CUSTOMER_CENTER: 'customer-center',
 
   // 404 Not Found
   NOT_FOUND: '*',

@@ -19,7 +19,7 @@ const OverlayContent = ({
       'absolute flex flex-col items-center justify-center w-1/2 h-full px-10 text-center transition-transform ',
       isSignIn ? ' left-0 ' : 'right-0 '
     )}>
-    <Logo style="w-[280px] h-[280px] top-8 mb-40" />
+    <Logo style="w-[280px] h-[120px] top-8 mb-40" />
     <Button
       variant="outline"
       onClick={() => onToggle(!isSignIn)}

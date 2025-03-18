@@ -26,7 +26,7 @@ export default function BreadcrumbAndTitle() {
   const pageTitle = TITLES[validPathNames.at(-1)];
 
   return (
-    <>
+    <div className="w-full md:w-[1140px] px-6 md:px-0 mt-12 mb-8">
       <BreadcrumbComponent>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -56,6 +56,6 @@ export default function BreadcrumbAndTitle() {
       {pageTitle && (
         <h1 className="font-bold text-[1.75rem] mt-2">{pageTitle}</h1>
       )}
-    </>
+    </div>
   );
 }

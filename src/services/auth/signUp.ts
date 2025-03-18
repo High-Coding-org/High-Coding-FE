@@ -1,27 +1,31 @@
 import { SignUpFormData } from '@/types/auth';
+import { SignUpResponse } from '@/types/Login/signUp';
 
-import { API_ENDPOINT } from '../apiEndpoint';
+import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
 
 const signUp = async ({
   name,
-  id,
+  username,
   password,
   phonePrefix,
   phoneNumber,
   birth,
 }: SignUpFormData) => {
   const reqBody = {
-    name,
-    id,
+    username,
     password,
-    phone: `${phonePrefix}${phoneNumber}`,
     birth,
+    name,
+    phoneNumber: `${phonePrefix}${phoneNumber}`,
   };
 
-  const res = await axiosInstance.post(`${API_ENDPOINT.AUTH.SIGNUP}`, reqBody);
+  const res: SignUpResponse = await axiosInstance.post(
+    `${API_AUTHORITY.PUBLIC}${API_ENDPOINT.AUTH.SIGNUP}`,
+    reqBody
+  );
 
-  return res;
+  return res.data;
 };
 
 export default signUp;

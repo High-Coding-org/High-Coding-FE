@@ -14,7 +14,7 @@ export default function PaymentMethod({ control }: PaymentMethodProps) {
   return (
     <SectionContainer
       label="결제 수단"
-      className="p-6">
+      className="p-6 mb-24">
       <Controller
         name="paymentMethod"
         control={control}
