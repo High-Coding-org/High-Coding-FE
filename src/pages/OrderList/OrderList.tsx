@@ -77,6 +77,5 @@ export default function OrderList() {
           <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
         </aside>
       </div>
-    </>
-  );
+   }
 }

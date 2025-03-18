@@ -11,6 +11,14 @@ export const API_ENDPOINT = {
     CREATE: '/order/create',
     ORDER_LIST: '/order/history',
   },
+  PROFILE: '/info',
+  PASSWORD: '/changePassword',
+};
+
+export const API_AUTHORITY = {
+  PUBLIC: '/public',
+  ADMIN: '/admin',
+  USER: '/user',
 };
 
 export const API_AUTHORITY = {

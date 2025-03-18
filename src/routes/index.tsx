@@ -7,6 +7,7 @@ import {
   LoginPage,
   MyPlantPage,
   NotFoundPage,
+  PasswordChange,
   OrderComplete,
   OrderList,
   PlantDetail,
@@ -35,6 +36,10 @@ export function AppRoutes() {
           <Route
             index
             element={<PrivateRoute page={<ProfilePage />} />}
+          />
+          <Route
+            path={PATH.PROFILE_PASSWORD}
+            element={<PrivateRoute page={<PasswordChange />} />}
           />
           <Route
             path={PATH.PROFILE_ORDER_LIST}
