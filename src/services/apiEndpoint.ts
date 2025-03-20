@@ -20,9 +20,3 @@ export const API_AUTHORITY = {
   ADMIN: '/admin',
   USER: '/user',
 };
-
-export const API_AUTHORITY = {
-  PUBLIC: '/public',
-  ADMIN: '/admin',
-  USER: '/user',
-};
