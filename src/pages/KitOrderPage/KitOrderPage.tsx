@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
+import { useOrderData, useOrderPurchase } from '@/hooks/api/useOrder';
+import { PATH } from '@/routes/path';
 
 import { SUBMIT_ERROR_MESSAGE } from './constants/submitErrorMessage';
 import OrderCoupon from './OrderCoupon/OrderCoupon';
@@ -11,16 +14,27 @@ import OrderItem from './OrderItem/OrderItem';
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import PriceInfo from './PriceInfo/PriceInfo';
 import ShippingInfo from './ShippingInfo/ShippingInfo';
-import { kitOrderValues } from './type';
-
-const DUMMY_PURCHASE_DATA = {
-  name: '김가연',
-  phoneNumber: '01023811425',
-};
+import { kitOrderValues, OrderResponseData } from './type';
 
 export default function KitOrderPage() {
   const navigate = useNavigate();
-  const { kitId, productName, quantity, price } = useParams();
+  const { kitId, quantity } = useParams();
+  const [discount, setDiscount] = useState<number>(0);
+  const [orderData, setOrderData] = useState<OrderResponseData>();
+  const [appliedCouponID, setAppliedCouponID] = useState<number | null>(null);
+
+  const {
+    mutate: mutateOrder,
+    isError: isOrderDataError,
+    isPending: isOrderDataPending,
+    data: mutateOrderData,
+  } = useOrderData();
+  const {
+    mutate: mutateOrderPurchase,
+    isError: isOrderPurchaseError,
+    isPending: isOrderPurchasePending,
+  } = useOrderPurchase();
+
   const {
     handleSubmit,
     control,
@@ -33,11 +47,21 @@ export default function KitOrderPage() {
       paymentMethod: '',
     },
   });
-  const [discount, setDiscount] = useState<number>(0);
-  const totalPrice = Number(price) * Number(quantity);
 
-  const onSubmit = (data: kitOrderValues) => {
-    console.log('제출 데이터:', data);
+  const onPurchase = (data: kitOrderValues) => {
+    mutateOrderPurchase({
+      orderItems: [
+        {
+          itemId: Number(kitId),
+          itemCount: Number(quantity),
+        },
+      ],
+      receiverName: orderData?.userInfo.name,
+      receiverPhone: orderData?.userInfo.phoneNumber,
+      deliveryAddress: data.regionalAddress + ' ' + data.detailedAddress,
+      orderNote: data.deliveryNote,
+      couponPublishId: appliedCouponID,
+    });
   };
 
   const onError = (errors: FieldErrors<kitOrderValues>) => {
@@ -51,31 +75,57 @@ export default function KitOrderPage() {
     );
   };
 
+  useEffect(() => {
+    if (isOrderDataError || isOrderPurchaseError) {
+      alert('주문 데이터를 불러오는데 실패했습니다.');
+      navigate(PATH.HOME);
+    }
+  }, [isOrderDataError, isOrderPurchaseError, navigate]);
+
+  useEffect(() => {
+    if (!mutateOrderData) return;
+
+    setOrderData(mutateOrderData?.data);
+  }, [mutateOrderData]);
+
+  useEffect(() => {
+    mutateOrder([
+      {
+        itemId: Number(kitId),
+        itemCount: Number(quantity),
+      },
+    ]);
+  }, []);
+
+  if (isOrderDataPending || !orderData) return <Spinner />;
+
   return (
     <>
       <BreadcrumbAndTitle />
 
       <form
-        onSubmit={handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmit(onPurchase, onError)}
         className="flex justify-between h-full w-pageWidth text-[#222]">
         <main className="w-[70%]">
           <ShippingInfo
-            name={DUMMY_PURCHASE_DATA.name}
-            phoneNumber={DUMMY_PURCHASE_DATA.phoneNumber}
+            name={orderData?.userInfo.name}
+            phoneNumber={orderData?.userInfo.phoneNumber}
             control={control}
             errors={errors}
           />
 
           <OrderItem
-            productName={productName!}
-            quantity={Number(quantity)}
-            price={Number(price)}
+            productName={orderData?.orderItems[0].itemName}
+            quantity={orderData?.orderItems[0].itemCount}
+            price={orderData?.orderItems[0].totalPrice}
           />
 
           <OrderCoupon
-            totalPrice={totalPrice}
+            totalPrice={orderData?.orderItems[0].totalPrice}
             discount={discount}
             setDiscount={setDiscount}
+            coupons={orderData?.coupons}
+            setAppliedCouponID={setAppliedCouponID}
           />
 
           <PaymentMethod control={control} />
@@ -83,13 +133,17 @@ export default function KitOrderPage() {
 
         <aside className="sticky w-[25%] flex flex-col top-14 h-fit">
           <PriceInfo
-            totalPrice={totalPrice}
-            discount={0}
+            totalPrice={orderData?.orderItems[0].totalPrice}
+            discount={discount}
           />
           <Button
             type="submit"
-            className="bg-primary active:bg-blue-800">
-            결제하기
+            className=" bg-primary active:bg-blue-800">
+            {isOrderPurchasePending ? (
+              <Spinner className="absolute bottom-2" />
+            ) : (
+              '결제하기'
+            )}
           </Button>
         </aside>
       </form>

@@ -8,5 +8,6 @@ export { default as PlantRecommend } from './MyPlantPage/AIRecommend/AIRecommend
 export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegister';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as OrderComplete } from './OrderComplete/OrderComplete';
-export { default as ProfilePage } from './ProfilePage/MyPage';
-export { default as OrderList } from './ProfilePage/OrderList/OrderList';
+export { default as OrderList } from './OrderList/OrderList';
+export { default as PasswordChange } from './PasswordChangePage/PasswordChangePage';
+export { default as ProfilePage } from './ProfilePage/ProfilePage';

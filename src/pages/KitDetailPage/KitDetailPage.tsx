@@ -7,39 +7,29 @@ import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
+import { useKit } from '../../hooks/api/useKit';
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
-import { useKit } from './useKit';
 
 /**
  * KitDetailPage 컴포넌트
  * 특정 키트의 상세 정보를 렌더링하며, 이미지, 이름, 가격, 별점, 리뷰 수, 수량 선택기 및 구매 버튼을 포함합니다.
  */
 
-const DUMMY_KIT_ORDER = {
-  id: '1',
-  productName: '스마트팜 식물 성장 키트',
-  quantity: 4,
-  price: 200000,
-};
-
 export default function KitDetailPage() {
-  const { isLoading, data, error } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
+  const { isLoading, data, error } = useKit(KIT_ID);
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
   const handleOrder = () => {
-    // if(!kit) return;
+    if (!kit) return;
 
-    // const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
-    const orderPath = `${PATH.PRODUCT_ORDER}/
-    ${DUMMY_KIT_ORDER.id}/
-    ${DUMMY_KIT_ORDER.productName}/
-    ${DUMMY_KIT_ORDER.quantity}/
-    ${DUMMY_KIT_ORDER.price}`;
+    const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
+
     navigate(orderPath);
   };
 
@@ -61,12 +51,12 @@ export default function KitDetailPage() {
           setErrorMsg('정보를 불러오는데 실패했습니다.');
       }
 
-      navigate('/');
+      navigate(PATH.HOME);
     }
   }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
-  if (isLoading) return <Spinner />;
-  if (!kit) return <NoKitData />;
+  if (isLoading || !kit) return <Spinner />;
+  if (!data) return <NoKitData />;
 
   return (
     <main className="w-kitDetailPage_pageWidth">
@@ -75,8 +65,7 @@ export default function KitDetailPage() {
 
         <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
-            {/* <h1 className="text-xl font-bold">{kit?.productName}</h1> */}
-            <h1 className="text-xl font-bold">키트 이름</h1>
+            <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-gray-700">4.5</span>
@@ -86,8 +75,7 @@ export default function KitDetailPage() {
               </a>
             </div>
             <p className="flex mt-4 text-xl font-bold text-center text-red-700">
-              {/* {kit?.price.toLocaleString() + ' '}원 */}
-              10000원
+              {formatMoneyKR(kit?.price)}
             </p>
           </header>
 
@@ -103,14 +91,14 @@ export default function KitDetailPage() {
                 <span className="text-lg font-bold">{quantity}</span>
                 <Button
                   className="bg-gray-700"
-                  onClick={() => setQuantity(prev => prev + 1)}>
+                  onClick={() => setQuantity(prev => prev + 1)}
+                  disabled={quantity === kit?.stock}>
                   +
                 </Button>
               </div>
               <div className="mt-2">
                 <span className="text-sm text-gray-500">
-                  {/* 총 금액: {(kit?.price * quantity).toLocaleString()}원 */}
-                  총 금액: 10000원
+                  총 금액: {formatMoneyKR(kit?.price * quantity)}
                 </span>
               </div>
             </div>

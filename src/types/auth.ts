@@ -1,11 +1,11 @@
 interface SignInFormData {
-  id: string;
+  username: string;
   password: string;
 }
 
 interface SignUpFormData {
   name: string;
-  id: string;
+  username: string;
   password: string;
   passwordCheck?: string;
   phonePrefix: string;

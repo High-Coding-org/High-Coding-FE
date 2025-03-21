@@ -9,6 +9,7 @@ import {
   NotFoundPage,
   OrderComplete,
   OrderList,
+  PasswordChange,
   PlantDetail,
   PlantRecommend,
   PlantRegister,
@@ -37,7 +38,11 @@ export function AppRoutes() {
             element={<PrivateRoute page={<ProfilePage />} />}
           />
           <Route
-            path={PATH.PROFILE_MY_ORDER}
+            path={PATH.PROFILE_PASSWORD}
+            element={<PrivateRoute page={<PasswordChange />} />}
+          />
+          <Route
+            path={PATH.PROFILE_ORDER_LIST}
             element={<PrivateRoute page={<OrderList />} />}
           />
         </Route>
