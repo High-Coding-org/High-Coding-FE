@@ -1,30 +1,37 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
-interface FieldInputProps {
+interface InputFieldProps {
   label: string;
-  id: string;
+  name: string;
+  value: number | null;
+  onChange: (e) => void;
   min?: number;
   max?: number;
   step?: number;
 }
 
-export default function FieldInput({
+export default function InputField({
   label,
-  id,
+  name,
+  value,
+  onChange,
   min,
   max,
   step,
-}: FieldInputProps) {
+}: InputFieldProps) {
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={name}>{label}</Label>
       <Input
         type="number"
-        id={id}
+        name={name}
+        value={value ?? ''}
+        onChange={onChange}
         min={min}
         max={max}
         step={step}
+        required
         className="bg-white"
       />
     </div>
