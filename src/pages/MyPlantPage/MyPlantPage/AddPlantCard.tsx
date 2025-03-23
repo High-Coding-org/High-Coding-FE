@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react';
 export default function AddPlantCard() {
   return (
     <div className="h-[200px] border border-gray-300 rounded cursor-pointer hover:translate-y-[-10px] transition-transform duration-300">
-      <div className="bg-gray-100 w-full h-[75%] flex justify-center items-center">
+      <div className="bg-gray-100 rounded-t w-full h-[75%] flex justify-center items-center">
         <Plus />
       </div>
     </div>

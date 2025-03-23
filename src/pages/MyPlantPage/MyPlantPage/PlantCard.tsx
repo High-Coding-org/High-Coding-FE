@@ -18,7 +18,7 @@ export default function PlantCard({ name, imgSrc, onDelete }: PlantCardProps) {
       <img
         src={imgSrc}
         alt={name}
-        className="w-full h-[75%] rounded object-cover"
+        className="w-full h-[75%] rounded-t object-cover"
       />
 
       {/* 식물 정보 및 메뉴 */}

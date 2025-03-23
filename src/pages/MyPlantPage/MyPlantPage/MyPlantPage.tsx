@@ -37,7 +37,7 @@ export default function MyPlantPage() {
     <>
       <BreadcrumbAndTitle />
 
-      <main className="w-full p-4 md:w-[1140px] mt-12 mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
+      <main className="w-full md:w-[1140px] p-4 md:p-0 mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
         {/* 기존 식물 카드 리스트 */}
         {plants.map((plant, index) => (
           <PlantCard
