@@ -6,7 +6,7 @@ export const PATH_TO_TITLES: Record<keyof typeof PATH, string> = {
   PROFILE_MY_ORDER: '구매 내역',
   PRODUCT: '키트 구매',
   PRODUCT_PURCHASE: '주문/결제',
-  PLANT: '식물',
+  PLANT: '나의 식물 목록',
   PLANT_RECOMMEND: 'AI 식물 추천',
   PLANT_REGISTER: '식물 등록',
   PLANT_DETAIL: '식물 성장',
