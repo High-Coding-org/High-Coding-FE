@@ -1,7 +1,7 @@
 export { default as HomePage } from './HomePage/HomePage';
 export { default as KitDetailPage } from './KitDetailPage/KitDetailPage';
 export { default as LoginPage } from './LoginPage/LoginPage';
-export { default as MyPlantPage } from './MyPlantPage/MyPlantPage';
+export { default as MyPlantPage } from './MyPlantPage/MyPlantPage/MyPlantPage';
 export { default as PlantDetail } from './MyPlantPage/PlantDetail/PlantDetail';
 export { default as PlantRecommend } from './MyPlantPage/PlantRecommend/PlantRecommend';
 export { default as PlantRegister } from './MyPlantPage/PlantRegister/PlantRegister';
