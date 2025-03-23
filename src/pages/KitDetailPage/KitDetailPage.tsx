@@ -7,10 +7,11 @@ import { KIT_ID } from '@/constants/kitId';
 import { IKit } from '@/pages/KitDetailPage/type';
 import { PATH } from '@/routes/path';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
+import { useKit } from '../../hooks/api/useKit';
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
-import { useKit } from './useKit';
 
 /**
  * KitDetailPage 컴포넌트
@@ -18,27 +19,18 @@ import { useKit } from './useKit';
  */
 
 export default function KitDetailPage() {
-  const { isLoading, data, error } = useKit(KIT_ID);
   const [kit, setKit] = useState<IKit>();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
+  const { isLoading, data, error } = useKit(KIT_ID);
   const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
 
-  const handlePurchase = () => {
-    navigate(PATH.PRODUCT_PURCHASE, {
-      state: {
-        // kitId: kit?.id,
-        // productName: kit?.productName,
-        // quantity,
-        // price: kit?.price,
-        kitId: 'hi',
-        productName: 'hi',
-        quantity: 1234,
-        price: 'hi',
-        // ! 이미지 추가 필요
-        // image: kit?.image,
-      },
-    });
+  const handleOrder = () => {
+    if (!kit) return;
+
+    const orderPath = `${PATH.PRODUCT_ORDER}/${kit?.id}/${kit?.productName}/${quantity}/${kit?.price}`;
+
+    navigate(orderPath);
   };
 
   useEffect(() => {
@@ -59,12 +51,12 @@ export default function KitDetailPage() {
           setErrorMsg('정보를 불러오는데 실패했습니다.');
       }
 
-      navigate('/');
+      navigate(PATH.HOME);
     }
   }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
 
-  if (isLoading) return <Spinner />;
-  if (!kit) return <NoKitData />;
+  if (isLoading || !kit) return <Spinner />;
+  if (!data) return <NoKitData />;
 
   return (
     <main className="w-kitDetailPage_pageWidth">
@@ -73,8 +65,7 @@ export default function KitDetailPage() {
 
         <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
-            {/* <h1 className="text-xl font-bold">{kit?.productName}</h1> */}
-            <h1 className="text-xl font-bold">키트 이름</h1>
+            <h1 className="text-xl font-bold">{kit?.productName}</h1>
 
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-gray-700">4.5</span>
@@ -84,8 +75,7 @@ export default function KitDetailPage() {
               </a>
             </div>
             <p className="flex mt-4 text-xl font-bold text-center text-red-700">
-              {/* {kit?.price.toLocaleString() + ' '}원 */}
-              10000원
+              {formatMoneyKR(kit?.price)}
             </p>
           </header>
 
@@ -101,20 +91,20 @@ export default function KitDetailPage() {
                 <span className="text-lg font-bold">{quantity}</span>
                 <Button
                   className="bg-gray-700"
-                  onClick={() => setQuantity(prev => prev + 1)}>
+                  onClick={() => setQuantity(prev => prev + 1)}
+                  disabled={quantity === kit?.stock}>
                   +
                 </Button>
               </div>
               <div className="mt-2">
                 <span className="text-sm text-gray-500">
-                  {/* 총 금액: {(kit?.price * quantity).toLocaleString()}원 */}
-                  총 금액: 10000원
+                  총 금액: {formatMoneyKR(kit?.price * quantity)}
                 </span>
               </div>
             </div>
             <Button
               className="bg-[#007AFD] hover:bg-[#0063CD]"
-              onClick={handlePurchase}>
+              onClick={handleOrder}>
               구매하기
             </Button>
           </div>

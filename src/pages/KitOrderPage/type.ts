@@ -1,0 +1,35 @@
+import { AxiosResponse } from 'axios';
+
+import { UserInfo } from '@/types/userInfo';
+
+export interface kitOrderValues {
+  deliveryNote: string;
+  regionalAddress: string;
+  detailedAddress: string;
+  paymentMethod: string;
+}
+
+interface IOrderItems {
+  itemCount: number;
+  itemId: number;
+  itemName: string;
+  totalPrice: number;
+}
+
+export interface IOrderCoupon {
+  couponId: number;
+  couponPublishId: number;
+  couponName: string;
+  discountAmount: number;
+  status: string;
+}
+
+export interface OrderResponseData {
+  userInfo: Pick<UserInfo, 'username' | 'name' | 'phoneNumber'>;
+  orderItems: IOrderItems[];
+  coupons: IOrderCoupon[];
+}
+
+export type OrderResponse = AxiosResponse<OrderResponseData>;
+
+export type PurchaseResponse = AxiosResponse<number>;

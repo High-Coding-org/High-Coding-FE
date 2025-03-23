@@ -27,12 +27,12 @@ import { SignUpFormData } from '@/types/auth';
 import CustomFormField from '../components/CustomFormField';
 
 export default function SignUpForm() {
-  const { mutate: signUp, isError } = useSignUp();
+  const { mutate: signUp, data } = useSignUp();
   const [birthDate, setBirthDate] = useState<Date>();
   const form = useForm<SignUpFormData>({
     defaultValues: {
       name: '',
-      id: '',
+      username: '',
       password: '',
       passwordCheck: '',
       phonePrefix: '',
@@ -41,26 +41,35 @@ export default function SignUpForm() {
     },
   });
 
-  const onSubmit = (data: SignUpFormData) => {
-    const { passwordCheck, ...signUpData } = data;
-
+  const onSubmit = ({
+    name,
+    username,
+    password,
+    phonePrefix,
+    phoneNumber,
+    birth,
+  }: SignUpFormData) => {
     const formData = {
-      ...signUpData,
-      phone: `${signUpData.phonePrefix}${signUpData.phoneNumber}`,
+      name,
+      username,
+      password,
+      phonePrefix,
+      phoneNumber,
+      birth,
     };
 
     signUp(formData);
   };
 
   useEffect(() => {
-    if (isError) {
-      form.setError('id', {
+    if (!data) return;
+    if (data.statusCode === 400) {
+      form.setError('username', {
         type: 'manual',
-        // message: '이미 사용중인 아이디입니다',
-        message: '에러 발생',
+        message: '이미 존재하는 아이디입니다.',
       });
     }
-  }, [form, isError]);
+  }, [data, form]);
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
@@ -88,7 +97,7 @@ export default function SignUpForm() {
 
         {/* ID */}
         <CustomFormField
-          name="id"
+          name="username"
           control={form.control}
           rules={RULES.ID}
           pattern={PATTERN.ID}
@@ -121,7 +130,7 @@ export default function SignUpForm() {
               </FormLabel>
               {fieldState.invalid && (
                 <p className="text-sm text-red-500 absolute right-0 -translate-y-1/2 top-[2px]">
-                  (입력된 비밀번호가 동일하지 않습니다)
+                  (비밀번호가 동일하지 않습니다)
                 </p>
               )}
               <FormControl>

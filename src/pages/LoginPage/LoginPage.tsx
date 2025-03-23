@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { PATH } from '@/routes/path';
+import { getUserToken } from '@/utils/getUserToken';
 
 import { AuthOverlay } from './AuthOverlay';
 import SignInForm from './LoginForm/SignInForm';
@@ -6,6 +10,15 @@ import SignUpForm from './LoginForm/SignUpForm';
 
 export default function LoginPage() {
   const [isSignIn, setIsSignIn] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getUserToken();
+
+    if (token) {
+      navigate(PATH.HOME);
+    }
+  }, [navigate]);
 
   return (
     <div
