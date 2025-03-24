@@ -9,16 +9,9 @@ import { formSchema } from './passwordSchema';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import SideBar from '@/components/common/SideBar';
+import SideBar from '@/components/common/SideBar/SideBar';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import PasswordFormField from './PasswordFormField';
-
-//! DUMMY_SIDEBAR_DATA
-const DUMMY_SIDEBAR_DATA = [
-  { name: '프로필', url: '/profile' },
-  { name: '회원 정보 수정', url: '/profile' },
-  { name: '로그아웃', url: '/logout' },
-];
 
 export default function ProfileEdit() {
   const { mutate } = usePasswordChange();
@@ -113,7 +106,7 @@ export default function ProfileEdit() {
           </Form>
         </main>
         <aside className="h-auto w-[12rem]">
-          <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
+          <SideBar />
         </aside>
       </div>
     </>
