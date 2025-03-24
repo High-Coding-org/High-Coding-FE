@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router';
-import { menuItems } from './menuItems';
+import { MENU_ITEMS } from './menuItems';
 /**
  * SideBar 컴포넌트.
  * 주어진 메뉴 항목 목록을 사용하여 사이드바를 렌더링합니다.
@@ -13,7 +13,7 @@ export default function SideBar() {
     <>
       <nav className="px-6 pt-6 pb-2 text-sm bg-white border-2 rounded-md shadow-md ">
         <ul>
-          {menuItems.map(({ url, name }, idx) => (
+          {MENU_ITEMS.map(({ url, name }, idx) => (
             <li
               key={idx}
               className="mb-4">
