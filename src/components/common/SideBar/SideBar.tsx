@@ -18,7 +18,7 @@ export default function SideBar() {
               key={idx}
               className="mb-4">
               {pathname === url ? (
-                <span className="font-bold">{name}</span>
+                <span className="cursor-default font-bold">{name}</span>
               ) : (
                 <a
                   className="hover:text-sky-700"
