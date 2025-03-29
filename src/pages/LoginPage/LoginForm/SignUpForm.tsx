@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/select';
 import { INVALID_FORM_STYLE, PATTERN, RULES } from '@/constants/formValidation';
 import { useSignUp } from '@/hooks/api/useAuth';
-import { SignUpFormData } from '@/types/auth';
+import { SignUpFormData } from '@/types/auth/auth';
 
 import CustomFormField from '../components/CustomFormField';
 

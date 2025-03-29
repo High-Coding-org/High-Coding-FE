@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { INVALID_FORM_STYLE } from '@/constants/formValidation';
-import { SignUpFormData } from '@/types/auth';
+import { SignUpFormData } from '@/types/auth/auth';
 
 type Pattern = {
   value: RegExp;

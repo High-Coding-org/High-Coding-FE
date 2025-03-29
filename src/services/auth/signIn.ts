@@ -1,4 +1,4 @@
-import { SignInFormData } from '@/types/auth';
+import { SignInFormData } from '@/types/auth/auth';
 import { SignInResponse } from '@/types/Login/signIn';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';

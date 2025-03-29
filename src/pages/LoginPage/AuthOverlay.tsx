@@ -1,7 +1,7 @@
 import Logo from '@/components/common/Logo/Logo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { OverlayProps } from '@/types/auth';
+import { OverlayProps } from '@/types/auth/auth';
 
 interface OverlayContentProps {
   buttonText: string;
