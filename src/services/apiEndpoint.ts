@@ -2,6 +2,7 @@ export const API_ENDPOINT = {
   AUTH: {
     SIGNIN: '/signin',
     SIGNUP: '/signup',
+    VALIDATE: '/validate',
   },
   PRODUCT: {
     KIT: '/item/searchId',
