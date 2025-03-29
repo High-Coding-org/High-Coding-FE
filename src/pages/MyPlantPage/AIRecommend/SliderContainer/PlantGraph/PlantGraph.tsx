@@ -52,13 +52,13 @@ export default function PlantGraph({
           soilMoisture: '토양습도',
         }}
         data={data}
-        size={300}
+        size={260}
         options={DEFAULT_OPTIONS}
       />
       <GraphLegend plantName={aiRecommendData.plantName} />
       <div
         id="tooltip"
-        className="right-5 top-5 absolute p-2 rounded"
+        className="right-0 top-0 absolute p-2 rounded"
       />
     </div>
   );

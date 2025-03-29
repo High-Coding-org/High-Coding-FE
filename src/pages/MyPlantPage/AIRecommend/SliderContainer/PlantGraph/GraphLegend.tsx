@@ -10,10 +10,10 @@ interface GraphLegendProps {
  */
 export default function GraphLegend({ plantName }: GraphLegendProps) {
   return (
-    <div className="absolute left-[50%] transform -translate-x-1/2 bottom-8 flex gap-5">
+    <div className="absolute left-[50%] transform -translate-x-1/2 bottom-1 flex gap-6">
       <div className="flex items-center">
         <div className="bg-sky-200 w-3 h-3 mr-2" />
-        <span>{plantName}</span>
+        <span>{plantName} </span>
       </div>
       <div className="flex items-center">
         <div className="bg-red-200 w-3 h-3 mr-2" />

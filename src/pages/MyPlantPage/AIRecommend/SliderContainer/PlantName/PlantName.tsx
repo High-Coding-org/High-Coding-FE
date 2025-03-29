@@ -9,9 +9,8 @@ interface PlantNameProps {
  */
 export default function PlantName({ plantName }: PlantNameProps) {
   return (
-    <div className="flex flex-col gap-2 items-center justify-center w-full h-full bg-[#FFFF] rounded">
-      <span>추천식물</span>
-      <span className="font-bold text-xl">{plantName}</span>
+    <div className="w-full h-full flex items-center justify-center">
+      <span className="font-bold text-2xl">{plantName}</span>
     </div>
   );
 }

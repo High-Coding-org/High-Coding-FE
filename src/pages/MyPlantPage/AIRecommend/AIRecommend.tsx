@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import { Button } from '@/components/ui/button';
+
+import InputField from './components/InputField';
 import PreResultContainer from './PreResultContainer/PreResultContainer';
 import SliderContainer from './SliderContainer/SliderContainer';
-import InputField from './components/InputField';
-
 import { IEnvironmentData } from './type';
 
 /**
@@ -42,7 +42,7 @@ export default function AIRecommend() {
     <>
       <BreadcrumbAndTitle />
 
-      <main className="w-[95%] md:w-[1140px] h-[900px] md:h-auto mb-8 bg-[#F5F5F5] p-12 rounded flex flex-col md:flex-row justify-between gap-8 md:gap-20">
+      <main className="w-[95%] md:w-[1140px] h-[900px] md:h-[458px] mb-8 bg-[#F5F5F5] p-12 rounded flex flex-col md:flex-row justify-between gap-8 md:gap-12">
         {/* 환경 설정 입력 폼 */}
         <section className="flex-1 flex flex-col gap-8">
           <h1 className="font-bold text-lg">
@@ -85,7 +85,7 @@ export default function AIRecommend() {
             <Button type="submit">추천받기</Button>
           </form>
         </section>
-
+        <div className="bg-gray-300 rounded  h-[1px] w-full md:h-full md:w-[1px]" />
         {/* form 제출 전에는 PreResultContainer, 제출 후에는 SliderContainer */}
         {isResultVisible ? (
           <SliderContainer environmentData={environmentData} />

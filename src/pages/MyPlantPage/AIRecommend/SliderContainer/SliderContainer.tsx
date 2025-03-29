@@ -1,12 +1,12 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
 
+import { IEnvironmentData } from '../type';
 import PageIndicator from './PageIndicator';
+import PageTitle from './PageTitle';
 import PlantGraph from './PlantGraph/PlantGraph';
 import PlantImage from './PlantImage/PlantImage';
 import PlantName from './PlantName/PlantName';
-
-import { IEnvironmentData } from '../type';
 
 interface SliderContainerProps {
   environmentData: IEnvironmentData;
@@ -40,27 +40,51 @@ export default function SliderContainer({
   };
 
   return (
-    <section className="w-full flex-1 rounded relative">
-      {idx === 0 && <PlantName plantName={DUMMY_AIData.plantName} />}
-      {idx === 1 && <PlantImage />}
-      {idx === 2 && (
-        <PlantGraph
-          aiRecommendData={DUMMY_AIData}
-          environmentData={environmentData}
+    <section className="w-full flex-1 bg-white rounded">
+      {/* 페이지 제목 표시 */}
+      <div className="h-[15%] w-full">
+        <PageTitle idx={idx} />
+      </div>
+
+      <div className="flex items-center h-[70%]">
+        {/* 이전 페이지 버튼 */}
+        {idx === 0 ? (
+          <div className="w-[8%]"></div>
+        ) : (
+          <div
+            className="w-[8%] h-full flex items-center rounded-r hover:bg-gray-200 hover:bg-opacity-50 transition duration-3000"
+            onClick={previousPage}>
+            <ChevronLeft className="w-full" />
+          </div>
+        )}
+
+        {/* 현재 페이지에 맞는 컴포넌트 렌더링 */}
+        <div className="w-[84%]">
+          {idx === 0 && <PlantName plantName={DUMMY_AIData.plantName} />}
+          {idx === 1 && <PlantImage />}
+          {idx === 2 && (
+            <PlantGraph
+              aiRecommendData={DUMMY_AIData}
+              environmentData={environmentData}
+            />
+          )}
+        </div>
+
+        {/* 다음 페이지 버튼 */}
+        <div
+          className="w-[8%] h-full flex items-center rounded-l hover:bg-gray-200 hover:bg-opacity-50 transition duration-300"
+          onClick={nextPage}>
+          <ChevronRight className="w-full" />
+        </div>
+      </div>
+
+      {/* 페이지 인디케이터 */}
+      <div className="h-[15%] w-full">
+        <PageIndicator
+          totalPage={3}
+          index={idx}
         />
-      )}
-      <ChevronLeft
-        className={`absolute top-[50%] left-2 rounded hover:bg-gray-200 hover:bg-opacity-50 transition duration-300 ${idx === 0 ? 'hidden' : ''}`}
-        onClick={previousPage}
-      />
-      <ChevronRight
-        className="absolute top-[50%] right-2 rounded hover:bg-gray-200 hover:bg-opacity-50 transition duration-300"
-        onClick={nextPage}
-      />
-      <PageIndicator
-        totalPage={3}
-        index={idx}
-      />
+      </div>
     </section>
   );
 }

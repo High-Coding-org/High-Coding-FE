@@ -9,7 +9,7 @@ export default function PlantImage() {
     <img
       src="https://health.chosun.com/site/data/img_dir/2021/08/24/2021082401938_0.jpg"
       alt="Recommended Plant"
-      className="w-full h-full object-fill rounded overflow-hidden"
+      className="w-full h-[253px] object-fill rounded overflow-hidden"
     />
   );
 }
