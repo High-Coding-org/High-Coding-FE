@@ -6,14 +6,7 @@ import ProfileList from './ProfileList';
 import Spinner from '@/components/common/Spinner/Spinner';
 import NoProfileData from '@/pages/ProfilePage/NoProfileData';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
-import SideBar from '@/components/common/SideBar';
-
-//! DUMMY DATA
-const DUMMY_SIDEBAR_DATA = [
-  { name: '프로필', url: '/profile' },
-  { name: '회원 정보 수정', url: '/profile/edit' },
-  { name: '로그아웃', url: '/logout' },
-];
+import SideBar from '@/components/common/SideBar/SideBar';
 
 export default function ProfilePage() {
   const { isLoading, data, isError } = useProfile();
@@ -40,7 +33,7 @@ export default function ProfilePage() {
           <ProfileList {...data.userInfo} />
         </main>
         <aside className="h-auto w-[12rem] whitespace-nowrap">
-          <SideBar menuItems={DUMMY_SIDEBAR_DATA} />
+          <SideBar />
         </aside>
       </div>
     </>
