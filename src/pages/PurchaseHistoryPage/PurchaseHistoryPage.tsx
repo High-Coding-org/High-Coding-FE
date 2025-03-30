@@ -1,5 +1,5 @@
+import SideBar from '@/components/common/SideBar/SideBar';
 import { Button } from '@/components/ui/button';
-import SideBar from '@/components/common/SideBar';
 import { PurchaseHistoryPageProps } from '@/pages/PurchaseHistoryPage/type';
 
 /**
@@ -10,7 +10,6 @@ import { PurchaseHistoryPageProps } from '@/pages/PurchaseHistoryPage/type';
  * @returns {JSX.Element} 구매 내역과 사이드바를 렌더링하는 컴포넌트입니다.
  */
 export default function PurchaseHistory({
-  menuItems,
   purchaseItems,
 }: PurchaseHistoryPageProps) {
   return (
@@ -20,7 +19,7 @@ export default function PurchaseHistory({
         {purchaseItems.map(item => (
           <div
             key={item.id}
-            className="flex justify-between items-center w-full bg-white shadow-md rounded-lg border border-gray-200 p-10 mb-4">
+            className="flex items-center justify-between w-full p-10 mb-4 bg-white border border-gray-200 rounded-lg shadow-md">
             <div>
               <p className="text-xs text-gray-500">{item.paymentTime}</p>
               <h3 className="text-base font-semibold">{item.productName}</h3>
@@ -35,7 +34,7 @@ export default function PurchaseHistory({
 
       {/*사이드바*/}
       <aside className="h-auto w-[12rem]">
-        <SideBar menuItems={menuItems} />
+        <SideBar />
       </aside>
     </main>
   );
