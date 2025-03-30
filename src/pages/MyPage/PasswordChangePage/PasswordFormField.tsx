@@ -1,4 +1,4 @@
-import { Control, FieldValues } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 
 import {
   FormControl,
@@ -31,7 +31,7 @@ export default function PasswordFormField({
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col border-b-[1px] border-gray-200 py-2 md:flex-row">
-          <FormLabel className="text-sm text-gray-600 w-32 px-2 pt-4">
+          <FormLabel className="w-32 px-2 pt-4 text-sm text-gray-600">
             {label}
           </FormLabel>
           <div className="flex flex-col w-[24rem] gap-2 pb-2">

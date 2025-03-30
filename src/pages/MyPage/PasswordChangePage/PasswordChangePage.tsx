@@ -1,17 +1,17 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
+import { z } from 'zod';
 
-import { usePasswordChange } from '@/hooks/api/usePasswordChange';
-import { formSchema } from './passwordSchema';
-
+import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import SideBar from '@/components/common/SideBar/SideBar';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import SideBar from '@/components/common/SideBar/SideBar';
-import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
+import { usePasswordChange } from '@/hooks/api/usePasswordChange';
+
 import PasswordFormField from './PasswordFormField';
+import { formSchema } from './passwordSchema';
 
 export default function ProfileEdit() {
   const { mutate } = usePasswordChange();
@@ -97,7 +97,7 @@ export default function ProfileEdit() {
               <div className="flex gap-4 mt-4">
                 <Button
                   type="submit"
-                  className="mt-4 w-20"
+                  className="w-20 mt-4"
                   disabled={form.formState.isSubmitting}>
                   수정
                 </Button>

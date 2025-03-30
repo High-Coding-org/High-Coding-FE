@@ -1,6 +1,5 @@
-import { FieldValues, ControllerRenderProps } from 'react-hook-form';
-
 import { Eye, EyeClosed } from 'lucide-react';
+import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 interface PasswordInputProps {
   showPassword: boolean;
@@ -14,7 +13,7 @@ export default function PasswordInput({
   field,
 }: PasswordInputProps) {
   return (
-    <div className="relative flex items-centers border border-gray-200 h-9 px-3 py-1 rounded-md w-full focus-within:border-blue-500 focus-within:border-2">
+    <div className="relative flex w-full px-3 py-1 border border-gray-200 rounded-md items-centers h-9 focus-within:border-blue-500 focus-within:border-2">
       <input
         className="text-sm w-[90%] outline-none placeholder:text-muted-foreground"
         type={showPassword ? 'text' : 'password'}
