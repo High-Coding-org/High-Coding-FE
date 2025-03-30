@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { SOCIAL_LOGOS } from '@/constants/socialLogos';
 import { useSignIn } from '@/hooks/api/useAuth';
-import { SignInFormData } from '@/types/auth';
+import { SignInFormData } from '@/types/auth/auth';
 
 import Separator from '../components/Separator';
 
