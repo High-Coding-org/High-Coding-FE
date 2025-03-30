@@ -1,6 +1,6 @@
-import { Star, StarHalf } from 'lucide-react';
+import { Star } from 'lucide-react';
 
-import { StarRatingProps } from '@/pages/KitDetailPage/type';
+import { StarRatingProps } from './type';
 
 /**
  * StarRating 컴포넌트
