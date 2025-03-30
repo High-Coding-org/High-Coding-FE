@@ -13,4 +13,3 @@ export { default as PlantDetail } from './Plant/PlantDetail/PlantDetail';
 export { default as PlantDictionary } from './Plant/PlantDictionary/PlantDictionary';
 export { default as PlantRegister } from './Plant/PlantRegister/PlantRegister';
 export { default as ProfilePage } from './ProfilePage/ProfilePage';
-export { default as PurchaseHistoryPage } from './PurchaseHistoryPage/PurchaseHistoryPage';
