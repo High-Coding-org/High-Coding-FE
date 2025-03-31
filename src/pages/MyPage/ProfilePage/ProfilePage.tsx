@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router';
 
-// import NoProfileData from '@/pages/ProfilePage/NoProfileData';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import SideBar from '@/components/common/SideBar/SideBar';
 import Spinner from '@/components/common/Spinner/Spinner';
@@ -27,10 +26,8 @@ export default function ProfilePage() {
 
   return (
     <>
-      <header className="w-full max-w-[1140px] p-6 mt-2">
-        <BreadcrumbAndTitle />
-      </header>
-      <div className="w-full max-w-[1140px] flex justify-between gap-16 mt-2 p-4">
+      <BreadcrumbAndTitle />
+      <div className="w-full max-w-[1140px] flex justify-between gap-16 p-4 md:p-0">
         <main className="flex-1">
           <ProfileList {...data.userInfo} />
         </main>
