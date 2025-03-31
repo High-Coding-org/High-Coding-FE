@@ -1,11 +1,10 @@
-import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css';
 
-import GraphLegend from './GraphLegend';
+import RadarChart from 'react-svg-radar-chart';
 
+import { IAIRecommendData, IEnvironmentData } from '../../type';
 import { DEFAULT_OPTIONS } from './GraphDefaultOptions';
-
-import { IEnvironmentData, IAIRecommendData } from '../../type';
+import GraphLegend from './GraphLegend';
 
 interface PlantGraphProps {
   aiRecommendData: IAIRecommendData;
@@ -44,7 +43,7 @@ export default function PlantGraph({
   ];
 
   return (
-    <div className="relative bg-white w-full h-full flex justify-center items-center">
+    <div className="relative flex items-center justify-center w-full h-full bg-white">
       <RadarChart
         captions={{
           temperature: '온도',
@@ -58,7 +57,7 @@ export default function PlantGraph({
       <GraphLegend plantName={aiRecommendData.plantName} />
       <div
         id="tooltip"
-        className="right-0 top-0 absolute p-2 rounded"
+        className="absolute top-0 right-0 p-2 rounded"
       />
     </div>
   );

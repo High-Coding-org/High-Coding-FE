@@ -1,4 +1,5 @@
 import Lottie from 'lottie-react';
+
 import plant from '@/assets/lottie/plantAnimation.json';
 /**
  * PreResultContainer
@@ -7,7 +8,7 @@ import plant from '@/assets/lottie/plantAnimation.json';
  */
 export default function PreResultContainer() {
   return (
-    <section className="flex flex-col items-center justify-center flex-1 py-8 gap-6 rounded font-bold text-center">
+    <section className="flex flex-col items-center justify-center flex-1 gap-6 py-8 font-bold text-center rounded">
       <Lottie
         className="w-20"
         animationData={plant}

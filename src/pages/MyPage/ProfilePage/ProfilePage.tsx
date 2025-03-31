@@ -1,12 +1,14 @@
-import { useProfile } from '@/hooks/api/useProfile';
 import { useNavigate } from 'react-router';
-import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 
-import ProfileList from './ProfileList';
-import Spinner from '@/components/common/Spinner/Spinner';
-import NoProfileData from '@/pages/ProfilePage/NoProfileData';
+// import NoProfileData from '@/pages/ProfilePage/NoProfileData';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import SideBar from '@/components/common/SideBar/SideBar';
+import Spinner from '@/components/common/Spinner/Spinner';
+import { useProfile } from '@/hooks/api/useProfile';
+import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+
+import NoProfileData from './NoProfileData';
+import ProfileList from './ProfileList';
 
 export default function ProfilePage() {
   const { isLoading, data, isError } = useProfile();

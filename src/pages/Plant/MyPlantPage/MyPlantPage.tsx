@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
-import PlantCard from '@/pages/MyPlantPage/MyPlantPage/PlantCard';
+import PlantCard from '@/pages/Plant/MyPlantPage/PlantCard';
 
 import AddPlantCard from './AddPlantCard';
 import { IPlant } from './type';

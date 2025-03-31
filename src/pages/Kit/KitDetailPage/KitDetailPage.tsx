@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { Button } from '@/components/ui/button';
 import { KIT_ID } from '@/constants/kitId';
-import { IKit } from '@/pages/KitDetailPage/type';
+import { useKit } from '@/hooks/api/useKit';
 import { PATH } from '@/routes/path';
 import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
-import { useKit } from '../../hooks/api/useKit';
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
+import { IKit } from './type';
 
 /**
  * KitDetailPage 컴포넌트

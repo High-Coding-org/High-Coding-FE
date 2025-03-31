@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import {
+  CustomerCenter,
   HomePage,
   KitDetailPage,
   KitOrderPage,
@@ -11,13 +12,12 @@ import {
   OrderList,
   PasswordChange,
   PlantDetail,
+  PlantDictionary,
   PlantRecommend,
   PlantRegister,
   ProfilePage,
 } from '@/pages';
-import CustomerCenter from '@/pages/CustomerCenter/CustomerCenter';
 import { Layout } from '@/pages/Layout/Layout';
-import PlantDictionary from '@/pages/MyPlantPage/PlantDictionary/PlantDictionary';
 
 import { PATH, PRODUCT_ORDER_PARAMS } from './path';
 import PrivateRoute from './PrivateRoute';

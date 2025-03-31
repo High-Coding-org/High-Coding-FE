@@ -1,6 +1,5 @@
-import { IUserInfo } from './type';
-
 import ProfileItem from './ProfileItem';
+import { IUserInfo } from './type';
 
 export default function ProfileList(userInfo: IUserInfo) {
   return (
