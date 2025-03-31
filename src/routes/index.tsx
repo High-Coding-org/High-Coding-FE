@@ -12,6 +12,7 @@ import {
   OrderList,
   PasswordChange,
   PlantDetail,
+  PlantDiary,
   PlantDictionary,
   PlantRecommend,
   PlantRegister,
@@ -68,6 +69,14 @@ export function AppRoutes() {
           <Route
             path={PATH.PLANT_MY_PLANT}
             element={<PrivateRoute page={<MyPlantPage />} />}
+          />
+          <Route
+            path={`${PATH.PLANT_MY_PLANT}/${PATH.PLANT_DIARY}/:id`}
+            element={<PrivateRoute page={<PlantDiary />} />}
+          />
+          <Route
+            path={PATH.PLANT_DIARY}
+            element={<PrivateRoute page={<PlantDiary />} />}
           />
           <Route
             path={PATH.PLANT_REGISTER}

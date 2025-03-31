@@ -11,5 +11,6 @@ export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as PlantRecommend } from './Plant/AIRecommend/AIRecommend';
 export { default as MyPlantPage } from './Plant/MyPlantPage/MyPlantPage';
 export { default as PlantDetail } from './Plant/PlantDetail/PlantDetail';
+export { default as PlantDiary } from './Plant/PlantDiary/PlantDiary';
 export { default as PlantDictionary } from './Plant/PlantDictionary/PlantDictionary';
 export { default as PlantRegister } from './Plant/PlantRegister/PlantRegister';
