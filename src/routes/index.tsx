@@ -13,6 +13,7 @@ import {
   PasswordChange,
   PlantDetail,
   PlantDictionary,
+  PlantModify,
   PlantRecommend,
   PlantRegister,
   ProfilePage,
@@ -73,11 +74,10 @@ export function AppRoutes() {
             path={PATH.PLANT_REGISTER}
             element={<PrivateRoute page={<PlantRegister />} />}
           />
-          {/* 내 식물 수정 추가 예정 */}
-          {/* <Route
+          <Route
             path={PATH.PLANT_MODIFY}
-            element={<PrivateRoute page={< />} />}
-          /> */}
+            element={<PrivateRoute page={<PlantModify />} />}
+          />
           <Route
             path={PATH.PLANT_DETAIL}
             element={<PrivateRoute page={<PlantDetail />} />}
