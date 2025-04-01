@@ -2,8 +2,16 @@ import { useState } from 'react';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 import PlantCalendar from './components/plantCalendar';
+import PlantGraph from './components/PlantGraph';
 
 export default function PlantDiary() {
   const [selectDate, setSelectDate] = useState<Date>();
@@ -60,7 +68,7 @@ export default function PlantDiary() {
           <div className="space-y-2">
             <label className="text-sm font-medium">오늘의 일기</label>
             <textarea
-              className="w-full h-[200px] px-3 py-2 border rounded-md resize-none"
+              className="w-full h-[240px] px-3 py-4 border rounded-md resize-none"
               placeholder="오늘 하루 식물의 변화를 기록해보세요"
             />
           </div>
@@ -69,11 +77,22 @@ export default function PlantDiary() {
           </div>
         </section>
 
-        <section className="relative flex flex-col items-center justify-center flex-1 p-24 border rounded-lg">
-          <PlantCalendar
-            selectDate={selectDate}
-            setSelectDate={setSelectDate}
-          />
+        <section className="relative flex flex-col items-center justify-center flex-1 border rounded-lg">
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>
+                <PlantCalendar
+                  selectDate={selectDate}
+                  setSelectDate={setSelectDate}
+                />
+              </CarouselItem>
+              <CarouselItem>
+                <PlantGraph />
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious className="w-12 h-12 ml-4" />
+            <CarouselNext className="w-12 h-12 mr-4" />
+          </Carousel>
         </section>
       </main>
     </>
