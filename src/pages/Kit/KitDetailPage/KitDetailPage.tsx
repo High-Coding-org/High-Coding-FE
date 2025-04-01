@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { KIT_ID } from '@/constants/kitId';
 import { useKit } from '@/hooks/api/useKit';
 import { PATH } from '@/routes/path';
-import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { useGlobalErrorStore } from '@/store/globalErrorStore';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
 import NoKitData from './NoKitData';
@@ -23,7 +23,7 @@ export default function KitDetailPage() {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState<number>(1);
   const { isLoading, data, error } = useKit(KIT_ID);
-  const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
+  const { errorOccur, setErrorMsg } = useGlobalErrorStore();
 
   const handleOrder = () => {
     if (!kit) return;
@@ -41,7 +41,7 @@ export default function KitDetailPage() {
 
   useEffect(() => {
     if (error) {
-      kitDetailErrorOccur();
+      errorOccur();
 
       switch (error.message) {
         case '404':
@@ -53,7 +53,7 @@ export default function KitDetailPage() {
 
       navigate(PATH.HOME);
     }
-  }, [error, kitDetailErrorOccur, setErrorMsg, navigate]);
+  }, [error, errorOccur, setErrorMsg, navigate]);
 
   if (isLoading || !kit) return <Spinner />;
   if (!data) return <NoKitData />;

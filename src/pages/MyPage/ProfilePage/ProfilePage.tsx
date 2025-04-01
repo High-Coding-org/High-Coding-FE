@@ -4,7 +4,7 @@ import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitl
 import SideBar from '@/components/common/SideBar/SideBar';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { useProfile } from '@/hooks/api/useProfile';
-import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import NoProfileData from './NoProfileData';
 import ProfileList from './ProfileList';
@@ -12,10 +12,10 @@ import ProfileList from './ProfileList';
 export default function ProfilePage() {
   const { isLoading, data, isError } = useProfile();
   const navigate = useNavigate();
-  const { kitDetailErrorOccur, setErrorMsg } = useKitDetailErrorStore();
+  const { errorOccur, setErrorMsg } = useGlobalErrorStore();
 
   if (isError) {
-    kitDetailErrorOccur();
+    errorOccur();
     setErrorMsg('정보를 불러오는데 실패했습니다.');
 
     navigate('/');
