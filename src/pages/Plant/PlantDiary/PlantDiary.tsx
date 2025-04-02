@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 
-import PlantCalendar from './components/plantCalendar';
+import PlantCalendar from './components/PlantCalendar';
 import PlantGraph from './components/PlantGraph';
 
 export default function PlantDiary() {
