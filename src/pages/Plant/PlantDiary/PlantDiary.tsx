@@ -1,16 +1,8 @@
 import { useState } from 'react';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
 
-import PlantCalendar from './components/PlantCalendar';
-import PlantGraph from './components/PlantGraph';
+import DiaryVisualization from './DiaryVisualization/DiaryVisualization';
 import PlantDiaryForm from './PlantDiaryForm/PlantDiaryForm';
 
 export default function PlantDiary() {
@@ -35,21 +27,10 @@ export default function PlantDiary() {
         </section>
 
         <section className="relative flex flex-col items-center justify-center flex-1 border rounded-lg">
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem>
-                <PlantCalendar
-                  selectDate={selectDate}
-                  setSelectDate={setSelectDate}
-                />
-              </CarouselItem>
-              <CarouselItem>
-                <PlantGraph />
-              </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious className="w-12 h-12 ml-4" />
-            <CarouselNext className="w-12 h-12 mr-4" />
-          </Carousel>
+          <DiaryVisualization
+            selectDate={selectDate}
+            setSelectDate={setSelectDate}
+          />
         </section>
       </main>
     </>
