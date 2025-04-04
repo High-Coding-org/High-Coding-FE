@@ -9,12 +9,15 @@ export default function PlantCalendar({
   selectDate,
   setSelectDate,
 }: PlantCalendarProps) {
+  const today = new Date();
+
   return (
     <div className="flex items-center justify-center">
       <DayPicker
         mode="single"
         selected={selectDate}
         onSelect={setSelectDate}
+        disabled={date => date > today}
         className="w-full"
         styles={{
           root: { width: '80%' },
@@ -41,6 +44,8 @@ export default function PlantCalendar({
             'bg-blue-500 text-white hover:bg-blue-500/90 hover:text-white focus:bg-blue-500',
           day_today: 'border border-1',
           day_outside: 'text-muted-foreground opacity-50',
+          day_disabled:
+            'text-muted-foreground opacity-50 hover:bg-transparent hover:text-muted-foreground cursor-not-allowed',
         }}
         components={{
           IconLeft: () => (
