@@ -37,7 +37,7 @@ export default function PlantRegister() {
     navigate(-1);
   };
 
-  const handleClick = () => {
+  const handleImageUploadClick = () => {
     fileRef.current.click();
   };
 
@@ -117,7 +117,7 @@ export default function PlantRegister() {
                   e.preventDefault();
                 }}
                 onDrop={handleDrop}
-                handleClick={handleClick}
+                handleClick={handleImageUploadClick}
                 isDragging={isDragging}
               />
             )}
