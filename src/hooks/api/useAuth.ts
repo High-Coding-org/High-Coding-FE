@@ -22,6 +22,8 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data: SignInSuccess) => {
+      if (data.statusCode === 500) throw new Error();
+
       setAccessToken(data.token);
       navigate(PATH.HOME);
     },
@@ -31,7 +33,6 @@ export const useSignIn = () => {
 /**
  * 회원가입 signUp API 함수를 사용하는 useMutation 커스텀 훅 입니다.
  * - 회원가입 성공 시 동시에 해당 인증 정보로 로그인도 진행합니다.
- * @returns 회원가입 성공 시 서버 내 유저 고유 id를 반환합니다.
  */
 
 export const useSignUp = () => {
@@ -40,7 +41,7 @@ export const useSignUp = () => {
   return useMutation({
     mutationFn: signUp,
     onSuccess: (data, signUpResponse) => {
-      if (data.statusCode === 400) return;
+      if (data.statusCode === 400) throw new Error();
 
       signInMutate({
         username: signUpResponse.username,
