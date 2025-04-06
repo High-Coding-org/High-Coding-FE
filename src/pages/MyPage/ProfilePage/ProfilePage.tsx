@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
@@ -8,18 +9,19 @@ import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import NoProfileData from './NoProfileData';
 import ProfileList from './ProfileList';
-
 export default function ProfilePage() {
   const { isLoading, data, isError } = useProfile();
   const navigate = useNavigate();
   const { errorOccur, setErrorMsg } = useGlobalErrorStore();
 
-  if (isError) {
-    errorOccur();
-    setErrorMsg('정보를 불러오는데 실패했습니다.');
+  useEffect(() => {
+    if (isError) {
+      errorOccur();
+      setErrorMsg('정보를 불러오는데 실패했습니다.');
 
-    navigate('/');
-  }
+      navigate('/');
+    }
+  }, [isError, errorOccur, setErrorMsg, navigate]);
 
   if (isLoading) return <Spinner />;
   if (!data.userInfo) return <NoProfileData />;
@@ -29,7 +31,7 @@ export default function ProfilePage() {
       <BreadcrumbAndTitle />
       <div className="w-full max-w-[1140px] flex justify-between gap-16 p-4 md:p-0">
         <main className="flex-1">
-          <ProfileList {...data.userInfo} />
+          <ProfileList {...data?.userInfo} />
         </main>
         <aside className="h-auto w-[12rem] whitespace-nowrap">
           <SideBar />
