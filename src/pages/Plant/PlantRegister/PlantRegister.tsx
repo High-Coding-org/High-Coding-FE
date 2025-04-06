@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
@@ -30,6 +31,11 @@ export default function PlantRegister() {
     image: null,
   });
   const [isDragging, setIsDragging] = useState(false);
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const handleClick = () => {
     fileRef.current.click();
@@ -149,12 +155,15 @@ export default function PlantRegister() {
               onSearchClick={handleGoalGrowthSearch}
             />
           </div>
-
-          <Button
-            type="submit"
-            className="mt-4">
-            품종 등록
-          </Button>
+          <div className="flex justify-between max-w-[40rem] mt-4">
+            <Button
+              type="button"
+              onClick={handleBack}
+              className="bg-gray-400 hover:bg-gray-3  00">
+              뒤로 가기
+            </Button>
+            <Button type="submit">품종 등록</Button>
+          </div>
         </form>
       </main>
     </>
