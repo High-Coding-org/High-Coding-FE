@@ -6,7 +6,7 @@ import { ChevronDown, Droplet } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-import { useKitDetailErrorStore } from '@/store/kitDetailErrorStore';
+import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import ResponsiveText from './components/ResponsiveText';
 import {
@@ -25,8 +25,7 @@ import {
 } from './constants';
 
 export default function HomePage() {
-  const { kitDetailErrorMsg, kitDetailError, clearKitDetailError } =
-    useKitDetailErrorStore();
+  const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,11 +36,11 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (kitDetailError) {
-      toast.error(kitDetailErrorMsg);
-      clearKitDetailError();
+    if (hasError) {
+      toast.error(errorMsg);
+      clearError();
     }
-  }, [kitDetailError, kitDetailErrorMsg, clearKitDetailError]);
+  }, [hasError, errorMsg, clearError]);
 
   const handleScrollToSubTitle = () => {
     subTitleRef.current?.scrollIntoView({ behavior: 'smooth' });

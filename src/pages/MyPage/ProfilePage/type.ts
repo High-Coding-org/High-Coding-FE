@@ -1,6 +1,5 @@
 export interface IUserInfo {
   birth: string;
-  email: string;
   id: number;
   name: string;
   password: string;
