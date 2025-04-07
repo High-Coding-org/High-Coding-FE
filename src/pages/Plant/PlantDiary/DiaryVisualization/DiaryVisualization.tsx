@@ -19,8 +19,8 @@ export default function DiaryVisualization({
   setSelectDate,
 }: DiaryVisualizationProps) {
   return (
-    <Carousel>
-      <CarouselContent>
+    <Carousel className="h-full">
+      <CarouselContent className="mt-[20%]">
         <CarouselItem>
           <PlantCalendar
             selectDate={selectDate}
