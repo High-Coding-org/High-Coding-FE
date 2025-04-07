@@ -20,4 +20,5 @@ export const API_AUTHORITY = {
   PUBLIC: '/public',
   ADMIN: '/admin',
   USER: '/user',
+  PLANT: '/plant',
 };
