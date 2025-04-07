@@ -11,7 +11,6 @@ import {
   OrderComplete,
   OrderList,
   PasswordChange,
-  PlantDetail,
   PlantDiary,
   PlantDictionary,
   PlantModify,
@@ -82,10 +81,6 @@ export function AppRoutes() {
           <Route
             path={PATH.PLANT_MODIFY}
             element={<PrivateRoute page={<PlantModify />} />}
-          />
-          <Route
-            path={PATH.PLANT_DETAIL}
-            element={<PrivateRoute page={<PlantDetail />} />}
           />
           <Route
             path={PATH.PLANT_DICTIONARY}
