@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import SideBar from '@/components/common/SideBar/SideBar';
@@ -14,10 +13,6 @@ export default function OrderList() {
     queryFn: getOrderList,
   });
 
-  useEffect(() => {
-    getOrderList();
-  }, []);
-
   return (
     <>
       <BreadcrumbAndTitle />
@@ -31,12 +26,11 @@ export default function OrderList() {
             <>
               {orderList
                 ?.sort((a, b) => b.orderId - a.orderId)
-                .map(({ orderDate, orderItemList }, idx) => {
+                .map((order, idx) => {
                   return (
                     <OrderData
                       key={idx}
-                      orderDate={orderDate}
-                      orderItemList={orderItemList}
+                      {...order}
                     />
                   );
                 })}
