@@ -14,6 +14,9 @@ export const API_ENDPOINT = {
   },
   PROFILE: '/info',
   PASSWORD: '/changePassword',
+  PLANT: {
+    GET_LIST: '/getList',
+  },
 };
 
 export const API_AUTHORITY = {
