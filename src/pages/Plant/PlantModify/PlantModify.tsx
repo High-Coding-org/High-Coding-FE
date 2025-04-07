@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
@@ -12,11 +13,10 @@ import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
 import { IPlantRegister } from './types';
-
 /**
- * PlantRegister
+ * PlantModify.tsx
  *
- * 사용자가 식물 품종을 등록할 수 있는 폼을 제공합니다.
+ * 사용자가 식물 품종을 수정할 수 있는 폼을 제공합니다.
  */
 export default function PlantModify() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -29,8 +29,12 @@ export default function PlantModify() {
     goalGrowth: null,
     image: null,
   });
-  const [isDragging, setIsDragging] = useState(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const navigate = useNavigate();
 
+  const handleBack = () => {
+    navigate(-1);
+  };
   const handleClick = () => {
     fileRef.current.click();
   };
@@ -79,7 +83,7 @@ export default function PlantModify() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // TODO: API 연결하여 등록 값 전달해야 함
+    // TODO: API 연결하여 수정 값 전달해야 함
     console.log('state', state);
   };
 
@@ -150,11 +154,15 @@ export default function PlantModify() {
             />
           </div>
 
-          <Button
-            type="submit"
-            className="mt-4">
-            품종 등록
-          </Button>
+          <div className="flex justify-between max-w-[40rem] mt-4">
+            <Button
+              type="button"
+              onClick={handleBack}
+              className="bg-gray-400 hover:bg-gray-300">
+              뒤로 가기
+            </Button>
+            <Button type="submit">품종 등록</Button>
+          </div>
         </form>
       </main>
     </>
