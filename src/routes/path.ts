@@ -24,6 +24,7 @@ export const PATH: IPath = {
   PLANT_DETAIL: 'detail',
   PLANT_DICTIONARY: 'dictionary',
   PLANT_RECOMMEND: 'AIRecommend',
+  PLANT_DIARY: 'diary',
 
   // Customer Center
   CUSTOMER_CENTER: 'customer-center',

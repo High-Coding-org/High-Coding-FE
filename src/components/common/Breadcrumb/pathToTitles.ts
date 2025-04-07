@@ -12,4 +12,5 @@ export const PATH_TO_TITLES: Record<keyof typeof PATH, string> = {
   PLANT_REGISTER: '식물 등록',
   PLANT_MODIFY: '식물 수정',
   PLANT_DETAIL: '식물 성장',
+  PLANT_DIARY: '식물 성장 일기',
 };

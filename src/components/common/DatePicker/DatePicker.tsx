@@ -150,6 +150,7 @@ export default function DatePicker({
             setMonth(newMonth.getMonth());
             setYear(newMonth.getFullYear());
           }}
+          disabled={date => date > new Date()}
           initialFocus
         />
       </PopoverContent>

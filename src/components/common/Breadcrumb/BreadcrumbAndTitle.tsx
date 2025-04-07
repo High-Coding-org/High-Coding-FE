@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { TITLES } from '@/components/common/Breadcrumb/titles';
 import {
   Breadcrumb as BreadcrumbComponent,
   BreadcrumbItem,
@@ -8,8 +10,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-
-import { TITLES } from '@/components/common/Breadcrumb/titles';
 
 /**
  * Breadcrumb & 제목 컴포넌트
