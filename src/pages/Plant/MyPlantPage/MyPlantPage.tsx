@@ -9,6 +9,7 @@ import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
 import AddPlantCard from './AddPlantCard';
+import PlantCard from './PlantCard';
 import { PlantResponse } from './type';
 
 /**
@@ -73,14 +74,12 @@ export default function MyPlantPage() {
 
       <main className="w-full md:w-[1140px] p-4 md:p-0 mb-20 grid grid-cols-2 gap-8 md:grid-cols-4">
         {/* 기존 식물 카드 리스트 */}
-        {/* {plants.map((plant, index) => (
+        {plants.map((plant, index) => (
           <PlantCard
             key={index}
-            name={plant.name}
-            imgSrc={plant.imgSrc}
-            onDelete={() => handleDelete(plant.id)}
+            {...plant}
           />
-        ))} */}
+        ))}
 
         {/* 마지막에 추가 버튼 */}
         <AddPlantCard />
