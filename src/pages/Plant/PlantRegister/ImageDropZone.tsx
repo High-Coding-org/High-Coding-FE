@@ -41,7 +41,7 @@ export default function ImageDropZone({
         </span>{' '}
         또는 드래그 앤 드롭
       </p>
-      <p>PNG, JPG, JPEG up to 10MB</p>
+      <p>PNG, JPG, JPEG, WEBP up to 10MB</p>
     </div>
   );
 }

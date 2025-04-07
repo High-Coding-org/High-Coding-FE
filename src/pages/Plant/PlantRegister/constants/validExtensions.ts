@@ -1,1 +1,1 @@
-export const VALID_EXTENSIONS = ['png', 'jpg', 'jpeg'];
+export const VALID_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp'];
