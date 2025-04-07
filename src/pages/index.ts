@@ -12,4 +12,5 @@ export { default as PlantRecommend } from './Plant/AIRecommend/AIRecommend';
 export { default as MyPlantPage } from './Plant/MyPlantPage/MyPlantPage';
 export { default as PlantDetail } from './Plant/PlantDetail/PlantDetail';
 export { default as PlantDictionary } from './Plant/PlantDictionary/PlantDictionary';
+export { default as PlantModify } from './Plant/PlantModify/PlantModify';
 export { default as PlantRegister } from './Plant/PlantRegister/PlantRegister';
