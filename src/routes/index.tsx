@@ -76,10 +76,6 @@ export function AppRoutes() {
             element={<PrivateRoute page={<PlantDiary />} />}
           />
           <Route
-            path={PATH.PLANT_DIARY}
-            element={<PrivateRoute page={<PlantDiary />} />}
-          />
-          <Route
             path={PATH.PLANT_REGISTER}
             element={<PrivateRoute page={<PlantRegister />} />}
           />

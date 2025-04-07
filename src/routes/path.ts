@@ -18,7 +18,6 @@ export const PATH: IPath = {
 
   // Plant
   PLANT: '/plant',
-  PLANT_MY_PLANT: 'myPlant',
   PLANT_REGISTER: 'register',
   PLANT_MODIFY: 'modify',
   PLANT_DETAIL: 'detail',
