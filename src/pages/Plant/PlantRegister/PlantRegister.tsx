@@ -48,7 +48,7 @@ export default function PlantRegister() {
 
   const handleFileUpload = (file: File) => {
     if (!isValidImageFile(file)) {
-      toast.error('PNG, JPG, JPEG 형식의 파일만 업로드 가능합니다.');
+      toast.error('PNG, JPG, JPEG, WEBP 형식의 파일만 업로드 가능합니다.');
       return;
     } else if (file.size > 10 * 1024 * 1024) {
       toast.error(`파일 크기는 10MB 이하로 업로드해주세요.`);
