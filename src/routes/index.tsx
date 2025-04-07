@@ -11,7 +11,6 @@ import {
   OrderComplete,
   OrderList,
   PasswordChange,
-  PlantDetail,
   PlantDiary,
   PlantDictionary,
   PlantModify,
@@ -68,15 +67,11 @@ export function AppRoutes() {
         {/* 식물 페이지 */}
         <Route path={PATH.PLANT}>
           <Route
-            path={PATH.PLANT_MY_PLANT}
+            index
             element={<PrivateRoute page={<MyPlantPage />} />}
           />
           <Route
-            path={`${PATH.PLANT_MY_PLANT}/${PATH.PLANT_DIARY}/:id`}
-            element={<PrivateRoute page={<PlantDiary />} />}
-          />
-          <Route
-            path={PATH.PLANT_DIARY}
+            path={`${PATH.PLANT_DIARY}/:id`}
             element={<PrivateRoute page={<PlantDiary />} />}
           />
           <Route
@@ -86,10 +81,6 @@ export function AppRoutes() {
           <Route
             path={PATH.PLANT_MODIFY}
             element={<PrivateRoute page={<PlantModify />} />}
-          />
-          <Route
-            path={PATH.PLANT_DETAIL}
-            element={<PrivateRoute page={<PlantDetail />} />}
           />
           <Route
             path={PATH.PLANT_DICTIONARY}
