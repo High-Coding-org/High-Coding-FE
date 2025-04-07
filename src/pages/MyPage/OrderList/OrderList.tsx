@@ -29,15 +29,17 @@ export default function OrderList() {
             </div>
           ) : (
             <>
-              {orderList?.map(({ orderDate, orderItemList }, idx) => {
-                return (
-                  <OrderData
-                    key={idx}
-                    orderDate={orderDate}
-                    orderItemList={orderItemList}
-                  />
-                );
-              })}
+              {orderList
+                ?.sort((a, b) => b.orderId - a.orderId)
+                .map(({ orderDate, orderItemList }, idx) => {
+                  return (
+                    <OrderData
+                      key={idx}
+                      orderDate={orderDate}
+                      orderItemList={orderItemList}
+                    />
+                  );
+                })}
             </>
           )}
         </main>
