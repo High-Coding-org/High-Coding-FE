@@ -35,7 +35,7 @@ export default function PlantModify() {
   const handleBack = () => {
     navigate(-1);
   };
-  const handleClick = () => {
+  const handleImageUploadClick = () => {
     fileRef.current.click();
   };
 
@@ -115,7 +115,7 @@ export default function PlantModify() {
                   e.preventDefault();
                 }}
                 onDrop={handleDrop}
-                handleClick={handleClick}
+                handleClick={handleImageUploadClick}
                 isDragging={isDragging}
               />
             )}
