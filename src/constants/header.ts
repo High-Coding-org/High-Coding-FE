@@ -9,7 +9,7 @@ export const MENU_ITEMS = [
 
 export const NAME_TO_PATH = {
   '키트 정보': '/product',
-  '나의 식물': '/plant/myPlant',
+  '나의 식물': '/plant',
   '식물 지식백과': '/plant/dictionary',
   'AI 식물 추천': '/plant/AIRecommend',
   '내 정보': '/profile',

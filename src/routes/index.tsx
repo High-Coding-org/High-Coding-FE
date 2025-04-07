@@ -68,11 +68,11 @@ export function AppRoutes() {
         {/* 식물 페이지 */}
         <Route path={PATH.PLANT}>
           <Route
-            path={PATH.PLANT_MY_PLANT}
+            index
             element={<PrivateRoute page={<MyPlantPage />} />}
           />
           <Route
-            path={`${PATH.PLANT_MY_PLANT}/${PATH.PLANT_DIARY}/:id`}
+            path={`${PATH.PLANT_DIARY}/:id`}
             element={<PrivateRoute page={<PlantDiary />} />}
           />
           <Route
