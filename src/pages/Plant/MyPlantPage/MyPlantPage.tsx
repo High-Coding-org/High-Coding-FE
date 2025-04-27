@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import Spinner from '@/components/common/Spinner/Spinner';
+import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
 import { PATH } from '@/routes/path';
 import { getPlants } from '@/services/myPlant/getPlants';
 
@@ -15,10 +16,6 @@ import PlantCard from './PlantCard';
  *
  * 자신의 식물 목록을 보여주는 페이지입니다.
  */
-
-//Todo: Mock Data 날리고, API 실제 데이터 들고오는 것 먼저 합시당
-
-export const MY_PLANT_QUERY_KEY = 'userPlants';
 
 export default function MyPlantPage() {
   const navigate = useNavigate();
