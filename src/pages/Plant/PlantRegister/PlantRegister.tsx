@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input';
 
 import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
-import GoalGrowthField from './GoalGrowthField';
 import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
@@ -20,7 +19,7 @@ interface PlantRegisterFormData {
   humidity: string | number;
   light: string | number;
   soilMoisture: string | number;
-  goalGrowth: string | number;
+  goalGrowth: number | '';
   image: string;
 }
 
@@ -34,13 +33,7 @@ export default function PlantRegister() {
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<PlantRegisterFormData>({
+  const methods = useForm<PlantRegisterFormData>({
     defaultValues: {
       plantName: '',
       temperature: '',
@@ -51,6 +44,14 @@ export default function PlantRegister() {
       image: '',
     },
   });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = methods;
 
   const image = watch('image');
 
@@ -100,14 +101,14 @@ export default function PlantRegister() {
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       {/* 상단 타이틀 및 Breadcrumb */}
       <BreadcrumbAndTitle />
       <main className="w-full max-w-[1140px] mb-20 px-5 md:px-0">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/*이미지 업로드 섹션*/}
           <div className="w-full max-w-[40rem] h-auto border border-gray-200 p-6 rounded mb-4 flex flex-col gap-4">
-            <h1 className="font-bold">이미지 업로드</h1>
+            <h1 className="mb-4 text-xl font-bold">이미지 업로드</h1>
             {image ? (
               <ImagePreview
                 image={image}
@@ -142,8 +143,9 @@ export default function PlantRegister() {
 
           {/*품종 등록 섹션*/}
           <div className="border border-gray-200 p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
-            <h1 className="font-bold">품종 등록</h1>
-            {/* 품종명, 온도, 습도, 광량, 토양습도 입력 필드 */}
+            <h1 className="mb-4 text-xl font-bold">품종 등록</h1>
+
+            {/* 품종명, 온도, 습도, 광량, 토양습도, 목표 성장치 입력 필드 */}
             {INPUT_FIELDS.map(field => {
               const { ref, ...registerProps } = register(
                 field.id as keyof PlantRegisterFormData,
@@ -155,7 +157,6 @@ export default function PlantRegister() {
                   validate: value => {
                     if (field.type === 'number') {
                       const numValue = Number(value);
-
                       if (isNaN(numValue)) return '숫자를 입력해주세요';
                       if (field.min !== undefined && numValue < field.min) {
                         return `${field.label}은(는) ${field.min} 이상이어야 합니다.`;
@@ -164,49 +165,45 @@ export default function PlantRegister() {
                         return `${field.label}은(는) ${field.max} 이하여야 합니다.`;
                       }
                     }
-
                     return true;
                   },
                 }
               );
 
               return (
-                <InputField
+                <div
                   key={field.id}
-                  id={field.id}
-                  label={field.label}
-                  type={field.type}
-                  step={field.step}
-                  min={field.min}
-                  max={field.max}
-                  error={
-                    errors[field.id as keyof PlantRegisterFormData]?.message
-                  }
-                  ref={ref}
-                  {...registerProps}
-                />
+                  className="flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <InputField
+                      id={field.id}
+                      label={field.label}
+                      type={field.type}
+                      step={field.step}
+                      min={field.min}
+                      max={field.max}
+                      error={
+                        errors[field.id as keyof PlantRegisterFormData]?.message
+                      }
+                      ref={ref}
+                      {...registerProps}
+                    />
+                    {field.id === 'goalGrowth' && (
+                      <Button
+                        onClick={handleGoalGrowthSearch}
+                        className="self-end">
+                        검색
+                      </Button>
+                    )}
+                  </div>
+                  {errors[field.id as keyof PlantRegisterFormData]?.message && (
+                    <p className="text-sm text-red-500">
+                      {errors[field.id as keyof PlantRegisterFormData]?.message}
+                    </p>
+                  )}
+                </div>
               );
             })}
-
-            {/*목표 성장치 입력 필드*/}
-            <GoalGrowthField
-              value={watch('goalGrowth')}
-              onChange={
-                register('goalGrowth', {
-                  valueAsNumber: true,
-                  required: '목표 성장치를 입력해주세요',
-                  validate: value => {
-                    const numValue = Number(value);
-                    if (isNaN(numValue)) return '숫자를 입력해주세요';
-                    if (numValue < 0)
-                      return '목표 성장치는 0 이상이어야 합니다.';
-                    return true;
-                  },
-                }).onChange
-              }
-              onSearchClick={handleGoalGrowthSearch}
-              error={errors.goalGrowth?.message}
-            />
           </div>
           <div className="flex justify-between max-w-[40rem] mt-4">
             <Button
@@ -219,6 +216,6 @@ export default function PlantRegister() {
           </div>
         </form>
       </main>
-    </>
+    </FormProvider>
   );
 }

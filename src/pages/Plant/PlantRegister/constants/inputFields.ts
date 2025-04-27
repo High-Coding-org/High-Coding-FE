@@ -50,4 +50,12 @@ export const INPUT_FIELDS: InputField[] = [
     max: 100,
     required: true,
   },
+  {
+    id: 'goalGrowth',
+    label: '목표 성장치(cm)',
+    type: 'number',
+    required: true,
+    min: 0,
+    max: 1000,
+  },
 ];
