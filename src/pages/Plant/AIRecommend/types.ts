@@ -4,9 +4,9 @@ export interface IEnvironmentData {
   soilMoisture: number | null;
 }
 
-export interface IAIRecommendData {
-  plantName: string;
+export interface IRecommendData {
   temperature: number;
   humidity: number;
   soilMoisture: number;
+  plantName: string;
 }

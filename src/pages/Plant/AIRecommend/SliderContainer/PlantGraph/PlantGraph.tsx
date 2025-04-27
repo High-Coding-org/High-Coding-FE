@@ -2,12 +2,12 @@ import 'react-svg-radar-chart/build/css/index.css';
 
 import RadarChart from 'react-svg-radar-chart';
 
-import { IAIRecommendData, IEnvironmentData } from '../../type';
+import { IEnvironmentData, IRecommendData } from '../../types';
 import { DEFAULT_OPTIONS } from './GraphDefaultOptions';
 import GraphLegend from './GraphLegend';
 
 interface PlantGraphProps {
-  aiRecommendData: IAIRecommendData;
+  recommendData: IRecommendData;
   environmentData: IEnvironmentData;
 }
 
@@ -18,7 +18,7 @@ interface PlantGraphProps {
  * RadarChart(레이더 차트)로 시각화하는 기능을 제공합니다.
  */
 export default function PlantGraph({
-  aiRecommendData,
+  recommendData,
   environmentData,
 }: PlantGraphProps) {
   //이거 min값도 고려해서 하는게 좋을까 상의
@@ -26,9 +26,9 @@ export default function PlantGraph({
   const data = [
     {
       data: {
-        temperature: aiRecommendData.temperature,
-        humidity: aiRecommendData.humidity,
-        soilMoisture: aiRecommendData.soilMoisture,
+        temperature: normalizeValue(recommendData.temperature, 40),
+        humidity: normalizeValue(recommendData.humidity, 100),
+        soilMoisture: normalizeValue(recommendData.soilMoisture, 100),
       },
       meta: { color: '#38BDFF' },
     },
@@ -54,7 +54,7 @@ export default function PlantGraph({
         size={260}
         options={DEFAULT_OPTIONS}
       />
-      <GraphLegend plantName={aiRecommendData.plantName} />
+      <GraphLegend plantName={recommendData.plantName} />
       <div
         id="tooltip"
         className="absolute top-0 right-0 p-2 rounded"
