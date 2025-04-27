@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -12,7 +13,16 @@ import GoalGrowthField from './GoalGrowthField';
 import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
-import { IPlantRegister } from './types';
+
+interface PlantRegisterFormData {
+  plantName: string;
+  temperature: number;
+  humidity: number;
+  light: number;
+  soilMoisture: number;
+  goalGrowth: number;
+  image: string;
+}
 
 /**
  * PlantRegister
@@ -21,17 +31,28 @@ import { IPlantRegister } from './types';
  */
 export default function PlantRegister() {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [state, setState] = useState<IPlantRegister>({
-    plantName: '',
-    temperature: null,
-    humidity: null,
-    light: null,
-    soilMoisture: null,
-    goalGrowth: null,
-    image: null,
-  });
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<PlantRegisterFormData>({
+    defaultValues: {
+      plantName: '',
+      temperature: 0,
+      humidity: 0,
+      light: 0,
+      soilMoisture: 0,
+      goalGrowth: 0,
+      image: '',
+    },
+  });
+
+  const image = watch('image');
 
   const isValidImageFile = (file: File) => {
     const extension = file.name.split('.').pop();
@@ -48,23 +69,17 @@ export default function PlantRegister() {
     }
 
     const imageUrl = URL.createObjectURL(file);
-    setState(prev => ({ ...prev, image: imageUrl }));
+    setValue('image', imageUrl);
   };
 
-  const handleFileChange = e => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
     handleFileUpload(file);
   };
 
-  const handleChange = e => {
-    const { id, value } = e.target;
-
-    setState(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleDrop = e => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     const file = e.dataTransfer.files[0];
@@ -76,13 +91,12 @@ export default function PlantRegister() {
   const handleGoalGrowthSearch = () => {
     // TODO: chatgpt api 연결해서 목표 성장치 검색하기
     //! mockData로 100설정
-    setState(prev => ({ ...prev, goalGrowth: 100 }));
+    setValue('goalGrowth', 100);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const onSubmit = (data: PlantRegisterFormData) => {
     // TODO: API 연결하여 등록 값 전달해야 함
-    console.log('state', state);
+    console.log('form data', data);
   };
 
   return (
@@ -90,15 +104,15 @@ export default function PlantRegister() {
       {/* 상단 타이틀 및 Breadcrumb */}
       <BreadcrumbAndTitle />
       <main className="w-full max-w-[1140px] mb-20 px-5 md:px-0">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/*이미지 업로드 섹션*/}
           <div className="w-full max-w-[40rem] h-auto border border-gray-200 p-6 rounded mb-4 flex flex-col gap-4">
             <h1 className="font-bold">이미지 업로드</h1>
-            {state.image ? (
+            {image ? (
               <ImagePreview
-                image={state.image}
+                image={image}
                 onRemove={() => {
-                  setState(prev => ({ ...prev, image: null }));
+                  setValue('image', null);
                 }}
               />
             ) : (
@@ -113,7 +127,7 @@ export default function PlantRegister() {
                   e.preventDefault();
                 }}
                 onDrop={handleDrop}
-                handleClick={() => fileRef.current.click()}
+                handleClick={() => fileRef.current?.click()}
                 isDragging={isDragging}
               />
             )}
@@ -130,24 +144,37 @@ export default function PlantRegister() {
           <div className="border border-gray-200 p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
             <h1 className="font-bold">품종 등록</h1>
             {/* 품종명, 온도, 습도, 광량, 토양습도 입력 필드 */}
-            {INPUT_FIELDS.map(field => (
-              <InputField
-                key={field.id}
-                id={field.id}
-                label={field.label}
-                type={field.type}
-                step={field.step}
-                min={field.min}
-                max={field.max}
-                onChange={handleChange}
-                required={field.required}
-              />
-            ))}
+            {INPUT_FIELDS.map(field => {
+              const { ref, ...registerProps } = register(
+                field.id as keyof PlantRegisterFormData,
+                {
+                  valueAsNumber: field.type === 'number',
+                  required: field.required ? '필수 입력 항목입니다.' : false,
+                }
+              );
+
+              return (
+                <InputField
+                  key={field.id}
+                  id={field.id}
+                  label={field.label}
+                  type={field.type}
+                  step={field.step}
+                  min={field.min}
+                  max={field.max}
+                  error={
+                    errors[field.id as keyof PlantRegisterFormData]?.message
+                  }
+                  ref={ref}
+                  {...registerProps}
+                />
+              );
+            })}
 
             {/*목표 성장치 입력 필드*/}
             <GoalGrowthField
-              value={state.goalGrowth}
-              onChange={handleChange}
+              value={watch('goalGrowth')}
+              onChange={value => setValue('goalGrowth', value)}
               onSearchClick={handleGoalGrowthSearch}
             />
           </div>
@@ -155,7 +182,7 @@ export default function PlantRegister() {
             <Button
               type="button"
               onClick={() => navigate(-1)}
-              className="bg-gray-400 hover:bg-gray-3 00">
+              className="bg-gray-400 hover:bg-gray-300">
               뒤로 가기
             </Button>
             <Button type="submit">품종 등록</Button>

@@ -3,8 +3,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 interface GoalGrowthFieldProps {
-  value: number | null;
-  onChange: (e) => void;
+  value: number;
+  onChange: (value: number) => void;
   onSearchClick: () => void;
 }
 /**
@@ -19,22 +19,28 @@ export default function GoalGrowthField({
 }: GoalGrowthFieldProps) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <Label htmlFor="goalGrowth">목표 성장치</Label>
+      <Label
+        htmlFor="goalGrowth"
+        className="text-sm font-medium">
+        목표 성장치
+      </Label>
+      <div className="flex gap-2">
+        <Input
+          id="goalGrowth"
+          type="number"
+          value={value}
+          onChange={e => {
+            const value = e.target.value;
+            onChange(Number(value));
+          }}
+          className="flex-1"
+        />
         <Button
-          className="h-6"
-          onClick={onSearchClick}
-          type="button">
-          검색하기
+          type="button"
+          onClick={onSearchClick}>
+          검색
         </Button>
       </div>
-      <Input
-        id="goalGrowth"
-        type="number"
-        onChange={onChange}
-        value={value ?? ''}
-        required
-      />
     </div>
   );
 }
