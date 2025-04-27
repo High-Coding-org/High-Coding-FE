@@ -16,11 +16,11 @@ import InputField from './InputField';
 
 interface PlantRegisterFormData {
   plantName: string;
-  temperature: number;
-  humidity: number;
-  light: number;
-  soilMoisture: number;
-  goalGrowth: number;
+  temperature: string | number;
+  humidity: string | number;
+  light: string | number;
+  soilMoisture: string | number;
+  goalGrowth: string | number;
   image: string;
 }
 
@@ -43,11 +43,11 @@ export default function PlantRegister() {
   } = useForm<PlantRegisterFormData>({
     defaultValues: {
       plantName: '',
-      temperature: 0,
-      humidity: 0,
-      light: 0,
-      soilMoisture: 0,
-      goalGrowth: 0,
+      temperature: '',
+      humidity: '',
+      light: '',
+      soilMoisture: '',
+      goalGrowth: '',
       image: '',
     },
   });
@@ -112,7 +112,7 @@ export default function PlantRegister() {
               <ImagePreview
                 image={image}
                 onRemove={() => {
-                  setValue('image', null);
+                  setValue('image', '');
                 }}
               />
             ) : (
@@ -149,7 +149,24 @@ export default function PlantRegister() {
                 field.id as keyof PlantRegisterFormData,
                 {
                   valueAsNumber: field.type === 'number',
-                  required: field.required ? '필수 입력 항목입니다.' : false,
+                  required: field.required
+                    ? `${field.label}을 입력해주세요`
+                    : false,
+                  validate: value => {
+                    if (field.type === 'number') {
+                      const numValue = Number(value);
+
+                      if (isNaN(numValue)) return '숫자를 입력해주세요';
+                      if (field.min !== undefined && numValue < field.min) {
+                        return `${field.label}은(는) ${field.min} 이상이어야 합니다.`;
+                      }
+                      if (field.max !== undefined && numValue > field.max) {
+                        return `${field.label}은(는) ${field.max} 이하여야 합니다.`;
+                      }
+                    }
+
+                    return true;
+                  },
                 }
               );
 
@@ -174,8 +191,21 @@ export default function PlantRegister() {
             {/*목표 성장치 입력 필드*/}
             <GoalGrowthField
               value={watch('goalGrowth')}
-              onChange={value => setValue('goalGrowth', value)}
+              onChange={
+                register('goalGrowth', {
+                  valueAsNumber: true,
+                  required: '목표 성장치를 입력해주세요',
+                  validate: value => {
+                    const numValue = Number(value);
+                    if (isNaN(numValue)) return '숫자를 입력해주세요';
+                    if (numValue < 0)
+                      return '목표 성장치는 0 이상이어야 합니다.';
+                    return true;
+                  },
+                }).onChange
+              }
               onSearchClick={handleGoalGrowthSearch}
+              error={errors.goalGrowth?.message}
             />
           </div>
           <div className="flex justify-between max-w-[40rem] mt-4">
