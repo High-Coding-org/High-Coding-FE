@@ -33,14 +33,6 @@ export default function PlantRegister() {
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  const handleImageUploadClick = () => {
-    fileRef.current.click();
-  };
-
   const isValidImageFile = (file: File) => {
     const extension = file.name.split('.').pop();
     return extension && VALID_EXTENSIONS.includes(extension);
@@ -62,18 +54,22 @@ export default function PlantRegister() {
   const handleFileChange = e => {
     const file = e.target.files[0];
     if (!file) return;
+
     handleFileUpload(file);
   };
 
   const handleChange = e => {
     const { id, value } = e.target;
+
     setState(prev => ({ ...prev, [id]: value }));
   };
 
   const handleDrop = e => {
     e.preventDefault();
-    setIsDragging(false);
+
     const file = e.dataTransfer.files[0];
+
+    setIsDragging(false);
     handleFileUpload(file);
   };
 
@@ -117,7 +113,7 @@ export default function PlantRegister() {
                   e.preventDefault();
                 }}
                 onDrop={handleDrop}
-                handleClick={handleImageUploadClick}
+                handleClick={() => fileRef.current.click()}
                 isDragging={isDragging}
               />
             )}
@@ -158,8 +154,8 @@ export default function PlantRegister() {
           <div className="flex justify-between max-w-[40rem] mt-4">
             <Button
               type="button"
-              onClick={handleBack}
-              className="bg-gray-400 hover:bg-gray-3  00">
+              onClick={() => navigate(-1)}
+              className="bg-gray-400 hover:bg-gray-3 00">
               뒤로 가기
             </Button>
             <Button type="submit">품종 등록</Button>

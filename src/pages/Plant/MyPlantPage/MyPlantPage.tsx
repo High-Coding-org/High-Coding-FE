@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import Spinner from '@/components/common/Spinner/Spinner';
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { PATH } from '@/routes/path';
-import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
-import { axiosInstance } from '@/services/axiosInstance';
+import { getPlants } from '@/services/myPlant/getPlants';
 
 import AddPlantCard from './AddPlantCard';
 import PlantCard from './PlantCard';
-import { PlantResponse } from './type';
 
 /**
  * MyPlantPage 컴포넌트
@@ -25,25 +23,6 @@ export const MY_PLANT_QUERY_KEY = 'userPlants';
 export default function MyPlantPage() {
   const navigate = useNavigate();
 
-  const getPlants = async () => {
-    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
-
-    try {
-      const res: PlantResponse = await axiosInstance.get(
-        `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.GET_LIST}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      return res?.data;
-    } catch (error) {
-      throw new Error(`Error : ${error}`);
-    }
-  };
-
   const {
     data: plants,
     isLoading,
@@ -53,13 +32,14 @@ export default function MyPlantPage() {
     queryFn: getPlants,
   });
 
-  if (isError) {
-    alert('식물 목록을 불러오는데 실패했습니다.');
-    navigate(PATH.HOME);
-    return null;
-  }
+  useEffect(() => {
+    if (isError) {
+      alert('식물 목록을 불러오는데 실패했습니다.');
+      navigate(PATH.HOME);
+      return null;
+    }
+  }, [isError, navigate]);
 
-  console.log(plants);
   // 식물 삭제 함수
   const handleDelete = (id: number) => {
     //! API 요청을 보내서 서버에서 해당 식물을 삭제하도록 구현해야 함.
