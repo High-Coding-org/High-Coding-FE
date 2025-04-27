@@ -1,11 +1,14 @@
+import { ChangeHandler } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 interface GoalGrowthFieldProps {
-  value: number;
-  onChange: (value: number) => void;
+  value: string | number;
+  onChange: ChangeHandler;
   onSearchClick: () => void;
+  error?: string;
 }
 /**
  * GoalGrowthField
@@ -16,6 +19,7 @@ export default function GoalGrowthField({
   value,
   onChange,
   onSearchClick,
+  error,
 }: GoalGrowthFieldProps) {
   return (
     <div className="flex flex-col gap-2">
@@ -29,11 +33,8 @@ export default function GoalGrowthField({
           id="goalGrowth"
           type="number"
           value={value}
-          onChange={e => {
-            const value = e.target.value;
-            onChange(Number(value));
-          }}
-          className="flex-1"
+          onChange={onChange}
+          className={`flex-1 ${error ? 'border-red-500' : ''}`}
         />
         <Button
           type="button"
@@ -41,6 +42,7 @@ export default function GoalGrowthField({
           검색
         </Button>
       </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 }
