@@ -28,7 +28,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           step={step}
           min={min}
           max={max}
-          className={`mt-1 ${error ? 'border-red-500' : ''}`}
+          className={`mt-3 border-2 border-slate-300 bg-slate-200 opacity-30 focus-visible:ring-0 ${error ? 'border-red-500' : ''}`}
           ref={ref}
           {...props}
         />

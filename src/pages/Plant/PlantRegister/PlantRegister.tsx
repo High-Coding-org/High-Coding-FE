@@ -107,7 +107,7 @@ export default function PlantRegister() {
       <main className="w-full max-w-[1140px] mb-20 px-5 md:px-0">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/*이미지 업로드 섹션*/}
-          <div className="w-full max-w-[40rem] h-auto border border-gray-200 p-6 rounded mb-4 flex flex-col gap-4">
+          <div className="w-full max-w-[40rem] h-auto border border-gray-300 p-6 rounded mb-4 flex flex-col gap-4">
             <h1 className="mb-4 text-xl font-bold">이미지 업로드</h1>
             {image ? (
               <ImagePreview
@@ -142,7 +142,7 @@ export default function PlantRegister() {
           </div>
 
           {/*품종 등록 섹션*/}
-          <div className="border border-gray-200 p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
+          <div className="border border-slate-300 bg-white p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
             <h1 className="mb-4 text-xl font-bold">품종 등록</h1>
 
             {/* 품종명, 온도, 습도, 광량, 토양습도, 목표 성장치 입력 필드 */}
