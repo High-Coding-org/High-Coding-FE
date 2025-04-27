@@ -19,6 +19,15 @@ export default function PlantCard({
   totalGrowth,
   imageUrl,
 }: IPlant) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const imgUrl = new URL('@/assets/plant/plantSkelton.webp', import.meta.url)
+      .href;
+    const target = e.target as HTMLImageElement;
+
+    target.src = imgUrl;
+    target.onerror = null;
+  };
+
   return (
     <div className="h-[200px] border border-gray-300 rounded cursor-pointer hover:translate-y-[-10px] transition-transform duration-300">
       {/* 이미지 영역 */}
@@ -26,6 +35,7 @@ export default function PlantCard({
         src={imageUrl}
         alt={name}
         className="w-full h-[75%] rounded-t object-cover"
+        onError={handleImageError}
       />
 
       {/* 식물 정보 및 메뉴 */}
