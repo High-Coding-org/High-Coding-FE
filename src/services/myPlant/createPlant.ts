@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { PlantRegisterResponse } from '@/pages/Plant/PlantRegister/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
@@ -27,7 +28,7 @@ export const postPlantRegister = async ({
   formData.append('growthTarget', growthTarget);
   formData.append('image', imageFile);
 
-  const res = await axiosInstance.post(
+  const res: PlantRegisterResponse = await axiosInstance.post(
     `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.CREATE}`,
     formData,
     {
@@ -38,5 +39,5 @@ export const postPlantRegister = async ({
     }
   );
 
-  return res;
+  return res?.data;
 };
