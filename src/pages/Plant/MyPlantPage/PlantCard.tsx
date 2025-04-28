@@ -1,3 +1,4 @@
+import PlantDropdownMenu from './PlantDropdownMenu';
 import { IPlant } from './type';
 
 /**
@@ -41,7 +42,7 @@ export default function PlantCard({
       {/* 식물 정보 및 메뉴 */}
       <div className="p-3 w-full h-[25%] flex items-center justify-between">
         <span className="mr-4 font-bold truncate">{name}</span>
-        {/* <PlantDropdownMenu onDelete={onDelete} /> */}
+        <PlantDropdownMenu id={id} />
       </div>
     </div>
   );
