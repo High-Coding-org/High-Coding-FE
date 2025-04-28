@@ -15,16 +15,7 @@ import { VALID_EXTENSIONS } from './constants/validExtensions';
 import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
-
-interface PlantRegisterFormData {
-  plantName: string;
-  temperature: string | number;
-  humidity: string | number;
-  light: string | number;
-  soilMoisture: string | number;
-  goalGrowth: number | '';
-  image: string;
-}
+import { PlantRegisterFormData } from './type';
 
 /**
  * PlantRegister
@@ -98,19 +89,6 @@ export default function PlantRegister() {
     //! mockData로 100설정
     setValue('goalGrowth', 100);
   };
-
-  /**
-{
-    name,
-    idealTemperature,
-    idealHumidity,
-    idealSolidMoisture,
-    idealLightIntensity,
-    growthTarget,
-    image,
-  }
-
- */
 
   const postPlantRegister = async (plant, imageFile) => {
     const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
