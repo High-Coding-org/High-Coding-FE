@@ -16,7 +16,6 @@ import PlantCard from './PlantCard';
  *
  * 자신의 식물 목록을 보여주는 페이지입니다.
  */
-
 export default function MyPlantPage() {
   const navigate = useNavigate();
   const {

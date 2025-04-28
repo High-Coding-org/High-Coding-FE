@@ -79,7 +79,7 @@ export function AppRoutes() {
             element={<PrivateRoute page={<PlantRegister />} />}
           />
           <Route
-            path={PATH.PLANT_MODIFY}
+            path={`${PATH.PLANT_MODIFY}/:id`}
             element={<PrivateRoute page={<PlantModify />} />}
           />
           <Route
