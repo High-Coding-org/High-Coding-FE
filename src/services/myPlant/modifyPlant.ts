@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { PlantModifyResponse } from '@/pages/Plant/PlantModify/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
@@ -28,7 +29,7 @@ export const putPlantModify = async ({
   formData.append('growthTarget', growthTarget);
   formData.append('image', imageFile);
 
-  const res = await axiosInstance.put(
+  const res: PlantModifyResponse = await axiosInstance.put(
     `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.UPDATE}/${id}`,
     formData,
     {
