@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react';
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -221,10 +222,19 @@ export default function PlantRegister() {
             <Button
               type="button"
               onClick={() => navigate(-1)}
-              className="bg-gray-400 hover:bg-gray-300">
+              className="bg-gray-400 w-30 hover:bg-gray-300">
               뒤로 가기
             </Button>
-            <Button type="submit">품종 등록</Button>
+            <Button
+              className="w-30"
+              type="submit"
+              disabled={isPlantRegisterPending}>
+              {isPlantRegisterPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                '품종 등록'
+              )}
+            </Button>
           </div>
         </form>
       </main>
