@@ -6,9 +6,7 @@ import { toast } from 'react-toastify';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
-import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
-import { axiosInstance } from '@/services/axiosInstance';
+import { usePlantRegister } from '@/hooks/api/usePlant';
 
 import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
@@ -26,6 +24,12 @@ export default function PlantRegister() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
+
+  const {
+    mutate: mutatePlantRegister,
+    isError: isPlantRegisterError,
+    isPending: isPlantRegisterPending,
+  } = usePlantRegister();
 
   const methods = useForm<PlantRegisterFormData>({
     defaultValues: {
@@ -90,43 +94,16 @@ export default function PlantRegister() {
     setValue('goalGrowth', 100);
   };
 
-  const postPlantRegister = async (plant, imageFile) => {
-    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
-    const formData = new FormData();
-    formData.append('name', plant.name);
-    formData.append('idealTemperature', plant.idealTemperature);
-    formData.append('idealHumidity', plant.idealHumidity);
-    formData.append('idealSolidMoisture', plant.idealSolidMoisture);
-    formData.append('idealLightIntensity', plant.idealLightIntensity);
-    formData.append('growthTarget', plant.growthTarget);
-    formData.append('image', imageFile);
-
-    const res = await axiosInstance.post(
-      `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.CREATE}`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    return res;
-  };
-
   const onSubmit = (data: PlantRegisterFormData) => {
-    postPlantRegister(
-      {
-        name: data.plantName,
-        idealTemperature: data.temperature,
-        idealHumidity: data.humidity,
-        idealSolidMoisture: data.soilMoisture,
-        idealLightIntensity: data.light,
-        growthTarget: data.goalGrowth,
-      },
-      imageFile
-    );
+    mutatePlantRegister({
+      name: data.plantName,
+      idealTemperature: data.temperature,
+      idealHumidity: data.humidity,
+      idealSolidMoisture: data.soilMoisture,
+      idealLightIntensity: data.light,
+      growthTarget: data.goalGrowth,
+      imageFile,
+    });
   };
 
   return (
