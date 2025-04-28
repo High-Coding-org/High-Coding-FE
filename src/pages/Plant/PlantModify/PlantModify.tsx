@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -6,6 +7,7 @@ import { toast } from 'react-toastify';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
 import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
 import { axiosInstance } from '@/services/axiosInstance';
 
@@ -31,18 +33,22 @@ interface PlantRegisterFormData {
  * 사용자가 식물 품종을 등록할 수 있는 폼을 제공합니다.
  */
 export default function PlantModify() {
-  // 제일 먼저, tanstack query에 담긴 데이터를 가져와봅시다.
-  // 받는 방법은, 파라미터로 id를 받아오는 방법이 있습니다.
-  // 그러면 파라미터로 id를 받아오는 방법을 사용해봅시다.
+  const navigate = useNavigate();
   const { id } = useParams();
-  // const { data: plant } = useQuery({
-  //   queryKey: ['plant', id],
-  //   queryFn: () => getPlant(id),
-  // });
+  const queryClient = useQueryClient();
+  const plant = queryClient.getQueryData([MY_PLANT_QUERY_KEY]);
+
+  useEffect(() => {
+    if (!plant) {
+      navigate(-1);
+      return;
+    }
+
+    console.log(plant[Number(id) - 1]);
+  }, [plant, id, navigate]);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const navigate = useNavigate();
 
   const methods = useForm<PlantRegisterFormData>({
     defaultValues: {
