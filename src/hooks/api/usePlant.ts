@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 
 import { PATH } from '@/routes/path';
 import { postPlantRegister } from '@/services/myPlant/createPlant';
+import { putPlantModify } from '@/services/myPlant/modifyPlant';
 
 export const usePlantRegister = () => {
   const navigate = useNavigate();
@@ -21,7 +22,22 @@ export const usePlantRegister = () => {
       navigate(`${PATH.PLANT}`);
     },
     onError: error => {
-      console.error('useOrderPurchase 오류', error);
+      console.error('usePlantRegister 오류', error);
+    },
+  });
+};
+
+export const usePlantModify = () => {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: putPlantModify,
+    onSuccess: () => {
+      alert('식물 수정이 완료되었습니다.');
+      navigate(`${PATH.PLANT}`);
+    },
+    onError: error => {
+      console.error('usePlantModify 오류', error);
     },
   });
 };

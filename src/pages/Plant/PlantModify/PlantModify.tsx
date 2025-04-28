@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,49 +8,36 @@ import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitl
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
-import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
-import { axiosInstance } from '@/services/axiosInstance';
+import { usePlantModify } from '@/hooks/api/usePlant';
 
 import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
 import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
-
-interface PlantRegisterFormData {
-  plantName: string;
-  temperature: string | number;
-  humidity: string | number;
-  light: string | number;
-  soilMoisture: string | number;
-  goalGrowth: number | '';
-  image: string;
-}
+import { PlantModifyFormData } from './type';
 
 /**
- * PlantRegister
+ * PlantModify
  *
- * 사용자가 식물 품종을 등록할 수 있는 폼을 제공합니다.
+ * 사용자가 식물 품종을 수정할 수 있는 폼을 제공합니다.
  */
 export default function PlantModify() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id: plantId } = useParams();
   const queryClient = useQueryClient();
-  const plant = queryClient.getQueryData([MY_PLANT_QUERY_KEY]);
-
-  useEffect(() => {
-    if (!plant) {
-      navigate(-1);
-      return;
-    }
-
-    console.log(plant[Number(id) - 1]);
-  }, [plant, id, navigate]);
-
+  const cachedPlants = queryClient.getQueryData([MY_PLANT_QUERY_KEY]);
   const fileRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const methods = useForm<PlantRegisterFormData>({
+  const {
+    mutate: mutatePlantModify,
+    isError: isPlantModifyError,
+    isPending: isPlantModifyPending,
+  } = usePlantModify();
+
+  const methods = useForm<PlantModifyFormData>({
     defaultValues: {
       plantName: '',
       temperature: '',
@@ -86,18 +73,18 @@ export default function PlantModify() {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-    setValue('image', imageUrl);
+    setImageFile(file);
+    setValue('image', URL.createObjectURL(file));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     handleFileUpload(file);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     const file = e.dataTransfer.files[0];
@@ -112,48 +99,35 @@ export default function PlantModify() {
     setValue('goalGrowth', 100);
   };
 
-  const modifyPlantRegister = async (plant, image) => {
-    // const reqBody = {
-    //   name,
-    //   idealTemperature,
-    //   idealHumidity,
-    //   idealSolidMoisture,
-    //   idealLightIntensity,
-    //   growthTarget,
-    //   image,
-    // };
-
-    const formData = new FormData();
-    formData.append('request', JSON.stringify(plant)); // 오브젝트를 JSON 문자열로 변환
-    formData.append('image', image); // 파일 객체
-
-    const res = await axiosInstance.post(
-      `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.CREATE}`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-
-    // return res;
-    console.log(res);
+  const onSubmit = (data: PlantModifyFormData) => {
+    mutatePlantModify({
+      id: Number(plantId),
+      name: data.plantName,
+      idealTemperature: data.temperature,
+      idealHumidity: data.humidity,
+      idealSolidMoisture: data.soilMoisture,
+      idealLightIntensity: data.light,
+      growthTarget: data.goalGrowth,
+      imageFile,
+    });
   };
 
-  const onSubmit = (data: PlantRegisterFormData) => {
-    modifyPlantRegister(
-      {
-        name: data.plantName,
-        idealTemperature: data.temperature,
-        idealHumidity: data.humidity,
-        idealSolidMoisture: data.soilMoisture,
-        idealLightIntensity: data.light,
-        growthTarget: data.goalGrowth,
-      },
-      data.image
-    );
-  };
+  useEffect(() => {
+    if (!cachedPlants) {
+      navigate(-1);
+      return;
+    }
+
+    const plantData = cachedPlants[Number(plantId) - 1];
+
+    methods.setValue('plantName', plantData.name);
+    methods.setValue('temperature', plantData.idealTemperature);
+    methods.setValue('humidity', plantData.idealHumidity);
+    methods.setValue('soilMoisture', plantData.idealSolidMoisture);
+    methods.setValue('light', plantData.idealLightIntensity);
+    methods.setValue('goalGrowth', plantData.growthTarget);
+    methods.setValue('image', plantData.imageUrl);
+  }, [cachedPlants, plantId, navigate, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -169,6 +143,7 @@ export default function PlantModify() {
                 image={image}
                 onRemove={() => {
                   setValue('image', '');
+                  setImageFile(null);
                 }}
               />
             ) : (
@@ -203,7 +178,7 @@ export default function PlantModify() {
             {/* 품종명, 온도, 습도, 광량, 토양습도, 목표 성장치 입력 필드 */}
             {INPUT_FIELDS.map(field => {
               const { ref, ...registerProps } = register(
-                field.id as keyof PlantRegisterFormData,
+                field.id as keyof PlantModifyFormData,
                 {
                   valueAsNumber: field.type === 'number',
                   required: field.required
@@ -238,7 +213,7 @@ export default function PlantModify() {
                       min={field.min}
                       max={field.max}
                       error={
-                        errors[field.id as keyof PlantRegisterFormData]?.message
+                        errors[field.id as keyof PlantModifyFormData]?.message
                       }
                       ref={ref}
                       {...registerProps}
@@ -251,9 +226,9 @@ export default function PlantModify() {
                       </Button>
                     )}
                   </div>
-                  {errors[field.id as keyof PlantRegisterFormData]?.message && (
+                  {errors[field.id as keyof PlantModifyFormData]?.message && (
                     <p className="text-sm text-red-500">
-                      {errors[field.id as keyof PlantRegisterFormData]?.message}
+                      {errors[field.id as keyof PlantModifyFormData]?.message}
                     </p>
                   )}
                 </div>
@@ -264,10 +239,14 @@ export default function PlantModify() {
             <Button
               type="button"
               onClick={() => navigate(-1)}
-              className="bg-gray-400 hover:bg-gray-300">
+              className="bg-gray-400 w-30 hover:bg-gray-300">
               뒤로 가기
             </Button>
-            <Button type="submit">품종 등록</Button>
+            <Button
+              className="w-30"
+              type="submit">
+              품종 수정
+            </Button>
           </div>
         </form>
       </main>

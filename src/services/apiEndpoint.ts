@@ -17,6 +17,7 @@ export const API_ENDPOINT = {
   PLANT: {
     GET_LIST: '/getList',
     CREATE: '/create',
+    UPDATE: '/update',
   },
 };
 
