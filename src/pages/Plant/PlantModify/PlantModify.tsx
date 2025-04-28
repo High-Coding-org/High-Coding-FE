@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -244,8 +245,13 @@ export default function PlantModify() {
             </Button>
             <Button
               className="w-30"
-              type="submit">
-              품종 수정
+              type="submit"
+              disabled={isPlantModifyError}>
+              {isPlantModifyPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                '품종 수정'
+              )}
             </Button>
           </div>
         </form>
