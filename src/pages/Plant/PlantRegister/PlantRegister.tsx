@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
+import { axiosInstance } from '@/services/axiosInstance';
 
 import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
@@ -54,6 +57,7 @@ export default function PlantRegister() {
   } = methods;
 
   const image = watch('image');
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const isValidImageFile = (file: File) => {
     const extension = file.name.split('.').pop();
@@ -69,18 +73,18 @@ export default function PlantRegister() {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-    setValue('image', imageUrl);
+    setImageFile(file);
+    setValue('image', URL.createObjectURL(file));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     handleFileUpload(file);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     const file = e.dataTransfer.files[0];
@@ -95,9 +99,56 @@ export default function PlantRegister() {
     setValue('goalGrowth', 100);
   };
 
+  /**
+{
+    name,
+    idealTemperature,
+    idealHumidity,
+    idealSolidMoisture,
+    idealLightIntensity,
+    growthTarget,
+    image,
+  }
+
+ */
+
+  const postPlantRegister = async (plant, imageFile) => {
+    const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+    const formData = new FormData();
+    formData.append('name', plant.name);
+    formData.append('idealTemperature', plant.idealTemperature);
+    formData.append('idealHumidity', plant.idealHumidity);
+    formData.append('idealSolidMoisture', plant.idealSolidMoisture);
+    formData.append('idealLightIntensity', plant.idealLightIntensity);
+    formData.append('growthTarget', plant.growthTarget);
+    formData.append('image', imageFile);
+
+    const res = await axiosInstance.post(
+      `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.CREATE}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return res;
+  };
+
   const onSubmit = (data: PlantRegisterFormData) => {
-    // TODO: API 연결하여 등록 값 전달해야 함
-    console.log('form data', data);
+    postPlantRegister(
+      {
+        name: data.plantName,
+        idealTemperature: data.temperature,
+        idealHumidity: data.humidity,
+        idealSolidMoisture: data.soilMoisture,
+        idealLightIntensity: data.light,
+        growthTarget: data.goalGrowth,
+      },
+      imageFile
+    );
   };
 
   return (

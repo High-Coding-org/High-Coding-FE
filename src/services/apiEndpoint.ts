@@ -16,6 +16,7 @@ export const API_ENDPOINT = {
   PASSWORD: '/changePassword',
   PLANT: {
     GET_LIST: '/getList',
+    CREATE: '/create',
   },
 };
 
