@@ -19,8 +19,8 @@ export const usePlantRegister = () => {
   return useMutation({
     mutationFn: postPlantRegister,
     onSuccess: () => {
-      alert('식물 등록이 완료되었습니다.');
       navigate(`${PATH.PLANT}`);
+      toast.success('식물 등록이 완료되었습니다.');
     },
     onError: () => {
       toast.error('식물 등록에 실패했습니다.');
@@ -34,8 +34,8 @@ export const usePlantModify = () => {
   return useMutation({
     mutationFn: putPlantModify,
     onSuccess: () => {
-      alert('식물 수정이 완료되었습니다.');
       navigate(`${PATH.PLANT}`);
+      toast.success('식물 수정이 완료되었습니다.');
     },
     onError: () => {
       toast.error('식물 수정에 실패했습니다.');

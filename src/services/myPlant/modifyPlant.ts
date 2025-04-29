@@ -40,6 +40,5 @@ export const putPlantModify = async ({
     }
   );
 
-  console.log(res?.data);
   return res?.data;
 };
