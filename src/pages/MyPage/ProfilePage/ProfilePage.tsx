@@ -5,10 +5,12 @@ import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitl
 import SideBar from '@/components/common/SideBar/SideBar';
 import Spinner from '@/components/common/Spinner/Spinner';
 import { useProfile } from '@/hooks/api/useProfile';
+import { PATH } from '@/routes/path';
 import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import NoProfileData from './NoProfileData';
 import ProfileList from './ProfileList';
+
 export default function ProfilePage() {
   const { isLoading, data, isError } = useProfile();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ export default function ProfilePage() {
       errorOccur();
       setErrorMsg('정보를 불러오는데 실패했습니다.');
 
-      navigate('/');
+      navigate(PATH.HOME);
     }
   }, [isError, errorOccur, setErrorMsg, navigate]);
 
