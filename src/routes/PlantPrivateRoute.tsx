@@ -1,0 +1,44 @@
+import { ReactElement, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { API_AUTHORITY, API_ENDPOINT } from '@/services/apiEndpoint';
+import { axiosInstance } from '@/services/axiosInstance';
+import { getUserToken } from '@/utils/getUserToken';
+
+import { PATH } from './path';
+
+interface PlantPrivateRouteProps {
+  page: ReactElement;
+}
+
+export default function PlantPrivateRoute({ page }: PlantPrivateRouteProps) {
+  const navigate = useNavigate();
+  const [hasAccess, setHasAccess] = useState(false);
+
+  const checkUserRole = async token => {
+    const res = await axiosInstance.get(
+      `${API_AUTHORITY.USER}${API_ENDPOINT.PROFILE}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(res);
+  };
+
+  useEffect(() => {
+    const token = getUserToken();
+
+    if (!token) {
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate(PATH.SIGN);
+      return;
+    }
+
+    checkUserRole(token);
+  }, [navigate]);
+
+  return hasAccess ? page : null;
+}
