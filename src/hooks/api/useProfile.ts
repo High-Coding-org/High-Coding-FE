@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProfile } from '@/services/profile/getProfile';
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 
-import { IProfileData } from '../../pages/ProfilePage/type';
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { PROFILE_DATA_KEY } from '@/constants/profileDataKey';
+import { IProfileData } from '@/pages/MyPage/ProfilePage/type';
+import { getProfile } from '@/services/profile/getProfile';
 
 export const useProfile = () => {
   const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
