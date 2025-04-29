@@ -32,11 +32,8 @@ export default function PlantModify() {
   const [isDragging, setIsDragging] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const {
-    mutate: mutatePlantModify,
-    isError: isPlantModifyError,
-    isPending: isPlantModifyPending,
-  } = usePlantModify();
+  const { mutate: mutatePlantModify, isPending: isPlantModifyPending } =
+    usePlantModify();
 
   const methods = useForm<PlantModifyFormData>({
     defaultValues: {
@@ -246,7 +243,7 @@ export default function PlantModify() {
             <Button
               className="w-30"
               type="submit"
-              disabled={isPlantModifyError}>
+              disabled={isPlantModifyPending}>
               {isPlantModifyPending ? (
                 <Loader2 className="animate-spin" />
               ) : (
