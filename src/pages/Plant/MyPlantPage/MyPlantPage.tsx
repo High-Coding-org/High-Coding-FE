@@ -16,6 +16,7 @@ import PlantCard from './PlantCard';
  *
  * 자신의 식물 목록을 보여주는 페이지입니다.
  */
+
 export default function MyPlantPage() {
   const navigate = useNavigate();
   const {
@@ -34,12 +35,6 @@ export default function MyPlantPage() {
       return null;
     }
   }, [isError, navigate]);
-
-  // 식물 삭제 함수
-  const handleDelete = (id: number) => {
-    //! API 요청을 보내서 서버에서 해당 식물을 삭제하도록 구현해야 함.
-    // setPlants(prevPlants => prevPlants.filter(plant => plant.id !== id));
-  };
 
   if (isLoading) return <Spinner />;
 

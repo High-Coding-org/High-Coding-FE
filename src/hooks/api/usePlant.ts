@@ -1,17 +1,20 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+
+import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { IPlant } from '@/pages/Plant/MyPlantPage/type';
+import { PATH } from '@/routes/path';
+import { postPlantRegister } from '@/services/myPlant/createPlant';
+import { deletePlant } from '@/services/myPlant/deletePlant';
+import { putPlantModify } from '@/services/myPlant/modifyPlant';
+
 /**
  * 식물 관련 API 호출 훅
  *
  * 식물 등록, 수정, 삭제 등의 작업을 수행하는 훅입니다.
  *
  */
-
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
-
-import { PATH } from '@/routes/path';
-import { postPlantRegister } from '@/services/myPlant/createPlant';
-import { putPlantModify } from '@/services/myPlant/modifyPlant';
 
 export const usePlantRegister = () => {
   const navigate = useNavigate();
@@ -39,6 +42,29 @@ export const usePlantModify = () => {
     },
     onError: () => {
       toast.error('식물 수정에 실패했습니다.');
+    },
+  });
+};
+
+export const usePlantDelete = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deletePlant,
+    onSuccess: deletedId => {
+      queryClient.setQueryData(
+        [MY_PLANT_QUERY_KEY],
+        (oldData: IPlant[] | undefined) => {
+          if (!oldData) return [];
+
+          return oldData.filter(plant => plant.id !== deletedId);
+        }
+      );
+
+      toast.info('선택한 식물 삭제에 성공하였습니다.');
+    },
+    onError: () => {
+      toast.error('식물 삭제에 실패하였습니다.');
     },
   });
 };
