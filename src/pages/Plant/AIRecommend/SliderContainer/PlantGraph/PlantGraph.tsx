@@ -21,7 +21,6 @@ export default function PlantGraph({
   recommendData,
   environmentData,
 }: PlantGraphProps) {
-  //이거 min값도 고려해서 하는게 좋을까 상의
   const normalizeValue = (value: number, max: number) => value / max;
   const data = [
     {
