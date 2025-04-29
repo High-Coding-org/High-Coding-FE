@@ -41,7 +41,10 @@ export const useSignUp = () => {
   return useMutation({
     mutationFn: signUp,
     onSuccess: (data, signUpResponse) => {
-      if (data.statusCode === 400) throw new Error();
+      if (data.statusCode === 400) {
+        alert('이미 존재하는 아이디입니다.');
+        return;
+      }
 
       signInMutate({
         username: signUpResponse.username,
