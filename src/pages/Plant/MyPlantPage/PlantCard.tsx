@@ -8,18 +8,7 @@ import { IPlant } from './type';
  * PlantDropdownMenu를 통해 수정,삭제를 할 수 있습니다.
  */
 
-export default function PlantCard({
-  id,
-  userId,
-  name,
-  idealTemperature,
-  idealHumidity,
-  idealSolidMoisture,
-  idealLightIntensity,
-  growthTarget,
-  totalGrowth,
-  imageUrl,
-}: IPlant) {
+export default function PlantCard({ id, name, imageUrl }: IPlant) {
   const defaultImgUrl = new URL(
     '@/assets/plant/defaultPlantImg.webp',
     import.meta.url
@@ -33,7 +22,7 @@ export default function PlantCard({
   };
 
   return (
-    <div className="h-[200px] border border-gray-300 rounded cursor-pointer hover:translate-y-[-10px] transition-transform duration-300">
+    <div className="h-[200px] border border-gray-300 rounded cursor-pointer  transition-transform duration-300">
       {/* 이미지 영역 */}
       <img
         src={imageUrl ?? defaultImgUrl}
