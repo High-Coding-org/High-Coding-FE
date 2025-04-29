@@ -18,6 +18,7 @@ export const API_ENDPOINT = {
     GET_LIST: '/getList',
     CREATE: '/create',
     UPDATE: '/update',
+    DELETE: '/delete',
   },
 };
 
