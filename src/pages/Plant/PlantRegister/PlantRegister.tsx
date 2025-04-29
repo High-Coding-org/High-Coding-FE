@@ -1,5 +1,5 @@
 import { Loader2 } from 'lucide-react';
-import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -26,11 +26,8 @@ export default function PlantRegister() {
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    mutate: mutatePlantRegister,
-    isError: isPlantRegisterError,
-    isPending: isPlantRegisterPending,
-  } = usePlantRegister();
+  const { mutate: mutatePlantRegister, isPending: isPlantRegisterPending } =
+    usePlantRegister();
 
   const methods = useForm<PlantRegisterFormData>({
     defaultValues: {
@@ -106,12 +103,6 @@ export default function PlantRegister() {
       imageFile,
     });
   };
-
-  useEffect(() => {
-    if (isPlantRegisterError) {
-      toast.error('식물 등록에 실패했습니다.');
-    }
-  }, [isPlantRegisterError]);
 
   return (
     <FormProvider {...methods}>

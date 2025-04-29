@@ -7,6 +7,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 import { PATH } from '@/routes/path';
 import { postPlantRegister } from '@/services/myPlant/createPlant';
@@ -21,8 +22,8 @@ export const usePlantRegister = () => {
       alert('식물 등록이 완료되었습니다.');
       navigate(`${PATH.PLANT}`);
     },
-    onError: error => {
-      console.error('usePlantRegister 오류', error);
+    onError: () => {
+      toast.error('식물 등록에 실패했습니다.');
     },
   });
 };
@@ -36,8 +37,8 @@ export const usePlantModify = () => {
       alert('식물 수정이 완료되었습니다.');
       navigate(`${PATH.PLANT}`);
     },
-    onError: error => {
-      console.error('usePlantModify 오류', error);
+    onError: () => {
+      toast.error('식물 수정에 실패했습니다.');
     },
   });
 };
