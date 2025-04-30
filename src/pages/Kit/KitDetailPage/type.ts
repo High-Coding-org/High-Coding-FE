@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface IKit {
   id: number;
   category: ICategory;
@@ -20,3 +22,5 @@ export interface ICategory {
 export interface StarRatingProps {
   value: number;
 }
+
+export type KitResponse = AxiosResponse<IKit>;

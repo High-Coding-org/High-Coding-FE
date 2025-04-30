@@ -21,6 +21,7 @@ import {
 import { Layout } from '@/pages/Layout/Layout';
 
 import { PATH, PRODUCT_ORDER_PARAMS } from './path';
+import PlantPrivateRoute from './PlantPrivateRoute';
 import PrivateRoute from './PrivateRoute';
 
 export function AppRoutes() {
@@ -68,19 +69,19 @@ export function AppRoutes() {
         <Route path={PATH.PLANT}>
           <Route
             index
-            element={<PrivateRoute page={<MyPlantPage />} />}
+            element={<PlantPrivateRoute page={<MyPlantPage />} />}
           />
           <Route
             path={`${PATH.PLANT_DIARY}/:id`}
-            element={<PrivateRoute page={<PlantDiary />} />}
+            element={<PlantPrivateRoute page={<PlantDiary />} />}
           />
           <Route
             path={PATH.PLANT_REGISTER}
-            element={<PrivateRoute page={<PlantRegister />} />}
+            element={<PlantPrivateRoute page={<PlantRegister />} />}
           />
           <Route
-            path={PATH.PLANT_MODIFY}
-            element={<PrivateRoute page={<PlantModify />} />}
+            path={`${PATH.PLANT_MODIFY}/:id`}
+            element={<PlantPrivateRoute page={<PlantModify />} />}
           />
           <Route
             path={PATH.PLANT_DICTIONARY}

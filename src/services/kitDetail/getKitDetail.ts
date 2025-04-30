@@ -1,4 +1,4 @@
-import { KitResponse } from '@/types/KitDetail/kitDetail';
+import { KitResponse } from '@/pages/Kit/KitDetailPage/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';

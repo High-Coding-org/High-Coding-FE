@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
-import { axiosInstance } from '../axiosInstance';
+
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { IProfileData } from '@/pages/MyPage/ProfilePage/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
-import { IProfileData } from '@/pages/ProfilePage/type';
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { axiosInstance } from '../axiosInstance';
 
 type ProfileResponse = AxiosResponse<IProfileData>;
 

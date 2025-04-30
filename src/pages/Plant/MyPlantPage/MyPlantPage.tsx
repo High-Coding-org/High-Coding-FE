@@ -1,38 +1,42 @@
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
-import PlantCard from '@/pages/Plant/MyPlantPage/PlantCard';
+import Spinner from '@/components/common/Spinner/Spinner';
+import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { PATH } from '@/routes/path';
+import { getPlants } from '@/services/myPlant/getPlants';
 
 import AddPlantCard from './AddPlantCard';
-import { IPlant } from './type';
+import PlantCard from './PlantCard';
 
-const MOCK_DATA = [
-  {
-    id: 1,
-    name: '몬스테라',
-    imgSrc:
-      'https://health.chosun.com/site/data/img_dir/2022/04/04/2022040401755_0.jpg',
-  },
-  {
-    id: 2,
-    name: '선인장',
-    imgSrc:
-      'https://www.ikea.com/kr/ko/images/products/fejka-artificial-potted-plant-with-pot-in-outdoor-succulent__0614211_pe686835_s5.jpg?f=xs',
-  },
-];
 /**
  * MyPlantPage 컴포넌트
  *
  * 자신의 식물 목록을 보여주는 페이지입니다.
  */
-export default function MyPlantPage() {
-  const [plants, setPlants] = useState<IPlant[]>(MOCK_DATA);
 
-  // 식물 삭제 함수
-  const handleDelete = (id: number) => {
-    //! API 요청을 보내서 서버에서 해당 식물을 삭제하도록 구현해야 함.
-    setPlants(prevPlants => prevPlants.filter(plant => plant.id !== id));
-  };
+export default function MyPlantPage() {
+  const navigate = useNavigate();
+  const {
+    data: plants,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: [MY_PLANT_QUERY_KEY],
+    queryFn: getPlants,
+  });
+
+  useEffect(() => {
+    if (isError) {
+      alert('식물 목록을 불러오는데 실패했습니다.');
+      navigate(PATH.HOME);
+      return null;
+    }
+  }, [isError, navigate]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
@@ -43,9 +47,7 @@ export default function MyPlantPage() {
         {plants.map((plant, index) => (
           <PlantCard
             key={index}
-            name={plant.name}
-            imgSrc={plant.imgSrc}
-            onDelete={() => handleDelete(plant.id)}
+            {...plant}
           />
         ))}
 

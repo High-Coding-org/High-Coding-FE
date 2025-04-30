@@ -1,39 +1,42 @@
+import { forwardRef } from 'react';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 interface InputFieldProps {
   id: string;
   label: string;
-  type: string;
-  min?: number;
-  max?: number;
+  type: 'text' | 'number';
   step?: number;
-  required?: boolean;
-  onChange?: (e) => void;
+  min?: number | string;
+  max?: number | string;
+  error?: string;
 }
 
-export default function InputField({
-  id,
-  label,
-  type,
-  min,
-  max,
-  step,
-  required = false,
-  onChange,
-}: InputFieldProps) {
-  return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor={id}>{label}</Label>
-      <Input
-        id={id}
-        type={type}
-        min={min}
-        max={max}
-        step={step}
-        required={required}
-        onChange={onChange}
-      />
-    </div>
-  );
-}
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+  ({ id, label, type, step, min, max, error, ...props }, ref) => {
+    return (
+      <div className="flex-1">
+        <Label
+          htmlFor={id}
+          className="text-sm font-medium">
+          {label}
+        </Label>
+        <Input
+          id={id}
+          type={type}
+          step={step}
+          min={min}
+          max={max}
+          className={`mt-3 border-2 bg-[#f5f5f5] focus-visible:ring-0 ${error ? 'border-red-500' : ''}`}
+          ref={ref}
+          {...props}
+        />
+      </div>
+    );
+  }
+);
+
+InputField.displayName = 'InputField';
+
+export default InputField;

@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
-import { OrderResponse } from '@/pages/KitOrderPage/type';
+import { OrderResponse } from '@/pages/Kit/KitOrderPage/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';

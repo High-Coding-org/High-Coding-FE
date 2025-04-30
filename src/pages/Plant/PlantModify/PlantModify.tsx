@@ -1,43 +1,61 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { usePlantModify } from '@/hooks/api/usePlant';
 
-import { INPUT_FIELDS } from './constants/InputFields';
+import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
-import GoalGrowthField from './GoalGrowthField';
 import ImageDropZone from './ImageDropZone';
 import ImagePreview from './ImagePreview';
 import InputField from './InputField';
-import { IPlantRegister } from './types';
+import { PlantModifyFormData } from './type';
+
 /**
- * PlantModify.tsx
+ * PlantModify
  *
  * 사용자가 식물 품종을 수정할 수 있는 폼을 제공합니다.
  */
 export default function PlantModify() {
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [state, setState] = useState<IPlantRegister>({
-    plantName: '',
-    temperature: null,
-    humidity: null,
-    light: null,
-    soilMoisture: null,
-    goalGrowth: null,
-    image: null,
-  });
-  const [isDragging, setIsDragging] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { id: plantId } = useParams();
+  const queryClient = useQueryClient();
+  const cachedPlants = queryClient.getQueryData([MY_PLANT_QUERY_KEY]);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-  const handleImageUploadClick = () => {
-    fileRef.current.click();
-  };
+  const { mutate: mutatePlantModify, isPending: isPlantModifyPending } =
+    usePlantModify();
+
+  const methods = useForm<PlantModifyFormData>({
+    defaultValues: {
+      plantName: '',
+      temperature: '',
+      humidity: '',
+      light: '',
+      soilMoisture: '',
+      goalGrowth: '',
+      image: '',
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = methods;
+
+  const image = watch('image');
 
   const isValidImageFile = (file: File) => {
     const extension = file.name.split('.').pop();
@@ -53,54 +71,77 @@ export default function PlantModify() {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-    setState(prev => ({ ...prev, image: imageUrl }));
+    setImageFile(file);
+    setValue('image', URL.createObjectURL(file));
   };
 
-  const handleFileChange = e => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
+
     handleFileUpload(file);
   };
 
-  const handleChange = e => {
-    const { id, value } = e.target;
-    setState(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleDrop = e => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragging(false);
+
     const file = e.dataTransfer.files[0];
+
+    setIsDragging(false);
     handleFileUpload(file);
   };
 
   const handleGoalGrowthSearch = () => {
     // TODO: chatgpt api 연결해서 목표 성장치 검색하기
     //! mockData로 100설정
-    setState(prev => ({ ...prev, goalGrowth: 100 }));
+    setValue('goalGrowth', 100);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // TODO: API 연결하여 수정 값 전달해야 함
-    console.log('state', state);
+  const onSubmit = (data: PlantModifyFormData) => {
+    mutatePlantModify({
+      id: Number(plantId),
+      name: data.plantName,
+      idealTemperature: data.temperature,
+      idealHumidity: data.humidity,
+      idealSolidMoisture: data.soilMoisture,
+      idealLightIntensity: data.light,
+      growthTarget: data.goalGrowth,
+      imageFile,
+    });
   };
+
+  useEffect(() => {
+    if (!cachedPlants) {
+      navigate(-1);
+      return;
+    }
+
+    const plantData = cachedPlants[Number(plantId) - 1];
+
+    methods.setValue('plantName', plantData.name);
+    methods.setValue('temperature', plantData.idealTemperature);
+    methods.setValue('humidity', plantData.idealHumidity);
+    methods.setValue('soilMoisture', plantData.idealSolidMoisture);
+    methods.setValue('light', plantData.idealLightIntensity);
+    methods.setValue('goalGrowth', plantData.growthTarget);
+    methods.setValue('image', plantData.imageUrl);
+  }, [cachedPlants, plantId, navigate, methods]);
 
   return (
-    <>
+    <FormProvider {...methods}>
       {/* 상단 타이틀 및 Breadcrumb */}
       <BreadcrumbAndTitle />
       <main className="w-full max-w-[1140px] mb-20 px-5 md:px-0">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/*이미지 업로드 섹션*/}
-          <div className="w-full max-w-[40rem] h-auto border border-gray-200 p-6 rounded mb-4 flex flex-col gap-4">
-            <h1 className="font-bold">이미지 업로드</h1>
-            {state.image ? (
+          <div className="w-full max-w-[40rem] h-auto border border-gray-300 p-6 rounded mb-4 flex flex-col gap-4">
+            <h1 className="mb-4 text-xl font-bold">이미지 업로드</h1>
+            {image ? (
               <ImagePreview
-                image={state.image}
+                image={image}
                 onRemove={() => {
-                  setState(prev => ({ ...prev, image: null }));
+                  setValue('image', '');
+                  setImageFile(null);
                 }}
               />
             ) : (
@@ -115,7 +156,7 @@ export default function PlantModify() {
                   e.preventDefault();
                 }}
                 onDrop={handleDrop}
-                handleClick={handleImageUploadClick}
+                handleClick={() => fileRef.current?.click()}
                 isDragging={isDragging}
               />
             )}
@@ -129,42 +170,89 @@ export default function PlantModify() {
           </div>
 
           {/*품종 등록 섹션*/}
-          <div className="border border-gray-200 p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
-            <h1 className="font-bold">품종 등록</h1>
-            {/* 품종명, 온도, 습도, 광량, 토양습도 입력 필드 */}
-            {INPUT_FIELDS.map(field => (
-              <InputField
-                key={field.id}
-                id={field.id}
-                label={field.label}
-                type={field.type}
-                step={field.step}
-                min={field.min}
-                max={field.max}
-                onChange={handleChange}
-                required={field.required}
-              />
-            ))}
+          <div className="border border-slate-300 bg-white p-6 rounded flex flex-col gap-4 w-full max-w-[40rem]">
+            <h1 className="mb-4 text-xl font-bold">품종 등록</h1>
 
-            {/*목표 성장치 입력 필드*/}
-            <GoalGrowthField
-              value={state.goalGrowth}
-              onChange={handleChange}
-              onSearchClick={handleGoalGrowthSearch}
-            />
+            {/* 품종명, 온도, 습도, 광량, 토양습도, 목표 성장치 입력 필드 */}
+            {INPUT_FIELDS.map(field => {
+              const { ref, ...registerProps } = register(
+                field.id as keyof PlantModifyFormData,
+                {
+                  valueAsNumber: field.type === 'number',
+                  required: field.required
+                    ? `${field.label}을 입력해주세요`
+                    : false,
+                  validate: value => {
+                    if (field.type === 'number') {
+                      const numValue = Number(value);
+                      if (isNaN(numValue)) return '숫자를 입력해주세요';
+                      if (field.min !== undefined && numValue < field.min) {
+                        return `${field.label}은(는) ${field.min} 이상이어야 합니다.`;
+                      }
+                      if (field.max !== undefined && numValue > field.max) {
+                        return `${field.label}은(는) ${field.max} 이하여야 합니다.`;
+                      }
+                    }
+                    return true;
+                  },
+                }
+              );
+
+              return (
+                <div
+                  key={field.id}
+                  className="flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <InputField
+                      id={field.id}
+                      label={field.label}
+                      type={field.type}
+                      step={field.step}
+                      min={field.min}
+                      max={field.max}
+                      error={
+                        errors[field.id as keyof PlantModifyFormData]?.message
+                      }
+                      ref={ref}
+                      {...registerProps}
+                    />
+                    {field.id === 'goalGrowth' && (
+                      <Button
+                        onClick={handleGoalGrowthSearch}
+                        className="self-end">
+                        검색
+                      </Button>
+                    )}
+                  </div>
+                  {errors[field.id as keyof PlantModifyFormData]?.message && (
+                    <p className="text-sm text-red-500">
+                      {errors[field.id as keyof PlantModifyFormData]?.message}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
           </div>
-
           <div className="flex justify-between max-w-[40rem] mt-4">
             <Button
               type="button"
-              onClick={handleBack}
-              className="bg-gray-400 hover:bg-gray-300">
+              onClick={() => navigate(-1)}
+              className="bg-gray-400 w-30 hover:bg-gray-300">
               뒤로 가기
             </Button>
-            <Button type="submit">품종 등록</Button>
+            <Button
+              className="w-30"
+              type="submit"
+              disabled={isPlantModifyPending}>
+              {isPlantModifyPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                '품종 수정'
+              )}
+            </Button>
           </div>
         </form>
       </main>
-    </>
+    </FormProvider>
   );
 }

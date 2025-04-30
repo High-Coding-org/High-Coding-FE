@@ -14,10 +14,17 @@ export const API_ENDPOINT = {
   },
   PROFILE: '/info',
   PASSWORD: '/changePassword',
+  PLANT: {
+    GET_LIST: '/getList',
+    CREATE: '/create',
+    UPDATE: '/update',
+    DELETE: '/delete',
+  },
 };
 
 export const API_AUTHORITY = {
   PUBLIC: '/public',
   ADMIN: '/admin',
   USER: '/user',
+  PLANT: '/plant',
 };

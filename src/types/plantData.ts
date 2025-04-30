@@ -1,4 +1,4 @@
-export interface IPlantRegister {
+export interface IPlantData {
   plantName: string;
   temperature: number | null;
   humidity: number | null;
