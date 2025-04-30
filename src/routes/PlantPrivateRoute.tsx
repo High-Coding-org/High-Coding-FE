@@ -47,7 +47,7 @@ export default function PlantPrivateRoute({ page }: PlantPrivateRouteProps) {
       if (role === 'ROLE_PLANT' || role === 'ROLE_ADMIN') {
         setHasAccess(true);
       } else {
-        alert('접근할 수 없는 페이지 입니다.');
+        alert('키트 구매 후 접근 가능합니다.');
         navigate(PATH.HOME);
       }
     });

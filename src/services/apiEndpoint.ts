@@ -14,6 +14,7 @@ export const API_ENDPOINT = {
   },
   PROFILE: '/info',
   PASSWORD: '/changePassword',
+  DEVICE_REGISTER: '/device/register',
   PLANT: {
     GET_LIST: '/getList',
     CREATE: '/create',
