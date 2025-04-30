@@ -31,6 +31,7 @@ export default function ProfilePage() {
   return (
     <>
       <BreadcrumbAndTitle />
+
       <div className="w-full max-w-[1140px] flex justify-between gap-16 p-4 md:p-0">
         <main className="flex-1">
           <ProfileList {...data?.userInfo} />
