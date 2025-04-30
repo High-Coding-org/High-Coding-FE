@@ -1,7 +1,7 @@
 import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 
 import ProfileItem from './ProfileItem';
-import RegisterSN from './registerSN';
+import RegisterSN from './RegisterSN';
 import { IUserInfo } from './type';
 
 export default function ProfileList(userInfo: IUserInfo) {
