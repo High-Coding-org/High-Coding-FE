@@ -14,6 +14,7 @@ export const useOrderData = () => {
     onError: error => {
       console.error('useOrderData 오류', error);
     },
+    retry: 3,
   });
 };
 
@@ -32,5 +33,6 @@ export const useOrderPurchase = () => {
     onError: error => {
       console.error('useOrderPurchase 오류', error);
     },
+    retry: 3,
   });
 };
