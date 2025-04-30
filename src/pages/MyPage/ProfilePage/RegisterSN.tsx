@@ -21,7 +21,7 @@ export default function RegisterSN({ checkSN }: { checkSN: boolean }) {
 
       {checkSN ? (
         <Lottie
-          className="w-12 h-12"
+          className="w-10 h-10"
           animationData={check}
           loop={false}
         />
