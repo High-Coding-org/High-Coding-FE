@@ -12,5 +12,9 @@ export const checkTokenValid = async () => {
     { token }
   );
 
-  return res?.data.statusCode === 200;
+  if (res?.data.statusCode === 200) {
+    return true;
+  } else {
+    throw new Error();
+  }
 };

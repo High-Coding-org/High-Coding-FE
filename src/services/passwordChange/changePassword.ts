@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
-import { axiosInstance } from '../axiosInstance';
+
+import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { IPasswordChangeResponse } from '@/pages/MyPage/PasswordChangePage/type';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
-import { IPasswordChangeResponse } from '@/pages/PasswordChangePage/type';
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
+import { axiosInstance } from '../axiosInstance';
 
 type PasswordResponse = AxiosResponse<IPasswordChangeResponse>;
 

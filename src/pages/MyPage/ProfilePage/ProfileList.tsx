@@ -1,9 +1,13 @@
 import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
 
 import ProfileItem from './ProfileItem';
+import RegisterSN from './RegisterSN';
 import { IUserInfo } from './type';
 
 export default function ProfileList(userInfo: IUserInfo) {
+  const checkSN =
+    userInfo.role === 'ROLE_PLANT' || userInfo.role === 'ROLE_ADMIN';
+
   return (
     <>
       <ProfileItem
@@ -22,6 +26,7 @@ export default function ProfileList(userInfo: IUserInfo) {
         label="아이디"
         value={userInfo.username}
       />
+      <RegisterSN checkSN={checkSN} />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -27,7 +28,7 @@ import { SignUpFormData } from '@/types/auth/auth';
 import CustomFormField from '../components/CustomFormField';
 
 export default function SignUpForm() {
-  const { mutate: signUp, data } = useSignUp();
+  const { mutate: signUp, data, isPending } = useSignUp();
   const [birthDate, setBirthDate] = useState<Date>();
   const form = useForm<SignUpFormData>({
     defaultValues: {
@@ -227,8 +228,13 @@ export default function SignUpForm() {
 
         <Button
           type="submit"
+          disabled={isPending}
           className="w-full bg-[#007AFD]">
-          가입하기
+          {isPending ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            '가입하기'
+          )}
         </Button>
       </form>
     </Form>

@@ -6,6 +6,7 @@ interface IOrderItemListData {
   itemName: string;
   sn: string;
   totalPrice: number;
+  sn: string;
 }
 
 export interface IOrderData {
