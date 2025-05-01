@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { MY_PLANTS_QUERY_KEY } from '@/constants/plantQueryKey';
 import { IPlant } from '@/pages/Plant/MyPlantPage/type';
 import { PATH } from '@/routes/path';
 import { postPlantRegister } from '@/services/myPlant/createPlant';
@@ -53,7 +53,7 @@ export const usePlantDelete = () => {
     mutationFn: deletePlant,
     onSuccess: deletedId => {
       queryClient.setQueryData(
-        [MY_PLANT_QUERY_KEY],
+        [MY_PLANTS_QUERY_KEY],
         (oldData: IPlant[] | undefined) => {
           if (!oldData) return [];
 

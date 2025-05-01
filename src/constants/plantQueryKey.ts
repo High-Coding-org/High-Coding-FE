@@ -1,1 +1,1 @@
-export const MY_PLANT_QUERY_KEY = 'userPlants';
+export const MY_PLANTS_QUERY_KEY = 'userPlants';

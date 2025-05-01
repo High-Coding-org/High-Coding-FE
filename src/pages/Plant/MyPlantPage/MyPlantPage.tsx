@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import Spinner from '@/components/common/Spinner/Spinner';
-import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { MY_PLANTS_QUERY_KEY } from '@/constants/plantQueryKey';
 import { PATH } from '@/routes/path';
 import { getPlants } from '@/services/myPlant/getPlants';
 
@@ -24,7 +24,7 @@ export default function MyPlantPage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [MY_PLANT_QUERY_KEY],
+    queryKey: [MY_PLANTS_QUERY_KEY],
     queryFn: getPlants,
   });
 

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MY_PLANT_QUERY_KEY } from '@/constants/plantQueryKey';
+import { MY_PLANTS_QUERY_KEY } from '@/constants/plantQueryKey';
 import { usePlantModify } from '@/hooks/api/usePlant';
 
 import { INPUT_FIELDS } from './constants/inputFields';
@@ -27,7 +27,7 @@ export default function PlantModify() {
   const navigate = useNavigate();
   const { id: plantId } = useParams();
   const queryClient = useQueryClient();
-  const cachedPlants = queryClient.getQueryData([MY_PLANT_QUERY_KEY]);
+  const cachedPlants = queryClient.getQueryData([MY_PLANTS_QUERY_KEY]);
   const fileRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
