@@ -46,7 +46,7 @@ export default function RegisterSN({ checkSN }: { checkSN: boolean }) {
         setIsRegistered(true);
       },
       onError: () => {
-        toast.error('오류가 발생하였습니다. 다시 시도해주세요.');
+        toast.error(`등록에 실패하였습니다. 다시 시도해주세요.`);
       },
     });
   };
