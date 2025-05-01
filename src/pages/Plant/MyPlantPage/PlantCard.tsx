@@ -1,3 +1,8 @@
+import { SyntheticEvent } from 'react';
+import { useNavigate } from 'react-router';
+
+import { PATH } from '@/routes/path';
+
 import PlantDropdownMenu from './PlantDropdownMenu';
 import { IPlant } from './type';
 
@@ -9,12 +14,13 @@ import { IPlant } from './type';
  */
 
 export default function PlantCard({ id, name, imageUrl }: IPlant) {
+  const navigate = useNavigate();
   const defaultImgUrl = new URL(
     '@/assets/plant/defaultPlantImg.webp',
     import.meta.url
   ).href;
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
 
     target.src = defaultImgUrl;
@@ -22,7 +28,9 @@ export default function PlantCard({ id, name, imageUrl }: IPlant) {
   };
 
   return (
-    <div className="h-[200px] border border-gray-300 rounded cursor-pointer  transition-transform duration-300">
+    <div
+      className="h-[200px] border border-gray-300 rounded cursor-pointer  transition-transform duration-300"
+      onClick={() => navigate(`${PATH.PLANT_DIARY}/${id}`)}>
       {/* 이미지 영역 */}
       <img
         src={imageUrl ?? defaultImgUrl}
