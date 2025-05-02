@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 
@@ -7,15 +8,33 @@ import PlantDiaryForm from './PlantDiaryForm/PlantDiaryForm';
 
 export default function PlantDiary() {
   const [selectDate, setSelectDate] = useState<Date>();
-  /**
-   //? URL에 입력된 ID가 유효한 값을 가지고 있는지 검사
-    const navigate = useNavigate();
-    const { id } = useParams();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  // const {
+  //   data: plants,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: [PLANT_DIARY_QUERY_KEY, id],
+  //   queryFn: () => getPlantById(id),
+  // });
 
+  useEffect(() => {
     if (!id) {
       navigate(-1);
-    } 
-   */
+    }
+  }, [id, navigate]);
+
+  /*
+  //? URL에 입력된 ID가 유효한 값을 가지고 있는지 검사
+   
+  useEffect(() => {
+    if (!isError) return;
+    
+    navigate(-1);
+    toast.error('해당 식물 조회에 실패했습니다.');
+  }, [isError, navigate]);
+  */
 
   return (
     <>
