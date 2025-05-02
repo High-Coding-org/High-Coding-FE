@@ -3,21 +3,13 @@ import { useNavigate, useParams } from 'react-router';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 
-import DiaryVisualization from './DiaryVisualization/DiaryVisualization';
+import PlantCalendar from './components/PlantCalendar';
 import PlantDiaryForm from './PlantDiaryForm/PlantDiaryForm';
 
 export default function PlantDiary() {
   const [selectDate, setSelectDate] = useState<Date>();
   const { id } = useParams();
   const navigate = useNavigate();
-  // const {
-  //   data: plants,
-  //   isLoading,
-  //   isError,
-  // } = useQuery({
-  //   queryKey: [PLANT_DIARY_QUERY_KEY, id],
-  //   queryFn: () => getPlantById(id),
-  // });
 
   useEffect(() => {
     if (!id) {
@@ -26,14 +18,23 @@ export default function PlantDiary() {
   }, [id, navigate]);
 
   /*
-  //? URL에 입력된 ID가 유효한 값을 가지고 있는지 검사
+    ///? URL에 입력된 ID가 유효한 값을 가지고 있는지 검사
    
-  useEffect(() => {
-    if (!isError) return;
-    
-    navigate(-1);
-    toast.error('해당 식물 조회에 실패했습니다.');
-  }, [isError, navigate]);
+    const {
+      data: plants,
+      isLoading,
+      isError,
+    } = useQuery({
+      queryKey: [PLANT_DIARY_QUERY_KEY, id],
+      queryFn: () => getPlantById(id),
+    });
+
+    useEffect(() => {
+      if (!isError) return;
+
+      navigate(-1);
+      toast.error('해당 식물 조회에 실패했습니다.');
+    }, [isError, navigate]);
   */
 
   return (
@@ -45,8 +46,8 @@ export default function PlantDiary() {
           <PlantDiaryForm />
         </section>
 
-        <section className="relative flex flex-col items-center justify-center flex-1 border rounded-lg">
-          <DiaryVisualization
+        <section className="flex items-center justify-center flex-1 border rounded-lg">
+          <PlantCalendar
             selectDate={selectDate}
             setSelectDate={setSelectDate}
           />
