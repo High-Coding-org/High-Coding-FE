@@ -1,15 +1,16 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
-import { IEnvironmentData } from '../type';
+import { IEnvironmentData } from '../types';
+import { IRecommendData } from '../types';
 import PageIndicator from './PageIndicator';
 import PageTitle from './PageTitle';
 import PlantGraph from './PlantGraph/PlantGraph';
 import PlantImage from './PlantImage/PlantImage';
 import PlantName from './PlantName/PlantName';
-
 interface SliderContainerProps {
   environmentData: IEnvironmentData;
+  recommendData: IRecommendData;
 }
 
 /**
@@ -18,17 +19,10 @@ interface SliderContainerProps {
  * 이 컴포넌트는 AI 추천 식물의 정보를 페이지별로 슬라이드 형식으로 보여줍니다.
  * 사용자는 좌우 화살표 버튼을 이용해 식물의 이름, 이미지, 레이더차트를 순차적으로 확인할 수 있습니다.
  */
-//! 현재 DUMMY_AIData를 사용하고 있으며, API 연동 후 실제 데이터로 변경 필요
 export default function SliderContainer({
   environmentData,
+  recommendData,
 }: SliderContainerProps) {
-  const DUMMY_AIData = {
-    plantName: '알로에',
-    temperature: 0.8,
-    humidity: 0.34,
-    soilMoisture: 0.5,
-  };
-
   const [idx, setIdx] = useState<number>(0);
   const totalPage: number = 3;
 
@@ -60,11 +54,11 @@ export default function SliderContainer({
 
         {/* 현재 페이지에 맞는 컴포넌트 렌더링 */}
         <div className="w-[84%]">
-          {idx === 0 && <PlantName plantName={DUMMY_AIData.plantName} />}
-          {idx === 1 && <PlantImage />}
+          {idx === 0 && <PlantName plantName={recommendData?.plantName} />}
+          {idx === 1 && <PlantImage plantName={recommendData?.plantName} />}
           {idx === 2 && (
             <PlantGraph
-              aiRecommendData={DUMMY_AIData}
+              recommendData={recommendData}
               environmentData={environmentData}
             />
           )}
