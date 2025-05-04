@@ -2,9 +2,10 @@ import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router';
 
 import { PATH } from '@/routes/path';
+import { IPlant } from '@/types/plantData';
 
 import PlantDropdownMenu from './PlantDropdownMenu';
-import { IPlant } from './type';
+// import { IPlant } from './type';
 
 /**
  * PlantCard 컴포넌트

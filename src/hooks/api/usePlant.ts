@@ -6,12 +6,13 @@ import {
   MY_PLANT_DATA_QUERY_KEY,
   MY_PLANTS_QUERY_KEY,
 } from '@/constants/plantQueryKey';
-import { IPlant } from '@/pages/Plant/MyPlantPage/type';
+// import { IPlant } from '@/pages/Plant/MyPlantPage/type';
 import { PATH } from '@/routes/path';
 import { postPlantRegister } from '@/services/myPlant/createPlant';
 import { deletePlant } from '@/services/myPlant/deletePlant';
 import { getPlantById } from '@/services/myPlant/getPlantById';
 import { putPlantModify } from '@/services/myPlant/modifyPlant';
+import { IPlant } from '@/types/plantData';
 
 /**
  * 식물 관련 API 호출 훅

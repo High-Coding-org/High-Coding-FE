@@ -1,18 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-export interface IPlant {
-  id: number;
-  userId: number;
-  name: string;
-  idealTemperature: number;
-  idealHumidity: number;
-  idealSolidMoisture: number;
-  idealLightIntensity: number;
-  growthTarget: number;
-  totalGrowth: number;
-  percentage: number;
-  imageUrl: string;
-}
+import { IPlant } from '@/types/plantData';
 
 export type PlantList = IPlant[];
 
