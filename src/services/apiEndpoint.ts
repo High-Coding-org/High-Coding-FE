@@ -20,6 +20,7 @@ export const API_ENDPOINT = {
     CREATE: '/create',
     UPDATE: '/update',
     DELETE: '/delete',
+    GET_PLANT: '/getPlant',
   },
 };
 
