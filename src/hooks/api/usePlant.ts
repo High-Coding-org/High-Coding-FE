@@ -5,12 +5,14 @@ import { toast } from 'react-toastify';
 import {
   MY_PLANT_DATA_QUERY_KEY,
   MY_PLANTS_QUERY_KEY,
+  PLANT_DIARY_QUERY_KEY,
 } from '@/constants/plantQueryKey';
 // import { IPlant } from '@/pages/Plant/MyPlantPage/type';
 import { PATH } from '@/routes/path';
 import { postPlantRegister } from '@/services/myPlant/createPlant';
 import { deletePlant } from '@/services/myPlant/deletePlant';
 import { getPlantById } from '@/services/myPlant/getPlantById';
+import { getPlantDiary } from '@/services/myPlant/getPlantDiary';
 import { putPlantModify } from '@/services/myPlant/modifyPlant';
 import { IPlant } from '@/types/plantData';
 
@@ -74,9 +76,16 @@ export const usePlantDelete = () => {
   });
 };
 
-export const usePlantDiary = (id: number) => {
+export const usePlantById = (id: number) => {
   return useQuery({
     queryKey: [MY_PLANT_DATA_QUERY_KEY, id],
     queryFn: () => getPlantById(id),
+  });
+};
+
+export const usePlantDiary = (id: number, date: string) => {
+  return useQuery({
+    queryKey: [PLANT_DIARY_QUERY_KEY],
+    queryFn: () => getPlantDiary(id, date),
   });
 };
