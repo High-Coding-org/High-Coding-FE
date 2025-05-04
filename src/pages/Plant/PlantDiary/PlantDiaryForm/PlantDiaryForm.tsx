@@ -4,17 +4,22 @@ import { Textarea } from '@/components/ui/textarea';
 
 import PlantInfoSection from './PlantInfo';
 
-export default function PlantDiaryForm() {
+export default function PlantDiaryForm({
+  name,
+  percentage,
+  totalGrowth,
+  imageUrl,
+}) {
   const plantInfo = {
-    imageUrl:
-      'https://i.pinimg.com/736x/f6/22/d6/f622d62d3e443cbf669554a82c8e7c34.jpg',
-    name: '몬스테라 델리시오사',
-    growthRate: 16,
+    name,
+    percentage,
+    totalGrowth,
+    imageUrl,
   };
 
   return (
     <div className="space-y-6">
-      <PlantInfoSection plantInfo={plantInfo} />
+      <PlantInfoSection {...plantInfo} />
 
       <div className="space-y-2">
         <label className="text-sm font-medium">길이</label>
