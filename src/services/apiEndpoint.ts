@@ -21,6 +21,7 @@ export const API_ENDPOINT = {
     UPDATE: '/update',
     DELETE: '/delete',
     GET_PLANT: '/getPlant',
+    GET_PLANT_DIARY: '/PlantGrowthLog/get',
   },
 };
 
