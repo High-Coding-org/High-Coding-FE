@@ -16,4 +16,4 @@ export interface IPlant {
 
 export type PlantList = IPlant[];
 
-export type PlantResponse = AxiosResponse<PlantList>;
+export type AllPlantsResponse = AxiosResponse<PlantList>;
