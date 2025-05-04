@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { Progress } from '@/components/ui/progress';
 
@@ -15,10 +15,19 @@ export default function PlantInfoSection({
   totalGrowth,
   imageUrl,
 }: PlantInfo) {
+  const [watch, setWatch] = useState(true);
   const defaultImgUrl = new URL(
     '@/assets/plant/defaultPlantImg.webp',
     import.meta.url
   ).href;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWatch(prev => !prev);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
@@ -38,7 +47,9 @@ export default function PlantInfoSection({
       <div className="flex-1">
         <h2 className="mb-2 text-lg font-semibold">{name}</h2>
         <p className="mb-2 text-sm text-gray-600">
-          전체 대비 {percentage}% 성장했어요!
+          {watch
+            ? `현재 ${totalGrowth}cm 성장했어요.`
+            : `전체 대비 ${percentage}% 성장했어요!`}
         </p>
         <Progress
           value={percentage}
