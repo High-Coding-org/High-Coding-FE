@@ -10,3 +10,14 @@ export interface PlantInfo {
   totalGrowth: number;
   imageUrl: string;
 }
+
+export interface PlantDiary {
+  content: string | null;
+  date: string;
+  growth: number | null;
+  percentage: number;
+  plantId: number;
+  totalGrowth: number;
+}
+
+export type PlantDiaryResponse = AxiosResponse<PlantDiary>;
