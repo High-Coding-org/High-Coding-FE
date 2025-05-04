@@ -10,6 +10,7 @@ export interface IPlant {
   idealLightIntensity: number;
   growthTarget: number;
   totalGrowth: number;
+  percentage: number;
   imageUrl: string;
 }
 
