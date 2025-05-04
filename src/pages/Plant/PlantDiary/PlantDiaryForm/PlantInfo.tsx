@@ -2,12 +2,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { Progress } from '@/components/ui/progress';
 
-interface PlantInfo {
-  name: string;
-  percentage: number;
-  totalGrowth: number;
-  imageUrl: string;
-}
+import { PlantInfo } from '../type';
 
 export default function PlantInfoSection({
   name,
