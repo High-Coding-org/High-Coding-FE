@@ -81,6 +81,7 @@ export const usePlantById = (id: number) => {
   return useQuery({
     queryKey: [MY_PLANT_DATA_QUERY_KEY, id],
     queryFn: () => getPlantById(id),
+    retry: false,
   });
 };
 

@@ -9,6 +9,7 @@ import {
   usePlantDiary,
   usePostPlantDiary,
 } from '@/hooks/api/usePlant';
+import { PATH } from '@/routes/path';
 import { formatPlantDiaryDate } from '@/utils/formatDate';
 
 import PlantCalendar from './components/PlantCalendar';
@@ -23,9 +24,11 @@ export default function PlantDiary() {
   const [content, setContent] = useState<string>('');
 
   //? API
-  const { data: plantData, isLoading: isPlantLoading } = usePlantById(
-    Number(id)
-  );
+  const {
+    data: plantData,
+    isLoading: isPlantLoading,
+    isError: isPlantError,
+  } = usePlantById(Number(id));
   const { data: plantDiaryData, isLoading: isDiaryLoading } = usePlantDiary(
     Number(id),
     formatPlantDiaryDate(selectDate)
@@ -62,6 +65,14 @@ export default function PlantDiary() {
   }, [id, navigate]);
 
   useEffect(() => {
+    if (isPlantError) {
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
+      navigate(PATH.PLANT);
+      return;
+    }
+  }, [isPlantError, navigate]);
+
+  useEffect(() => {
     setContent(plantDiaryData?.content ?? '');
     setValue(
       'growth',
@@ -70,8 +81,6 @@ export default function PlantDiary() {
         : ''
     );
   }, [plantData, plantDiaryData, setValue]);
-
-  //Todo 달력 날짜 선택 시 해당 데이터 가져오게끔
 
   if (isPlantLoading || isDiaryLoading) return <Spinner />;
 

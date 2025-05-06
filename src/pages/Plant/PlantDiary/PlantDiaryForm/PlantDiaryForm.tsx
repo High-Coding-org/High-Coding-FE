@@ -2,19 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
-// interface PlantDiaryFormProps {
-//   name: string;
-//   imageUrl: string;
-//   percentage: number;
-//   totalGrowth: number;
-//   growthTarget: number;
-//   content: string;
-//   setContent: (content: string) => void;
-//   register: UseFormRegister<FieldValues>;
-//   handleSubmit: UseFormHandleSubmit<FieldValues>;
-//   watch: UseWatch<FieldValues>;
-// }
-
 export default function PlantDiaryForm({ content, setContent, register }) {
   return (
     <div className="space-y-6">
