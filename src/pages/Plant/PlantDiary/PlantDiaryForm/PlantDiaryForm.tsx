@@ -1,10 +1,6 @@
-import { FormEvent } from 'react';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-
-import PlantInfoSection from './PlantInfo';
 
 // interface PlantDiaryFormProps {
 //   name: string;
@@ -19,55 +15,9 @@ import PlantInfoSection from './PlantInfo';
 //   watch: UseWatch<FieldValues>;
 // }
 
-export default function PlantDiaryForm({
-  name,
-  imageUrl,
-  percentage,
-  totalGrowth,
-  content,
-  setContent,
-  register,
-  onSubmit,
-}) {
-  const handleSubmit = (e: FormEvent) => {
-    const formData = new FormData(e.target as HTMLFormElement);
-    const growthValue = formData.get('growth') as string;
-
-    // 빈 값 체크
-    if (!growthValue.trim()) {
-      e.preventDefault();
-      alert('값을 입력해주세요.');
-      return;
-    }
-
-    // 숫자 형식 체크
-    if (isNaN(Number(growthValue))) {
-      e.preventDefault();
-      alert('숫자 외의 값은 입력하실 수 없습니다.');
-      return;
-    }
-
-    // 음수 체크
-    if (Number(growthValue) <= 0) {
-      e.preventDefault();
-      alert('0 이하의 값은 입력할 수 없습니다.');
-      return;
-    }
-
-    onSubmit(e);
-  };
-
+export default function PlantDiaryForm({ content, setContent, register }) {
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-6">
-      <PlantInfoSection
-        name={name}
-        percentage={percentage}
-        totalGrowth={totalGrowth}
-        imageUrl={imageUrl}
-      />
-
+    <div className="space-y-6">
       <div className="space-y-2">
         <label className="text-sm font-medium">현재 식물 길이 (cm)</label>
         <div className="flex items-center gap-2">
@@ -93,6 +43,6 @@ export default function PlantDiaryForm({
       <div className="flex justify-end">
         <Button type="submit">등록하기</Button>
       </div>
-    </form>
+    </div>
   );
 }

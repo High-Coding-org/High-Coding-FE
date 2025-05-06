@@ -11,8 +11,10 @@ import {
 } from '@/hooks/api/usePlant';
 import { formatPlantDiaryDate } from '@/utils/formatDate';
 
+import { checkGrowthValue } from './checkGrowthValue';
 import PlantCalendar from './components/PlantCalendar';
 import PlantDiaryForm from './PlantDiaryForm/PlantDiaryForm';
+import PlantInfoSection from './PlantDiaryForm/PlantInfo';
 
 export default function PlantDiary() {
   const { id } = useParams();
@@ -30,14 +32,21 @@ export default function PlantDiary() {
   );
   const { mutate: postPlantData } = usePostPlantDiary();
 
+  //? React Hook Form
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       growth: '',
     },
   });
 
-  //? React Hook Form
   const onSubmit = handleSubmit(data => {
+    const { isValid, message } = checkGrowthValue(data.growth);
+
+    if (!isValid) {
+      alert(message);
+      return;
+    }
+
     postPlantData({
       id: Number(id),
       growth: Number(data.growth),
@@ -45,6 +54,12 @@ export default function PlantDiary() {
       record: formatPlantDiaryDate(selectDate),
     });
   });
+
+  useEffect(() => {
+    if (!id) {
+      navigate(-1);
+    }
+  }, [id, navigate]);
 
   useEffect(() => {
     setContent(plantDiaryData?.content ?? '');
@@ -56,12 +71,6 @@ export default function PlantDiary() {
     );
   }, [plantData, plantDiaryData, setValue]);
 
-  useEffect(() => {
-    if (!id) {
-      navigate(-1);
-    }
-  }, [id, navigate]);
-
   //Todo 달력 날짜 선택 시 해당 데이터 가져오게끔
 
   if (isPlantLoading || isDiaryLoading) return <Spinner />;
@@ -72,16 +81,21 @@ export default function PlantDiary() {
 
       <main className="flex gap-8 w-pageWidth">
         <section className="flex-1 p-6 space-y-6 border rounded-lg">
-          <PlantDiaryForm
-            name={plantData?.name}
-            imageUrl={plantData?.imageUrl}
-            percentage={plantData?.percentage}
-            totalGrowth={plantData?.totalGrowth}
-            content={content}
-            setContent={setContent}
-            register={register}
+          <form
             onSubmit={onSubmit}
-          />
+            className="space-y-6">
+            <PlantInfoSection
+              name={plantData?.name}
+              percentage={plantDiaryData?.percentage}
+              totalGrowth={plantDiaryData?.totalGrowth}
+              imageUrl={plantData?.imageUrl}
+            />
+            <PlantDiaryForm
+              content={content}
+              setContent={setContent}
+              register={register}
+            />
+          </form>
         </section>
 
         <section className="flex items-center justify-center flex-1 border rounded-lg">
