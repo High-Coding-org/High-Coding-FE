@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
@@ -48,32 +49,30 @@ export default function PlantDiary() {
   );
 
   const postPlantDiary = async ({ id, growth, content, record }) => {
-    console.log(id, growth, content, record);
-    // const token = getUserToken();
-    // const body = { growth, content, record };
-
-    // const res = await axiosInstance.post(
-    //   `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.POST_PLANT_DIARY}/${id}`
-    // );
-  };
-
-  const postPlantDiary1 = async ({ id, growth, content, record }) => {
     const token = getUserToken();
     const body = { growth, content, record };
 
-    const res = await axiosInstance.post(
-      `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.POST_PLANT_DIARY}/${id}`
+    const res: AxiosResponse<string> = await axiosInstance.post(
+      `${API_AUTHORITY.PLANT}${API_ENDPOINT.PLANT.POST_PLANT_DIARY}/${id}`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+
+    return res?.data;
   };
 
   const usePostPlantDiary = () => {
     return useMutation({
       mutationFn: postPlantDiary,
-      onSuccess: () => {
-        toast.success('저장이 완료되었습니다.');
+      onSuccess: (message: string) => {
+        toast.success(message);
       },
       onError: () => {
-        toast.error('저장에 실패했습니다.');
+        toast.error('저장에 실패했습니다. 다시 시도해주세요.');
       },
     });
   };
