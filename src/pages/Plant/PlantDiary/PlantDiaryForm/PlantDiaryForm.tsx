@@ -31,13 +31,6 @@ export default function PlantDiaryForm({
 }) {
   // const [flag, setFlag] = useState<boolean>(false);
 
-  const plantInfo = {
-    name,
-    percentage,
-    totalGrowth,
-    imageUrl,
-  };
-
   const handleSubmit = (e: FormEvent) => {
     // if (flag) {
     //   e.preventDefault();
@@ -77,7 +70,12 @@ export default function PlantDiaryForm({
     <form
       onSubmit={handleSubmit}
       className="space-y-6">
-      <PlantInfoSection {...plantInfo} />
+      <PlantInfoSection
+        name={name}
+        percentage={percentage}
+        totalGrowth={totalGrowth}
+        imageUrl={imageUrl}
+      />
 
       <div className="space-y-2">
         <label className="text-sm font-medium">현재 식물 길이 (cm)</label>

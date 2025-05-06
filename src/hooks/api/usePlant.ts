@@ -14,6 +14,7 @@ import { deletePlant } from '@/services/myPlant/deletePlant';
 import { getPlantById } from '@/services/myPlant/getPlantById';
 import { getPlantDiary } from '@/services/myPlant/getPlantDiary';
 import { putPlantModify } from '@/services/myPlant/modifyPlant';
+import { postPlantDiary } from '@/services/myPlant/postPlantDiary';
 import { IPlant } from '@/types/plantData';
 
 /**
@@ -87,5 +88,22 @@ export const usePlantDiary = (id: number, date: string) => {
   return useQuery({
     queryKey: [PLANT_DIARY_QUERY_KEY],
     queryFn: () => getPlantDiary(id, date),
+  });
+};
+
+export const usePostPlantDiary = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: postPlantDiary,
+    onSuccess: (message: string) => {
+      toast.success(message);
+      queryClient.invalidateQueries({
+        queryKey: [PLANT_DIARY_QUERY_KEY],
+      });
+    },
+    onError: () => {
+      toast.error('저장에 실패했습니다. 다시 시도해주세요.');
+    },
   });
 };
