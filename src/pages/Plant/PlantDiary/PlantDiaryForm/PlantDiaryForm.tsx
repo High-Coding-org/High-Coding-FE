@@ -29,15 +29,7 @@ export default function PlantDiaryForm({
   register,
   onSubmit,
 }) {
-  // const [flag, setFlag] = useState<boolean>(false);
-
   const handleSubmit = (e: FormEvent) => {
-    // if (flag) {
-    //   e.preventDefault();
-    //   setFlag(false);
-    //   return;
-    // }
-
     const formData = new FormData(e.target as HTMLFormElement);
     const growthValue = formData.get('growth') as string;
 
@@ -63,7 +55,6 @@ export default function PlantDiaryForm({
     }
 
     onSubmit(e);
-    // setFlag(true);
   };
 
   return (
@@ -80,24 +71,6 @@ export default function PlantDiaryForm({
       <div className="space-y-2">
         <label className="text-sm font-medium">현재 식물 길이 (cm)</label>
         <div className="flex items-center gap-2">
-          {/* {flag ? (
-            <>
-              <Input
-                type="text"
-                disabled
-              />
-              <Button>수정하기</Button>
-            </>
-          ) : (
-            <>
-              <Input
-                type="text"
-                placeholder="현재 식물 길이를 입력해주세요."
-                {...register('growth')}
-              />
-              <Button type="submit">입력하기</Button>
-            </>
-          )} */}
           <Input
             type="text"
             placeholder="현재 식물 길이를 입력해주세요."

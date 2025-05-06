@@ -62,9 +62,6 @@ export default function PlantDiary() {
     }
   }, [id, navigate]);
 
-  //Todo URL에 입력된 ID가 유효한 값을 가지고 있는지 검사
-  //Todo isError를 통해
-
   //Todo 달력 날짜 선택 시 해당 데이터 가져오게끔
 
   if (isPlantLoading || isDiaryLoading) return <Spinner />;
