@@ -86,7 +86,7 @@ export const usePlantById = (id: number) => {
 
 export const usePlantDiary = (id: number, date: string) => {
   return useQuery({
-    queryKey: [PLANT_DIARY_QUERY_KEY],
+    queryKey: [PLANT_DIARY_QUERY_KEY, id, date],
     queryFn: () => getPlantDiary(id, date),
   });
 };
