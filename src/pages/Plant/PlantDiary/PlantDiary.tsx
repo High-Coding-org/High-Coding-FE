@@ -11,10 +11,10 @@ import {
 } from '@/hooks/api/usePlant';
 import { formatPlantDiaryDate } from '@/utils/formatDate';
 
-import { checkGrowthValue } from './checkGrowthValue';
 import PlantCalendar from './components/PlantCalendar';
 import PlantDiaryForm from './PlantDiaryForm/PlantDiaryForm';
 import PlantInfoSection from './PlantDiaryForm/PlantInfo';
+import { checkGrowthValue } from './utils/checkGrowthValue';
 
 export default function PlantDiary() {
   const { id } = useParams();
