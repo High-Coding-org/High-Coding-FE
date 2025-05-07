@@ -25,6 +25,7 @@ export default function InputField({
       <Label htmlFor={name}>{label}</Label>
       <Input
         type="number"
+        id={name}
         name={name}
         value={value ?? ''}
         onChange={onChange}

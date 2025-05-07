@@ -23,13 +23,13 @@ function handleMouseEnter(dot) {
 
   switch (dot.key) {
     case 'temperature':
-      tooltip.innerText = `온도 : ${dot.value * 40}°C`;
+      tooltip.innerText = `온도 : ${(dot.value * 40).toFixed(2)}°C`;
       break;
     case 'humidity':
-      tooltip.innerText = `습도 : ${dot.value * 100}%`;
+      tooltip.innerText = `습도 : ${(dot.value * 100).toFixed(2)}%`;
       break;
     case 'soilMoisture':
-      tooltip.innerText = `토양습도 : ${dot.value * 100}%`;
+      tooltip.innerText = `토양습도 : ${(dot.value * 100).toFixed(2)}%`;
   }
   tooltip.style.visibility = 'visible';
   tooltip.style.fontWeight = 'bold';

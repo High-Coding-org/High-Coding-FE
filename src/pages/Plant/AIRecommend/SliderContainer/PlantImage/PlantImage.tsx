@@ -1,15 +1,39 @@
+import Spinner from '@/components/common/Spinner/Spinner';
+import { useAIPlantImage } from '@/hooks/api/useAIPlantImage';
+
 /**
  * PlantImage
  *
  * 추천된 식물의 이미지를 표시하는 컴포넌트입니다.
  */
-//! 현재 임시 이미지 url 사용하고 있으며, 추후에 unsplash api로 이미지 가져올 예정정
-export default function PlantImage() {
+export default function PlantImage({ plantName }: { plantName: string }) {
+  const {
+    data: imageData,
+    isLoading: isImageLoading,
+    isError: isImageError,
+  } = useAIPlantImage(plantName);
+
+  //이미지 로딩 중일 때
+  if (isImageLoading)
+    return (
+      <div className="w-full h-[253px] flex justify-center">
+        <Spinner />
+      </div>
+    );
+
+  // 오류가 있거나 데이터가 없을 때
+  if (isImageError || !imageData?.urls?.small)
+    return (
+      <div className="w-full h-[253px] flex justify-center items-center">
+        <div>이미지 로딩 실패</div>
+      </div>
+    );
+
   return (
     <img
-      src="https://health.chosun.com/site/data/img_dir/2021/08/24/2021082401938_0.jpg"
+      src={imageData?.urls?.small}
       alt="Recommended Plant"
-      className="w-full h-[253px] object-fill rounded overflow-hidden"
+      className="w-full h-[253px] object-cover rounded overflow-hidden"
     />
   );
 }

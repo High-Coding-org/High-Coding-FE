@@ -1,29 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import BreadcrumbAndTitle from '@/components/common/Breadcrumb/BreadcrumbAndTitle';
 import { Button } from '@/components/ui/button';
+import { useAIRecommend } from '@/hooks/api/useAIRecommend';
 
 import InputField from './components/InputField';
 import PreResultContainer from './PreResultContainer/PreResultContainer';
 import SliderContainer from './SliderContainer/SliderContainer';
-import { IEnvironmentData } from './type';
-
+import { IEnvironmentData, IRecommendData } from './types';
 /**
  * AIRecommend
  *
  * 이 컴포넌트는 사용자가 온도, 습도, 토양 습도를 입력하면,
  * 해당 환경에서 키우기 좋은 식물을 추천해주는 기능을 수행합니다.
  */
-//! 현재 isResultVisible로 결과 컴포넌트가 보여지는지 아닌지 판단
-//! API 연결 시 수정해야 함
 export default function AIRecommend() {
-  const [isResultVisible, setIsResultVisible] = useState(false);
-
   const [environmentData, setEnvironmentData] = useState<IEnvironmentData>({
     temperature: null,
     humidity: null,
     soilMoisture: null,
   });
+  const [recommendData, setRecommendData] = useState<IRecommendData | null>(
+    null
+  );
+  const [submittedEnvironmentData, setSubmittedEnvironmentData] =
+    useState<IEnvironmentData | null>(null);
+  const [isResultVisible, setIsResultVisible] = useState(false);
+
+  const { refetch, isFetching, error } = useAIRecommend(environmentData);
+
+  useEffect(() => {
+    if (error) {
+      toast.error('식물 추천에 실패했습니다. 다시 시도해주세요.');
+    }
+  }, [error]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -33,8 +44,26 @@ export default function AIRecommend() {
     }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    if (
+      environmentData.temperature === null ||
+      environmentData.humidity === null ||
+      environmentData.soilMoisture === null
+    ) {
+      toast.error('모든 환경 데이터를 입력해주세요.');
+      return;
+    }
+
+    const data = await refetch();
+
+    if (!data.data) {
+      toast.error('추천 결과를 받아오지 못했습니다. 다시 시도해주세요.');
+      return;
+    }
+
+    setRecommendData(data?.data);
+    setSubmittedEnvironmentData(environmentData);
     setIsResultVisible(true);
   };
 
@@ -81,14 +110,23 @@ export default function AIRecommend() {
                 step={1}
               />
             </div>
-
-            <Button type="submit">추천받기</Button>
+            <Button
+              type="submit"
+              disabled={isFetching}>
+              {isFetching ? '추천 중...' : '추천받기'}
+            </Button>
           </form>
         </section>
+
+        {/* 구분선 */}
         <div className="bg-gray-300 rounded  h-[1px] w-full md:h-full md:w-[1px]" />
-        {/* form 제출 전에는 PreResultContainer, 제출 후에는 SliderContainer */}
-        {isResultVisible ? (
-          <SliderContainer environmentData={environmentData} />
+
+        {/* 결과 표시 영역 */}
+        {isResultVisible && recommendData && submittedEnvironmentData ? (
+          <SliderContainer
+            environmentData={submittedEnvironmentData}
+            recommendData={recommendData}
+          />
         ) : (
           <PreResultContainer />
         )}
