@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { PlantRegisterResponse } from '@/pages/Plant/PlantRegister/type';
+import { getUserToken } from '@/utils/getUserToken';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
@@ -18,7 +18,7 @@ export const postPlantRegister = async ({
   growthTarget,
   imageFile,
 }) => {
-  const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+  const token = getUserToken();
   const formData = new FormData();
   formData.append('name', name);
   formData.append('idealTemperature', idealTemperature);

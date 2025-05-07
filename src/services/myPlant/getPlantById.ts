@@ -1,11 +1,11 @@
-import { LOCAL_STORAGE_AUTH_TOKEN } from '@/constants/localStorageKey';
 import { PlantResponse } from '@/pages/Plant/PlantDiary/type';
+import { getUserToken } from '@/utils/getUserToken';
 
 import { API_AUTHORITY, API_ENDPOINT } from '../apiEndpoint';
 import { axiosInstance } from '../axiosInstance';
 
 export const getPlantById = async (id: number) => {
-  const token = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+  const token = getUserToken();
 
   try {
     const res: PlantResponse = await axiosInstance.get(
