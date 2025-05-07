@@ -6,6 +6,7 @@ import { PATH } from '@/routes/path';
 import { signIn } from '@/services/auth/signIn';
 import signUp from '@/services/auth/signUp';
 import { SignInSuccess } from '@/types/Login/signIn';
+import { tokenCrypto } from '@/utils/tokenCrypto';
 
 import { useLocalStorage } from '../useLocalStorage';
 
@@ -22,9 +23,10 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data: SignInSuccess) => {
-      if (data.statusCode === 500) throw new Error();
+      if (data?.statusCode === 500) throw new Error();
 
-      setAccessToken(data.token);
+      const encryptedToken = tokenCrypto.encrypt(data?.token);
+      setAccessToken(encryptedToken);
       navigate(PATH.HOME);
     },
   });

@@ -36,7 +36,7 @@ export default function Header() {
   };
 
   const handleMenuClick = (item: string) => {
-    if (item === ADDITIONAL_MENU_ITEMS[2]) {
+    if (item === ADDITIONAL_MENU_ITEMS[1]) {
       if (isLoggedIn) {
         const checkLogOut = confirm('로그아웃 하시겠습니까?');
 
