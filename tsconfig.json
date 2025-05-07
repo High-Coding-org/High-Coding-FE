@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -10,7 +10,10 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist/tsc",
+    "noEmit": true
   },
-  "include": ["svg.d.ts", "src/**/*", "vite.config.ts"]
+  "include": ["src/**/*", "vite.config.ts"]
 }
