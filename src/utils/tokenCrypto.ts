@@ -13,6 +13,7 @@ export const tokenCrypto = {
       encryptedToken,
       import.meta.env.VITE_TOKEN_CRYPTO_SECRET_KEY
     );
+
     return bytes.toString(CryptoJS.enc.Utf8);
   },
 };
