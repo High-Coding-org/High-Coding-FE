@@ -1,11 +1,4 @@
-import {
-  CircleHelp,
-  CircleUserRound,
-  LogIn,
-  LogOut,
-  Menu,
-  X,
-} from 'lucide-react';
+import { CircleUserRound, LogIn, LogOut, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -98,10 +91,6 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-6">
-          <CircleHelp
-            onClick={() => handleMenuClick('고객 센터')}
-            className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
-          />
           <CircleUserRound
             onClick={() => handleMenuClick('내 정보')}
             className="hidden md:block w-[1.5rem] h-[1.5rem] cursor-pointer hover:text-gray-500 transition duration-300"
