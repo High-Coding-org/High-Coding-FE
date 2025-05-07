@@ -2,38 +2,33 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
-import PlantInfoSection from './PlantInfo';
-
-export default function PlantDiaryForm() {
-  const plantInfo = {
-    imageUrl:
-      'https://i.pinimg.com/736x/f6/22/d6/f622d62d3e443cbf669554a82c8e7c34.jpg',
-    name: '몬스테라 델리시오사',
-    growthRate: 16,
-  };
-
+export default function PlantDiaryForm({ content, setContent, register }) {
   return (
     <div className="space-y-6">
-      <PlantInfoSection plantInfo={plantInfo} />
-
       <div className="space-y-2">
-        <label className="text-sm font-medium">길이</label>
-        <Input
-          type="text"
-          placeholder="16cm"
-        />
+        <label className="text-sm font-medium">현재 식물 길이 (cm)</label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="text"
+            placeholder="현재 식물 길이를 입력해주세요."
+            className="bg-gray-50"
+            {...register('growth')}
+          />
+        </div>
       </div>
 
       <div className="space-y-2">
         <label className="text-sm font-medium">오늘의 일기</label>
         <Textarea
-          className="h-[240px] resize-none"
-          placeholder="오늘 하루 식물의 변화를 기록해보세요"
+          className="h-[240px] resize-none bg-gray-50"
+          placeholder="오늘 하루 식물의 변화를 기록해보세요."
+          value={content}
+          onChange={e => setContent(e.target.value)}
         />
       </div>
 
       <div className="flex justify-end">
-        <Button>등록하기</Button>
+        <Button type="submit">등록하기</Button>
       </div>
     </div>
   );

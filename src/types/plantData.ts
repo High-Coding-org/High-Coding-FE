@@ -7,3 +7,16 @@ export interface IPlantData {
   goalGrowth: number | null;
   image: string | null;
 }
+export interface IPlant {
+  id: number;
+  userId: number;
+  name: string;
+  idealTemperature: number;
+  idealHumidity: number;
+  idealSolidMoisture: number;
+  idealLightIntensity: number;
+  growthTarget: number;
+  totalGrowth: number;
+  percentage: number;
+  imageUrl: string;
+}

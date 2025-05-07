@@ -14,7 +14,7 @@ export default function AddPlantCard() {
 
   return (
     <div
-      className="h-[200px] bg-gray-100 flex justify-center items-center border border-gray-300 rounded cursor-pointer hover:translate-y-[-10px] transition-transform duration-300"
+      className="h-[200px] bg-gray-100 flex justify-center items-center border border-gray-300 rounded cursor-pointer"
       onClick={() => navigate(PATH.PLANT_REGISTER)}>
       <Plus />
     </div>
