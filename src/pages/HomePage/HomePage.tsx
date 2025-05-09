@@ -22,6 +22,8 @@ import {
   part2_Text,
   part3_SubText,
   part3_Text,
+  part4_SubText,
+  part4_Text,
   subTitle,
   subTitleClass,
   title,
@@ -45,6 +47,10 @@ export default function HomePage() {
   ).href;
   const homeImage3 = new URL(
     '@/assets/HomePage/HomeImage-3.webp',
+    import.meta.url
+  ).href;
+  const homeImage4 = new URL(
+    '@/assets/HomePage/HomeImage-4.webp',
     import.meta.url
   ).href;
 
@@ -222,10 +228,73 @@ export default function HomePage() {
         </span>
       </section>
 
-      {/* 파트 4: 스마트팜 앱을 통해 손쉬운 식물 관리  */}
+      {/* 파트 4: 스마트팜 앱을 통해 손쉬운 식물 관리까지 */}
+      <section className="h-[1080px] bg-[#F9FAFB] w-full flex justify-center">
+        <div className="flex md:h-[960px] md:w-[1140px] md:relative md:px-8">
+          <article
+            data-aos="fade-up"
+            className="mt-[160px]">
+            {part4_Text.map((text, index) => (
+              <ResponsiveText
+                key={`${index}-part4Text`}
+                text={text}
+                breakPoint="|"
+                className={part1_Class}
+              />
+            ))}
+          </article>
+          <div className="absolute grid grid-cols-3 grid-rows-3 gap-2 w-full h-[800px] top-12">
+            {/* 1번 */}
+            <div />
+            {/* 2번 */}
+            <div />
+            {/* 3번 */}
+            <div />
+            {/* 4번 */}
+            <div className="relative flex items-center justify-center">
+              <span
+                data-aos="fade-up"
+                data-aos-anchor-placement="bottom-bottom"
+                className="absolute bottom-[-24px] text-xl font-semibold text-right text-gray-500">
+                {part4_SubText[1]}
+              </span>
+            </div>
+            {/* 5번 */}
+            <div className="flex items-center justify-center row-span-2">
+              <img
+                src={homeImage4}
+                alt="앱 미리보기"
+                className="object-contain max-h-[600px] w-auto drop-shadow-xl"
+              />
+            </div>
+            {/* 6번 */}
+            <div className="flex items-center justify-center">
+              <span
+                data-aos="fade-up"
+                data-aos-anchor-placement="bottom-bottom"
+                className="text-xl font-semibold text-right text-gray-500">
+                {part4_SubText[0]}
+              </span>
+            </div>
+            {/* 7번 */}
+            <div />
+            {/* 8번 */}
+            <div className="flex items-center justify-center">
+              <span
+                data-aos="fade-up"
+                data-aos-anchor-placement="bottom-bottom"
+                className="text-xl font-semibold text-right text-gray-500">
+                {part4_SubText[2]}
+              </span>
+            </div>
+            {/* 9번 */}
+            <div />
+          </div>
+        </div>
+      </section>
 
       {/* 하이코딩만의 특별한 기능들 */}
-      <section className="w-full bg-[#F9FAFB] flex justify-center">
+      <section className="flex justify-center w-full">
         <div className="h-[1280px] md:h-[960px] md:w-[1140px] md:relative md:px-8">
           <article
             data-aos="fade-up"

@@ -22,6 +22,12 @@ export const part3_SubText = [
   'AI가 여러분의 환경을 분석하여',
   '키우기 적합한 식물을 추천해드립니다.',
 ];
+export const part4_Text = ['스마트팜 앱을 통해', '손쉬운 식물 관리까지'];
+export const part4_SubText = [
+  '환경 데이터를 실시간으로 측정해요.',
+  '원하는 날짜의 데이터를 차트로 확인해 보세요.',
+  '식물 성장 추이를 확인할 수 있어요.',
+];
 export const characteristics_Text = ['하이코딩만의', '특별한 기능들'];
 export const characteristics_SubText = [
   {
