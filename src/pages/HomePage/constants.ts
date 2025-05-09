@@ -35,8 +35,8 @@ export const part4_SubText = [
   '원하는 날짜의 데이터를 차트로 확인해 보세요.',
   '식물 성장 추이를 확인할 수 있어요.',
 ];
-export const characteristics_Text = ['하이코딩만의', '특별한 기능들'];
-export const characteristics_SubText = [
+export const part5_Text = ['하이코딩만의', '특별한 기능들'];
+export const part5_SubText = [
   {
     title: '자동 급수 시스템',
     icon: 'Droplet',
@@ -62,6 +62,7 @@ export const characteristics_SubText = [
       '인공지능 기반 식물 추천 시스템은  환경 요소를 고려한 최적의 식물을 제공합니다. 보다 체계적인 방식으로 반려 식물을 선택할 수 있도록 도와드립니다.',
   },
 ];
+export const footer_Text = '지금 하이코딩과 함께 시작해 보세요.';
 
 // Class
 export const titleClass =
@@ -71,10 +72,9 @@ export const subTitleClass =
 export const part1_Class =
   'text-4xl font-bold leading-relaxed tracking-tight sm:text-2xl';
 export const part1_SubClass = 'text-2xl leading-relaxed tracking-tight';
-export const characteristics_Class =
+export const part5_Class =
   'text-4xl font-bold leading-relaxed tracking-tight sm:text-2xl';
-export const characteristics_SubTextClass =
-  'text-base font-semibold text-gray-500';
+export const part5_SubTextClass = 'text-base font-semibold text-gray-500';
 
 // Icon
 export const iconMap = {

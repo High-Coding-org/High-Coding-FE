@@ -4,16 +4,16 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
+import { Button } from '@/components/ui/button';
+import { PATH } from '@/routes/path';
 import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import ResponsiveText from './components/ResponsiveText';
 import {
-  characteristics_Class,
-  characteristics_SubText,
-  characteristics_SubTextClass,
-  characteristics_Text,
+  footer_Text,
   iconColorMap,
   iconMap,
   part1_Class,
@@ -26,6 +26,10 @@ import {
   part3_Text,
   part4_SubText,
   part4_Text,
+  part5_Class,
+  part5_SubText,
+  part5_SubTextClass,
+  part5_Text,
   subTitle,
   subTitleClass,
   title,
@@ -33,6 +37,7 @@ import {
 } from './constants';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
 
@@ -302,22 +307,22 @@ export default function HomePage() {
           <article
             data-aos="fade-up"
             className="mt-[160px]">
-            {characteristics_Text.map((text, index) => (
+            {part5_Text.map((text, index) => (
               <ResponsiveText
-                key={`${index}-characteristicsText`}
+                key={`${index}-part5Text`}
                 text={text}
                 breakPoint="|"
-                className={characteristics_Class}
+                className={part5_Class}
               />
             ))}
           </article>
 
           <div className="grid grid-cols-1 gap-16 mt-20 md:grid-cols-2 ">
-            {characteristics_SubText.map((obj, index) => {
+            {part5_SubText.map((obj, index) => {
               const IconComponent = iconMap[obj.icon as keyof typeof iconMap];
               return (
                 <div
-                  key={`Characteristics describe-${index}`}
+                  key={`part5 describe-${index}`}
                   data-aos="fade-up">
                   {IconComponent && (
                     <IconComponent
@@ -331,7 +336,7 @@ export default function HomePage() {
                     <ResponsiveText
                       text={obj.subTitle}
                       breakPoint="|"
-                      className={characteristics_SubTextClass}
+                      className={part5_SubTextClass}
                     />
                   </span>
                 </div>
@@ -339,6 +344,22 @@ export default function HomePage() {
             })}
           </div>
         </div>
+      </section>
+
+      {/* 푸터: 키트 상세 페이지로 안내 */}
+      <section className="h-[540px] bg-[#F9FAFB] w-full flex justify-center items-center mb-[100px]">
+        <article data-aos="fade-up">
+          <ResponsiveText
+            text={footer_Text}
+            breakPoint="|"
+            className={part1_Class}
+          />
+          <Button
+            className="mt-12 text-lg"
+            onClick={() => navigate(PATH.PRODUCT)}>
+            구매하러 가기
+          </Button>
+        </article>
       </section>
     </main>
   );
