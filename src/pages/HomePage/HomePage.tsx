@@ -14,8 +14,6 @@ import { useGlobalErrorStore } from '@/store/globalErrorStore';
 import ResponsiveText from './components/ResponsiveText';
 import {
   footer_Text,
-  iconColorMap,
-  iconMap,
   part1_Class,
   part1_SubClass,
   part1_SubText,
@@ -35,32 +33,13 @@ import {
   title,
   titleClass,
 } from './constants';
+import { iconColorMap, iconMap } from './constants/icons';
+import { HomePageImages } from './constants/images';
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
-
-  const homeBackground1 = new URL(
-    '@/assets/HomePage/HomeBackground-1.webp',
-    import.meta.url
-  ).href;
-  const homeImage1 = new URL(
-    '@/assets/HomePage/HomeImage-1.webp',
-    import.meta.url
-  ).href;
-  const homeImage2 = new URL(
-    '@/assets/HomePage/HomeImage-2.webp',
-    import.meta.url
-  ).href;
-  const homeImage3 = new URL(
-    '@/assets/HomePage/HomeImage-3.webp',
-    import.meta.url
-  ).href;
-  const homeImage4 = new URL(
-    '@/assets/HomePage/HomeImage-4.webp',
-    import.meta.url
-  ).href;
 
   useEffect(() => {
     AOS.init({
@@ -85,7 +64,7 @@ export default function HomePage() {
       <section className="w-full">
         <div className="relative h-screen ">
           <img
-            src={homeBackground1}
+            src={HomePageImages.background1}
             alt="HomeBackground"
             className="absolute object-cover w-full h-full opacity-50"
           />
@@ -139,7 +118,7 @@ export default function HomePage() {
           data-aos-anchor-placement="bottom-bottom"
           className="my-8 md:absolute md:top-1/4 md:right-9 w-[480px] h-[540px] border-2 rounded-md">
           <img
-            src={homeImage1}
+            src={HomePageImages.image1}
             alt="HomeImage1"
             className="object-cover w-full h-full"
           />
@@ -178,7 +157,7 @@ export default function HomePage() {
             data-aos-anchor-placement="bottom-bottom"
             className="md:absolute md:top-1/3 md:left-5 w-[600px] h-[680px] border-2 rounded-md">
             <img
-              src={homeImage2}
+              src={HomePageImages.image2}
               alt="HomeImage2"
               className="object-contain w-full h-full scale-110 bg-gray-50"
             />
@@ -217,7 +196,7 @@ export default function HomePage() {
           data-aos-anchor-placement="bottom-bottom"
           className="md:absolute md:top-1/4 md:right-5 w-[600px] h-[680px] rounded-md">
           <img
-            src={homeImage3}
+            src={HomePageImages.image3}
             alt="HomeImage3"
             className="object-contain w-full h-full scale-110"
           />
@@ -268,9 +247,11 @@ export default function HomePage() {
               </span>
             </div>
             {/* 5번 */}
-            <div className="flex items-center justify-center row-span-2">
+            <div
+              data-aos="fade-up"
+              className="flex items-center justify-center row-span-2">
               <img
-                src={homeImage4}
+                src={HomePageImages.image4}
                 alt="앱 미리보기"
                 className="object-contain max-h-[600px] w-auto drop-shadow-xl"
               />

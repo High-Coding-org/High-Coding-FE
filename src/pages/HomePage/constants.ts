@@ -1,10 +1,3 @@
-import {
-  BotMessageSquare,
-  Droplet,
-  MonitorDot,
-  NotebookPen,
-} from 'lucide-react';
-
 // Text
 export const title = ['나만의 키트로 만들어가는', '임베디드 스마트 팜'];
 export const subTitle = [
@@ -75,18 +68,3 @@ export const part1_SubClass = 'text-2xl leading-relaxed tracking-tight';
 export const part5_Class =
   'text-4xl font-bold leading-relaxed tracking-tight sm:text-2xl';
 export const part5_SubTextClass = 'text-base font-semibold text-gray-500';
-
-// Icon
-export const iconMap = {
-  Droplet,
-  MonitorDot,
-  NotebookPen,
-  BotMessageSquare,
-};
-
-export const iconColorMap = {
-  Droplet: 'text-sky-500',
-  MonitorDot: 'text-cyan-600',
-  NotebookPen: 'text-yellow-400',
-  BotMessageSquare: 'text-purple-400',
-};
