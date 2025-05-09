@@ -7,8 +7,9 @@ export const subTitle = [
 ];
 export const function1Text = ['처음 키우는 식물도', '어려움 없이'];
 export const function1SubText = [
-  '키트가 제공하는 기능으로',
-  '식물이 잘 성장할 수 있어요.',
+  '스마트팜으로 시작하세요.',
+  '이제는 누구나 손쉽게',
+  '식물 전문가처럼 키울 수 있습니다.',
 ];
 export const function2Text = ['하이코딩만의', '특별한 기능들'];
 export const function2SubText = [
