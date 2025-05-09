@@ -12,31 +12,10 @@ import { PATH } from '@/routes/path';
 import { useGlobalErrorStore } from '@/store/globalErrorStore';
 
 import ResponsiveText from './components/ResponsiveText';
-import {
-  footer_Text,
-  part1_SubText,
-  part1_Text,
-  part2_SubText,
-  part2_Text,
-  part3_SubText,
-  part3_Text,
-  part4_SubText,
-  part4_Text,
-  part5_SubText,
-  part5_Text,
-  subTitle,
-  title,
-} from './constants';
-import {
-  part1_Class,
-  part1_SubClass,
-  part5_Class,
-  part5_SubTextClass,
-  subTitleClass,
-  titleClass,
-} from './constants/class';
+import { HomePageClass } from './constants/class';
 import { iconColorMap, iconMap } from './constants/icons';
 import { HomePageImages } from './constants/images';
+import { HomePageTexts } from './constants/texts';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -71,12 +50,12 @@ export default function HomePage() {
             className="absolute object-cover w-full h-full opacity-50"
           />
           <div className="absolute -translate-x-1/2 left-1/2 top-[24%]">
-            {title.map((text, index) => (
+            {HomePageTexts.title.map((text, index) => (
               <ResponsiveText
                 key={`${index}-HomeTitleText`}
                 text={text}
                 breakPoint="|"
-                className={titleClass}
+                className={HomePageClass.title}
               />
             ))}
           </div>
@@ -89,12 +68,12 @@ export default function HomePage() {
           ref={subTitleRef}
           className="bg-[#F9FAFB] h-[600px] relative">
           <div className="absolute grid w-full grid-cols-1 gap-2 -translate-x-1/2 left-1/2 top-1/3">
-            {subTitle.map((text, index) => (
+            {HomePageTexts.subTitle.map((text, index) => (
               <ResponsiveText
                 key={`${index}-HomeSubTitleText`}
                 text={text}
                 breakPoint="|"
-                className={subTitleClass}
+                className={HomePageClass.subTitle}
               />
             ))}
           </div>
@@ -106,12 +85,12 @@ export default function HomePage() {
         <article
           data-aos="fade-up"
           className="mt-[160px]">
-          {part1_Text.map((text, index) => (
+          {HomePageTexts.part1_Text.map((text, index) => (
             <ResponsiveText
               key={`${index}-part1Text`}
               text={text}
               breakPoint="|"
-              className={part1_Class}
+              className={HomePageClass.part1}
             />
           ))}
         </article>
@@ -128,12 +107,12 @@ export default function HomePage() {
         <span
           data-aos="fade-up"
           className="text-xl md:absolute md:bottom-[160px] md:left-9">
-          {part1_SubText.map((text, index) => (
+          {HomePageTexts.part1_SubText.map((text, index) => (
             <ResponsiveText
               key={`${index}-part1SubText`}
               text={text}
               breakPoint="|"
-              className={part1_SubClass}
+              className={HomePageClass.part1_Sub}
             />
           ))}
         </span>
@@ -145,12 +124,12 @@ export default function HomePage() {
           <article
             data-aos="fade-up"
             className="mt-[160px]">
-            {part2_Text.map((text, index) => (
+            {HomePageTexts.part2_Text.map((text, index) => (
               <ResponsiveText
                 key={`${index}-part2Text`}
                 text={text}
                 breakPoint="|"
-                className={part1_Class}
+                className={HomePageClass.part1}
               />
             ))}
           </article>
@@ -167,12 +146,12 @@ export default function HomePage() {
           <span
             data-aos="fade-left"
             className="text-xl md:absolute md:bottom-[160px] md:right-9">
-            {part2_SubText.map((text, index) => (
+            {HomePageTexts.part2_SubText.map((text, index) => (
               <ResponsiveText
                 key={`${index}-part2SubText`}
                 text={text}
                 breakPoint="|"
-                className={part1_SubClass}
+                className={HomePageClass.part1_Sub}
               />
             ))}
           </span>
@@ -184,12 +163,12 @@ export default function HomePage() {
         <article
           data-aos="fade-up"
           className="mt-[160px]">
-          {part3_Text.map((text, index) => (
+          {HomePageTexts.part3_Text.map((text, index) => (
             <ResponsiveText
               key={`${index}-part3Text`}
               text={text}
               breakPoint="|"
-              className={part1_Class}
+              className={HomePageClass.part1}
             />
           ))}
         </article>
@@ -206,12 +185,12 @@ export default function HomePage() {
         <span
           data-aos="fade-right"
           className="text-xl md:absolute md:bottom-[160px] md:left-9">
-          {part3_SubText.map((text, index) => (
+          {HomePageTexts.part3_SubText.map((text, index) => (
             <ResponsiveText
               key={`${index}-part3SubText`}
               text={text}
               breakPoint="|"
-              className={part1_SubClass}
+              className={HomePageClass.part1_Sub}
             />
           ))}
         </span>
@@ -223,12 +202,12 @@ export default function HomePage() {
           <article
             data-aos="fade-up"
             className="mt-[160px]">
-            {part4_Text.map((text, index) => (
+            {HomePageTexts.part4_Text.map((text, index) => (
               <ResponsiveText
                 key={`${index}-part4Text`}
                 text={text}
                 breakPoint="|"
-                className={part1_Class}
+                className={HomePageClass.part1}
               />
             ))}
           </article>
@@ -245,7 +224,7 @@ export default function HomePage() {
                 data-aos="fade-up"
                 data-aos-anchor-placement="bottom-bottom"
                 className="absolute bottom-[-24px] text-xl font-semibold text-right text-gray-500">
-                {part4_SubText[1]}
+                {HomePageTexts.part4_SubText[1]}
               </span>
             </div>
             {/* 5번 */}
@@ -264,7 +243,7 @@ export default function HomePage() {
                 data-aos="fade-up"
                 data-aos-anchor-placement="bottom-bottom"
                 className="text-xl font-semibold text-right text-gray-500">
-                {part4_SubText[0]}
+                {HomePageTexts.part4_SubText[0]}
               </span>
             </div>
             {/* 7번 */}
@@ -275,7 +254,7 @@ export default function HomePage() {
                 data-aos="fade-up"
                 data-aos-anchor-placement="bottom-bottom"
                 className="text-xl font-semibold text-right text-gray-500">
-                {part4_SubText[2]}
+                {HomePageTexts.part4_SubText[2]}
               </span>
             </div>
             {/* 9번 */}
@@ -290,18 +269,18 @@ export default function HomePage() {
           <article
             data-aos="fade-up"
             className="mt-[160px]">
-            {part5_Text.map((text, index) => (
+            {HomePageTexts.part5_Text.map((text, index) => (
               <ResponsiveText
                 key={`${index}-part5Text`}
                 text={text}
                 breakPoint="|"
-                className={part5_Class}
+                className={HomePageClass.part5}
               />
             ))}
           </article>
 
           <div className="grid grid-cols-1 gap-16 mt-20 md:grid-cols-2 ">
-            {part5_SubText.map((obj, index) => {
+            {HomePageTexts.part5_SubText.map((obj, index) => {
               const IconComponent = iconMap[obj.icon as keyof typeof iconMap];
               return (
                 <div
@@ -319,7 +298,7 @@ export default function HomePage() {
                     <ResponsiveText
                       text={obj.subTitle}
                       breakPoint="|"
-                      className={part5_SubTextClass}
+                      className={HomePageClass.part5_SubText}
                     />
                   </span>
                 </div>
@@ -333,9 +312,9 @@ export default function HomePage() {
       <section className="h-[540px] bg-[#F9FAFB] w-full flex justify-center items-center mb-[100px]">
         <article data-aos="fade-up">
           <ResponsiveText
-            text={footer_Text}
+            text={HomePageTexts.footer_Text}
             breakPoint="|"
-            className={part1_Class}
+            className={HomePageClass.part1}
           />
           <Button
             className="mt-12 text-lg"
