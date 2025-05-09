@@ -1,3 +1,10 @@
+import {
+  BotMessageSquare,
+  Droplet,
+  MonitorDot,
+  NotebookPen,
+} from 'lucide-react';
+
 // Text
 export const title = ['나만의 키트로 만들어가는', '임베디드 스마트 팜'];
 export const subTitle = [
@@ -32,23 +39,27 @@ export const characteristics_Text = ['하이코딩만의', '특별한 기능들'
 export const characteristics_SubText = [
   {
     title: '자동 급수 시스템',
+    icon: 'Droplet',
     subTitle:
-      '물 공급 자동화를 통해 식물의 건강을 유지하고 | 최적의 성장 환경을 제공합니다.',
+      '식물의 토양 상태를 실시간으로 감지하여 식물에 필요한 만큼의 물만을 자동으로 공급합니다. 과습이나 건조를 방지하여 건강한 생장을 유도합니다.',
   },
   {
-    title: '자동 급수 시스템',
+    title: '환경 모니터링',
+    icon: 'MonitorDot',
     subTitle:
-      '물 공급 자동화를 통해 식물의 건강을 유지하고 | 최적의 성장 환경을 제공합니다.',
+      '환경 데이터를 실시간으로 측정하고, 이를 사용자가 직관적으로 확인할 수 있도록 제공합니다. 식물 생장에 영향을 미치는 환경 변화를 한눈에 파악할 수 있습니다.',
   },
   {
-    title: '자동 급수 시스템',
+    title: '나만의 식물 일기',
+    icon: 'NotebookPen',
     subTitle:
-      '물 공급 자동화를 통해 식물의 건강을 유지하고 | 최적의 성장 환경을 제공합니다.',
+      '식물의 성장 과정과 관리 이력을 체계적으로 기록할 수 있습니다. 사용자는 식물의 상태를 간편하게 기록하고, 생장 패턴을 시각적으로 확인할 수 있습니다.',
   },
   {
-    title: '자동 급수 시스템',
+    title: 'AI 식물 추천 서비스',
+    icon: 'BotMessageSquare',
     subTitle:
-      '물 공급 자동화를 통해 식물의 건강을 유지하고 | 최적의 성장 환경을 제공합니다.',
+      '인공지능 기반 식물 추천 시스템은  환경 요소를 고려한 최적의 식물을 제공합니다. 보다 체계적인 방식으로 반려 식물을 선택할 수 있도록 도와드립니다.',
   },
 ];
 
@@ -64,3 +75,18 @@ export const characteristics_Class =
   'text-4xl font-bold leading-relaxed tracking-tight sm:text-2xl';
 export const characteristics_SubTextClass =
   'text-base font-semibold text-gray-500';
+
+// Icon
+export const iconMap = {
+  Droplet,
+  MonitorDot,
+  NotebookPen,
+  BotMessageSquare,
+};
+
+export const iconColorMap = {
+  Droplet: 'text-sky-500',
+  MonitorDot: 'text-cyan-600',
+  NotebookPen: 'text-yellow-400',
+  BotMessageSquare: 'text-purple-400',
+};

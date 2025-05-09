@@ -2,7 +2,7 @@ import './bounceAnimation.css';
 import 'aos/dist/aos.css';
 
 import AOS from 'aos';
-import { ChevronDown, Droplet } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
@@ -14,6 +14,8 @@ import {
   characteristics_SubText,
   characteristics_SubTextClass,
   characteristics_Text,
+  iconColorMap,
+  iconMap,
   part1_Class,
   part1_SubClass,
   part1_SubText,
@@ -33,6 +35,7 @@ import {
 export default function HomePage() {
   const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
+
   const homeBackground1 = new URL(
     '@/assets/HomePage/HomeBackground-1.webp',
     import.meta.url
@@ -293,7 +296,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 하이코딩만의 특별한 기능들 */}
+      {/* 파트 5: 하이코딩만의 특별한 기능들 */}
       <section className="flex justify-center w-full">
         <div className="h-[1280px] md:h-[960px] md:w-[1140px] md:relative md:px-8">
           <article
@@ -310,23 +313,30 @@ export default function HomePage() {
           </article>
 
           <div className="grid grid-cols-1 gap-16 mt-20 md:grid-cols-2 ">
-            {characteristics_SubText.map((obj, index) => (
-              <div
-                key={`Characteristics describe-${index}`}
-                data-aos="fade-up">
-                <Droplet className="w-20 h-20 text-blue-500" />
-                <span className="block my-4 text-2xl font-semibold text-gray-700">
-                  {obj.title}
-                </span>
-                <span className="text-base font-semibold text-gray-500 ">
-                  <ResponsiveText
-                    text={obj.subTitle}
-                    breakPoint="|"
-                    className={characteristics_SubTextClass}
-                  />
-                </span>
-              </div>
-            ))}
+            {characteristics_SubText.map((obj, index) => {
+              const IconComponent = iconMap[obj.icon as keyof typeof iconMap];
+              return (
+                <div
+                  key={`Characteristics describe-${index}`}
+                  data-aos="fade-up">
+                  {IconComponent && (
+                    <IconComponent
+                      className={`w-20 h-20 ${iconColorMap[obj.icon as keyof typeof iconColorMap]}`}
+                    />
+                  )}
+                  <span className="block my-4 text-2xl font-semibold text-gray-700">
+                    {obj.title}
+                  </span>
+                  <span className="text-base font-semibold text-gray-500 ">
+                    <ResponsiveText
+                      text={obj.subTitle}
+                      breakPoint="|"
+                      className={characteristics_SubTextClass}
+                    />
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
