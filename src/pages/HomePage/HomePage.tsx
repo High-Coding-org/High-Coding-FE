@@ -20,6 +20,8 @@ import {
   part1_Text,
   part2_SubText,
   part2_Text,
+  part3_SubText,
+  part3_Text,
   subTitle,
   subTitleClass,
   title,
@@ -39,6 +41,10 @@ export default function HomePage() {
   ).href;
   const homeImage2 = new URL(
     '@/assets/HomePage/HomeImage-2.webp',
+    import.meta.url
+  ).href;
+  const homeImage3 = new URL(
+    '@/assets/HomePage/HomeImage-3.webp',
     import.meta.url
   ).href;
 
@@ -140,7 +146,7 @@ export default function HomePage() {
 
       {/* 파트 2: 식물을 체계적으로 관리해 보세요 */}
       <section className="h-[1080px] bg-[#F9FAFB] w-full flex justify-center">
-        <div className="flex  md:h-[960px] md:w-[1140px] md:relative md:px-8">
+        <div className="flex md:h-[960px] md:w-[1140px] md:relative md:px-8">
           <article
             data-aos="fade-up"
             className="mt-[160px]">
@@ -154,9 +160,9 @@ export default function HomePage() {
             ))}
           </article>
           <div
-            data-aos="fade-up"
+            data-aos="fade-right"
             data-aos-anchor-placement="bottom-bottom"
-            className="md:absolute md:top-1/4 md:right-5 w-[600px] h-[680px] border-2 rounded-md">
+            className="md:absolute md:top-1/3 md:left-5 w-[600px] h-[680px] border-2 rounded-md">
             <img
               src={homeImage2}
               alt="HomeImage2"
@@ -164,8 +170,8 @@ export default function HomePage() {
             />
           </div>
           <span
-            data-aos="fade-up"
-            className="text-xl md:absolute md:bottom-[160px] md:left-9">
+            data-aos="fade-left"
+            className="text-xl md:absolute md:bottom-[160px] md:right-9">
             {part2_SubText.map((text, index) => (
               <ResponsiveText
                 key={`${index}-part2SubText`}
@@ -183,9 +189,9 @@ export default function HomePage() {
         <article
           data-aos="fade-up"
           className="mt-[160px]">
-          {part1_Text.map((text, index) => (
+          {part3_Text.map((text, index) => (
             <ResponsiveText
-              key={`${index}-part1Text`}
+              key={`${index}-part3Text`}
               text={text}
               breakPoint="|"
               className={part1_Class}
@@ -193,21 +199,21 @@ export default function HomePage() {
           ))}
         </article>
         <div
-          data-aos="fade-up"
+          data-aos="fade-left"
           data-aos-anchor-placement="bottom-bottom"
-          className="my-8 md:absolute md:top-1/4 md:right-9 w-[480px] h-[540px] border-2 rounded-md">
+          className="md:absolute md:top-1/4 md:right-5 w-[600px] h-[680px] rounded-md">
           <img
-            src={homeImage1}
-            alt="HomeImage"
-            className="object-cover w-full h-full"
+            src={homeImage3}
+            alt="HomeImage3"
+            className="object-contain w-full h-full scale-110"
           />
         </div>
         <span
-          data-aos="fade-up"
+          data-aos="fade-right"
           className="text-xl md:absolute md:bottom-[160px] md:left-9">
-          {part1_SubText.map((text, index) => (
+          {part3_SubText.map((text, index) => (
             <ResponsiveText
-              key={`${index}-part1SubText`}
+              key={`${index}-part3SubText`}
               text={text}
               breakPoint="|"
               className={part1_SubClass}
@@ -215,6 +221,8 @@ export default function HomePage() {
           ))}
         </span>
       </section>
+
+      {/* 파트 4: 스마트팜 앱을 통해 손쉬운 식물 관리  */}
 
       {/* 하이코딩만의 특별한 기능들 */}
       <section className="w-full bg-[#F9FAFB] flex justify-center">

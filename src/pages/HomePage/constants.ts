@@ -17,6 +17,11 @@ export const part2_SubText = [
   '식물의 상태를 간편하게 기록하고',
   '생장 패턴을 시각적으로 확인할 수 있어요.',
 ];
+export const part3_Text = ['어떤 식물을 키울지', '고민되시나요?'];
+export const part3_SubText = [
+  'AI가 여러분의 환경을 분석하여',
+  '키우기 적합한 식물을 추천해드립니다.',
+];
 export const characteristics_Text = ['하이코딩만의', '특별한 기능들'];
 export const characteristics_SubText = [
   {
@@ -40,7 +45,6 @@ export const characteristics_SubText = [
       '물 공급 자동화를 통해 식물의 건강을 유지하고 | 최적의 성장 환경을 제공합니다.',
   },
 ];
-export const part3_Text = ['어떤 식물을 키울지', '쉽게 알 수 있어요'];
 
 // Class
 export const titleClass =
