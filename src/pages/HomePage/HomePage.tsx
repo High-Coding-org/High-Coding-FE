@@ -14,8 +14,6 @@ import { useGlobalErrorStore } from '@/store/globalErrorStore';
 import ResponsiveText from './components/ResponsiveText';
 import {
   footer_Text,
-  part1_Class,
-  part1_SubClass,
   part1_SubText,
   part1_Text,
   part2_SubText,
@@ -24,15 +22,19 @@ import {
   part3_Text,
   part4_SubText,
   part4_Text,
-  part5_Class,
   part5_SubText,
-  part5_SubTextClass,
   part5_Text,
   subTitle,
-  subTitleClass,
   title,
-  titleClass,
 } from './constants';
+import {
+  part1_Class,
+  part1_SubClass,
+  part5_Class,
+  part5_SubTextClass,
+  subTitleClass,
+  titleClass,
+} from './constants/class';
 import { iconColorMap, iconMap } from './constants/icons';
 import { HomePageImages } from './constants/images';
 
