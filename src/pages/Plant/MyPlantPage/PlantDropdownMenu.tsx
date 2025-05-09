@@ -15,11 +15,13 @@ export default function PlantDropdownMenu({ id }) {
 
   const { mutate: mutateDeletePlant } = usePlantDelete();
 
-  const onModifyPlant = () => {
+  const onModifyPlant = e => {
+    e.stopPropagation();
     navigate(`${PATH.PLANT_MODIFY}/${id}`);
   };
 
-  const onDeletePlant = () => {
+  const onDeletePlant = e => {
+    e.stopPropagation();
     const checkDelete = confirm('정말 삭제하시겠습니까?');
     if (!checkDelete) return;
 
