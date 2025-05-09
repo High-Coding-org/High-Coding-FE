@@ -222,6 +222,7 @@ export default function HomePage() {
             <div className="relative flex items-center justify-center">
               <span
                 data-aos="fade-up"
+                data-aos-delay="600"
                 data-aos-anchor-placement="bottom-bottom"
                 className="absolute bottom-[-24px] text-xl font-semibold text-right text-gray-500">
                 {HomePageTexts.part4_SubText[1]}
@@ -241,6 +242,7 @@ export default function HomePage() {
             <div className="flex items-center justify-center">
               <span
                 data-aos="fade-up"
+                data-aos-delay="300"
                 data-aos-anchor-placement="bottom-bottom"
                 className="text-xl font-semibold text-right text-gray-500">
                 {HomePageTexts.part4_SubText[0]}
@@ -252,6 +254,7 @@ export default function HomePage() {
             <div className="flex items-center justify-center">
               <span
                 data-aos="fade-up"
+                data-aos-delay="1000"
                 data-aos-anchor-placement="bottom-bottom"
                 className="text-xl font-semibold text-right text-gray-500">
                 {HomePageTexts.part4_SubText[2]}
