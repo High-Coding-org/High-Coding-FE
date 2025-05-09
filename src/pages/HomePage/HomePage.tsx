@@ -27,6 +27,10 @@ import {
 export default function HomePage() {
   const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
+  const homeBackground1 = new URL(
+    '@/assets/HomeBackground/HomeBackground-1.webp',
+    import.meta.url
+  ).href;
 
   useEffect(() => {
     AOS.init({
@@ -51,7 +55,7 @@ export default function HomePage() {
       <section className="w-full">
         <div className="relative h-screen ">
           <img
-            src={'src/assets/HomeBackground/HomeBackground.png'}
+            src={homeBackground1}
             alt="HomeBackground"
             className="absolute object-cover w-full h-full opacity-50"
           />
