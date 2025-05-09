@@ -28,7 +28,7 @@ export default function HomePage() {
   const { errorMsg, hasError, clearError } = useGlobalErrorStore();
   const subTitleRef = useRef<HTMLDivElement>(null);
   const homeBackground1 = new URL(
-    '@/assets/HomeBackground/HomeBackground-1.webp',
+    '@/assets/HomePage/HomeBackground-1.webp',
     import.meta.url
   ).href;
 
