@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 
 import { Button } from '@/components/ui/button';
+import { KitDetailPageImages } from '@/pages/Kit/KitDetailPage/constants/images';
 import { PATH } from '@/routes/path';
 import { formatOrderDate } from '@/utils/formatDate';
 
@@ -32,7 +33,7 @@ export default function OrderData({ orderDate, orderItemList }: IOrderData) {
 
       <div className="relative flex">
         <img
-          src=""
+          src={KitDetailPageImages.thumbnail}
           alt="Kit-Image"
           className="w-[100px] h-[100px] border-2"
         />

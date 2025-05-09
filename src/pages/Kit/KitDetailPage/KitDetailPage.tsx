@@ -65,7 +65,6 @@ export default function KitDetailPage() {
   return (
     <main className="mt-6 w-kitDetailPage_pageWidth">
       <section className="flex w-full mb-8 h-kitDetailPage_productSectionHeight">
-        {/* <div className="flex-1 bg-gray-300"></div> */}
         <img
           src={KitDetailPageImages.thumbnail}
           alt="kitThumbnail"
