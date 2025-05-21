@@ -86,12 +86,6 @@ export default function PlantRegister() {
     handleFileUpload(file);
   };
 
-  const handleGoalGrowthSearch = () => {
-    // TODO: chatgpt api 연결해서 목표 성장치 검색하기
-    //! mockData로 100설정
-    setValue('goalGrowth', 100);
-  };
-
   const onSubmit = (data: PlantRegisterFormData) => {
     mutatePlantRegister({
       name: data.plantName,
@@ -192,13 +186,6 @@ export default function PlantRegister() {
                       ref={ref}
                       {...registerProps}
                     />
-                    {field.id === 'goalGrowth' && (
-                      <Button
-                        onClick={handleGoalGrowthSearch}
-                        className="self-end">
-                        검색
-                      </Button>
-                    )}
                   </div>
                   {errors[field.id as keyof PlantRegisterFormData]?.message && (
                     <p className="text-sm text-red-500">

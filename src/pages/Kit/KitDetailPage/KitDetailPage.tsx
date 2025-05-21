@@ -1,3 +1,6 @@
+import '@/pages/HomePage/bounceAnimation.css';
+
+import { ChevronsUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -9,6 +12,7 @@ import { PATH } from '@/routes/path';
 import { useGlobalErrorStore } from '@/store/globalErrorStore';
 import { formatMoneyKR } from '@/utils/formatMoneyKR';
 
+import { KitDetailPageImages } from './constants/images';
 import NoKitData from './NoKitData';
 import StarRating from './StarRating';
 import { IKit } from './type';
@@ -59,9 +63,13 @@ export default function KitDetailPage() {
   if (!data) return <NoKitData />;
 
   return (
-    <main className="w-kitDetailPage_pageWidth">
+    <main className="mt-6 w-kitDetailPage_pageWidth">
       <section className="flex w-full mb-8 h-kitDetailPage_productSectionHeight">
-        <div className="flex-1 bg-gray-300"></div>
+        <img
+          src={KitDetailPageImages.thumbnail}
+          alt="kitThumbnail"
+          className="h-full rounded-sm"
+        />
 
         <div className="flex flex-col justify-between flex-1 p-8 ">
           <header>
@@ -111,8 +119,21 @@ export default function KitDetailPage() {
         </div>
       </section>
 
+      <hr className="w-full h-[2px] mt-8 mb-16 border-gray-400" />
+
       {/* 상세 이미지 */}
-      <figure className="w-full h-[1000px] bg-gray-300"></figure>
+      <figure className="relative w-full mt-4 mb-12">
+        <img
+          src={KitDetailPageImages.kitDetail}
+          alt="kitDetail"
+          className="w-full h-full rounded-sm"
+        />
+
+        <ChevronsUp
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="absolute right-0 w-12 h-12 -translate-x-1/2 cursor-pointer -bottom-4 left-1/2 bounce-animation"
+        />
+      </figure>
     </main>
   );
 }

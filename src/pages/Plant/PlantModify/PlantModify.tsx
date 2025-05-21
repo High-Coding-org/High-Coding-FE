@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MY_PLANTS_QUERY_KEY } from '@/constants/plantQueryKey';
 import { usePlantModify } from '@/hooks/api/usePlant';
+import { PATH } from '@/routes/path';
 
 import { INPUT_FIELDS } from './constants/inputFields';
 import { VALID_EXTENSIONS } from './constants/validExtensions';
@@ -89,12 +90,6 @@ export default function PlantModify() {
 
     setIsDragging(false);
     handleFileUpload(file);
-  };
-
-  const handleGoalGrowthSearch = () => {
-    // TODO: chatgpt api 연결해서 목표 성장치 검색하기
-    //! mockData로 100설정
-    setValue('goalGrowth', 100);
   };
 
   const onSubmit = (data: PlantModifyFormData) => {
@@ -216,13 +211,6 @@ export default function PlantModify() {
                       ref={ref}
                       {...registerProps}
                     />
-                    {field.id === 'goalGrowth' && (
-                      <Button
-                        onClick={handleGoalGrowthSearch}
-                        className="self-end">
-                        검색
-                      </Button>
-                    )}
                   </div>
                   {errors[field.id as keyof PlantModifyFormData]?.message && (
                     <p className="text-sm text-red-500">
@@ -236,7 +224,7 @@ export default function PlantModify() {
           <div className="flex justify-between max-w-[40rem] mt-4">
             <Button
               type="button"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(PATH.PLANT)}
               className="bg-gray-400 w-30 hover:bg-gray-300">
               뒤로 가기
             </Button>

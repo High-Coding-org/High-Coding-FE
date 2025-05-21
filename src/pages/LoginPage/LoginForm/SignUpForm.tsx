@@ -191,6 +191,7 @@ export default function SignUpForm() {
                 <FormItem className="flex-1">
                   <FormControl>
                     <Input
+                      autoComplete="off"
                       {...field}
                       placeholder="12345678"
                       className={fieldState.invalid ? INVALID_FORM_STYLE : ''}

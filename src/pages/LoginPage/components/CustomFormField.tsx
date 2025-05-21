@@ -58,6 +58,7 @@ export default function CustomFormField({
           <FormMessage className="absolute right-0 -translate-y-1/2 top-[2px]" />
           <FormControl>
             <Input
+              autoComplete="off"
               type={isPassword ? (showPassword ? 'text' : 'password') : 'text'}
               className={fieldState.invalid ? INVALID_FORM_STYLE : ''}
               placeholder={placeholder}

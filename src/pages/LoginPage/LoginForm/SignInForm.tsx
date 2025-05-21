@@ -60,6 +60,7 @@ export default function SignInForm() {
             <FormItem className="w-full">
               <FormControl>
                 <Input
+                  autoComplete="off"
                   placeholder="아이디"
                   {...field}
                 />
